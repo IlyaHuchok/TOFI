@@ -11,6 +11,15 @@ namespace BL.BusinessComponents
     {
         protected readonly IUnitOfWork _unitOfWork;
 
+
+        //public DoMuchSHit()
+        //{
+        //    _unitOfWork.Repository1.Method45();
+        //    _unitOfWork.Repository2.Method456();
+        //    _unitOfWork.Repository5.Method7745();
+
+        //    _unitOfWork.Save();
+        //}
         public GenericBusinessComponent(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
