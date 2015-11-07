@@ -9,7 +9,7 @@ namespace BankDomainModel
 {
     public class ClientDB
     {
-        [Key]
+        [Key] 
         public int ClientId { get; set; }// или Id? 
         public string LastName { get; set; }
         public string Name { get; set; }
