@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+
 namespace BankDomainModel
 {
     public class BankDbContext : DbContext 
