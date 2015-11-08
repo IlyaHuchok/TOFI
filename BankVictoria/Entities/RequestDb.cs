@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace Entity
+namespace Entities
 {
     public class RequestDB
     {
@@ -21,7 +21,7 @@ namespace Entity
         public string Pledge { get; set; } 
         public string Guarantee { get; set; }
 
-        public virtual CreditDB Client { get; set; }
+        public virtual Client client { get; set; }
         public virtual UserDB User { get; set; }
         public virtual RequestStatusDB RequestStatus { get; set; }
 
