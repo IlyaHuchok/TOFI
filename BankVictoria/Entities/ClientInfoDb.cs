@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entities
 {
-    public class ClientDB
+    public class ClientInfoDB
     {
         [Key] 
         public int ClientId { get; set; }
@@ -19,9 +19,9 @@ namespace Entities
         public string Mobile { get; set; }
         public string Email { get; set; }
         public string PassportNo { get; set; } 
-        public string IdentificationNo { get; set; }
-        public string Authority { get; set; }
-        public DateTime DateOfExpiry { get; set; }
+        public string PassportIdentificationNo { get; set; }
+        public string PassportAuthority { get; set; }
+        public DateTime PassportExpirationDate { get; set; }
         public string PlaceOfResidence { get; set; }
         public string RegistrationAddress { get; set; }
         public string MotherSurname { get; set; }

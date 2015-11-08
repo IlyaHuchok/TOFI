@@ -54,6 +54,7 @@
     <Compile Include="CreditDb.cs" />
     <Compile Include="CreditType.cs" />
     <Compile Include="CreditTypeDb.cs" />
+    <Compile Include="Enums\UserRole.cs" />
     <Compile Include="Payment.cs" />
     <Compile Include="PaymentDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,9 +64,7 @@
     <Compile Include="User.cs" />
     <Compile Include="UserDb.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Enums\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

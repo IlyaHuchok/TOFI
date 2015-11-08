@@ -16,9 +16,9 @@ namespace Entities
         public string Mobile { get; set; }
         public string Email { get; set; }
         public int PassportNo { get; set; } //int?
-        public int IdentificationNo { get; set; }//int?
-        public string Authority { get; set; }
-        public DateTime DateOfExpiry { get; set; }
+        public int PassportIdentificationNo { get; set; }//int?
+        public string PassportAuthority { get; set; }
+        public DateTime PassportExpirationDate { get; set; }
         public string PlaceOfResidence { get; set; }
         public string RegistrationAddress { get; set; }
         public string MotherSurname { get; set; }
