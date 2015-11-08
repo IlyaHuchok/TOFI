@@ -7,7 +7,7 @@ using System.Data.Entity;
 namespace BankDomainModel
 {
     public class BankDB : DbContext 
-    {
+    { 
         public DbSet<ClientDB> Client { get; set; }
         public DbSet<CreditDB> Credit { get; set;}
         public DbSet<CreditTypeDB> CreditType { get; set; }
