@@ -10,7 +10,7 @@ namespace Entities
     {
         [Key]
         public int CreditId { get; set; }
-        public int ClientId { get; set; }
+        public int AccountId { get; set; }
         public int CreditTypeId { get; set; }
         public int RequestId { get; set; }
         public int ContractNo { get; set; }
@@ -19,9 +19,9 @@ namespace Entities
         public decimal AmountOfPayment { get; set; }
       //  public int Fine { get; set; } 
 
-        public virtual Client Client { get; set; }
+        public virtual Account Account { get; set; }
+        public virtual CreditType CreditType { get; set; }
         public virtual Request Request { get; set; }
-        public virtual CreditType CreditTypes { get; set; }
 
         public virtual ICollection<Payment> Payments { get; set; }
     }

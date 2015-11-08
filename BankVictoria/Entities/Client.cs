@@ -29,7 +29,6 @@ namespace Entities
         public virtual User User { get; set; }
 
         public virtual ICollection<Request> Requests { get; set; }
-        public virtual ICollection<Credit> Credits { get; set; }
-        public virtual ICollection<Credit> Accounts { get; set; }
+        public virtual ICollection<Account> Accounts { get; set; }
     }
 }

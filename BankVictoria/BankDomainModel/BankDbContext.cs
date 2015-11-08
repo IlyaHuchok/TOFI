@@ -16,6 +16,7 @@ namespace BankDomainModel
         public DbSet<Request> Requests { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Account> Accounts { get; set; }
         public DbSet<RequestStatus> RequestStatuses { get; set; }
     }
 }
