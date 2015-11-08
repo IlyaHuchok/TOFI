@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 
-namespace DAL.UnitOfWork
+namespace UnitOfWork
 {
     public class UnitOfWork<TContext> : IUnitOfWork
         where TContext : DbContext, new()

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL.UnitOfWork;
+using UnitOfWork;
 
 namespace BL.BusinessComponents
 {
-    public abstract class GenericBusinessComponent : IDisposable
+    public abstract class GenericBusinessComponent<TUnitOfWork> : IDisposable
+            where TUnitOfWork : IUnitOfWork
     {
-        protected readonly IUnitOfWork _unitOfWork;
+        protected readonly TUnitOfWork _unitOfWork;
 
 
         //public DoMuchSHit()
@@ -20,7 +21,7 @@ namespace BL.BusinessComponents
 
         //    _unitOfWork.Save();
         //}
-        public GenericBusinessComponent(IUnitOfWork unitOfWork)
+        public GenericBusinessComponent(TUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
