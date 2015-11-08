@@ -7,11 +7,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entities
 {
-    public class RequestStatusDB
+    public class RequestStatus
     {
         public int RequestStatusId { get; set; }
         public string Status { get; set; }
-
-        public virtual ICollection<RequestDB> Requests { get; set; }
     }
 }

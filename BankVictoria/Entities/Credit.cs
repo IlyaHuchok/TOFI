@@ -3,19 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.ComponentModel.DataAnnotations;
 namespace Entities
 {
     public class Credit
     {
-        public int CreditID { get; set; }
-        public int ClientID { get; set; }
-        public int CreditTypeID { get; set; }
-        public int RequestID { get; set; }
+        [Key]
+        public int CreditId { get; set; }
+        public int ClientId { get; set; }
+        public int CreditTypeId { get; set; }
+        public int RequestId { get; set; }
         public int ContractNo { get; set; }
-        public int Debt { get; set; }
+        public decimal Debt { get; set; }
         public int RemaingPayments { get; set; }
-        public int AmountOfPayment { get; set; }
-        public int Fine { get; set; }
+        public decimal AmountOfPayment { get; set; }
+      //  public int Fine { get; set; } 
+
+        public virtual Client Client { get; set; }
+        public virtual Request Request { get; set; }
+        public virtual CreditType CreditTypes { get; set; }
+
+        public virtual ICollection<Payment> Payments { get; set; }
     }
 }

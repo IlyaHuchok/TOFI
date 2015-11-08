@@ -9,7 +9,7 @@ namespace Entities.Enums
     public enum UserRole
     {
         Client = 1,
-        Operarionist = 2,
+        Operator = 2,
         SecurityServiceEmployee = 3,
         Admin = 4
     }
