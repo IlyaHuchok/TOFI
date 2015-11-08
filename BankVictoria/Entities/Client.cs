@@ -30,5 +30,6 @@ namespace Entities
 
         public virtual ICollection<Request> Requests { get; set; }
         public virtual ICollection<Credit> Credits { get; set; }
+        public virtual ICollection<Credit> Accounts { get; set; }
     }
 }
