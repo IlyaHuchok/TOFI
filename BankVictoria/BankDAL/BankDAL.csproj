@@ -30,7 +30,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,13 +51,16 @@
     <Compile Include="Interfaces\ICreditRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CreditRepository.cs" />
-    <Compile Include="Repositories\MethodsClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UnitOfWork\Interfaces\" />
     <Folder Include="UnitOfWork\UnitsOfWork\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BankDomainModel\BankDomainModel.csproj">
+      <Project>{40059d1b-d3d1-44f8-ad1b-91fc7aad35ea}</Project>
+      <Name>BankDomainModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{380deaa7-50c2-48e0-b46a-d1ed57f947aa}</Project>
       <Name>DAL</Name>
@@ -57,6 +69,10 @@
       <Project>{d2c38b7e-b7a3-44b7-8ee5-3f63d731445b}</Project>
       <Name>Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
