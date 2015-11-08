@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 namespace BankDomainModel
 {
-    public class BankDB : DbContext 
+    public class BankDbContext : DbContext 
     { 
         public DbSet<ClientDB> Client { get; set; }
         public DbSet<CreditDB> Credit { get; set;}

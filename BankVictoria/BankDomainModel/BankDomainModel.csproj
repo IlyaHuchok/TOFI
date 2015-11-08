@@ -48,15 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BankDB.cs" />
-    <Compile Include="ClientDB.cs" />
-    <Compile Include="CreditDB.cs" />
-    <Compile Include="CreditTypeDB.cs" />
-    <Compile Include="MethodsClient.cs" />
-    <Compile Include="PaymentDB.cs" />
+    <Compile Include="BankDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequestDB.cs" />
-    <Compile Include="UserDB.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

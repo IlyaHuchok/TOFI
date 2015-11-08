@@ -42,6 +42,7 @@
     <Compile Include="Interfaces\ICreditRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CreditRepository.cs" />
+    <Compile Include="Repositories\MethodsClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UnitOfWork\Interfaces\" />

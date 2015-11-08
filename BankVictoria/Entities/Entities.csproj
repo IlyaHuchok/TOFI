@@ -40,12 +40,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="ClientDb.cs" />
     <Compile Include="Credit.cs" />
+    <Compile Include="CreditDb.cs" />
     <Compile Include="CreditType.cs" />
+    <Compile Include="CreditTypeDb.cs" />
     <Compile Include="Payment.cs" />
+    <Compile Include="PaymentDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request.cs" />
+    <Compile Include="RequestDb.cs" />
+    <Compile Include="RequestStatusDb.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="UserDb.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Enums\" />

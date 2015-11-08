@@ -10,7 +10,7 @@ namespace BankDomainModel
     {
         public void Add()
         {
-            using (var db = new BankDB())
+            using (var db = new BankDbContext())
             {
                 var client = new ClientDB
                 {
@@ -18,9 +18,9 @@ namespace BankDomainModel
                 };
             }
         }
-        public void RemoveClient(int PassportNo)
+        public void RemoveClient(string PassportNo)
         {
-            using (var db = new BankDB())
+            using (var db = new BankDbContext())
             {
                 List<ClientDB> query = (from b in db.Client where b.PassportNo == PassportNo select b).ToList();
                 db.Client.Remove(query[0]);

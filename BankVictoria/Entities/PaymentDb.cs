@@ -13,7 +13,7 @@ namespace BankDomainModel
         public int OperatorId { get; set; }
         public int CreditId { get; set; }
         public int ContractNo { get; set; }
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
 
         public virtual CreditDB Credits { get; set; }
         public virtual UserDB Users { get; set; }

@@ -9,15 +9,15 @@ namespace BankDomainModel
     public class CreditDB
     {
         [Key]
-        public int CreditID { get; set; }// или Id?
-        public int ClientID { get; set; }
-        public int CreditTypeID { get; set; }
-        public int RequestID { get; set; }
+        public int CreditId { get; set; }
+        public int ClientId { get; set; }
+        public int CreditTypeId { get; set; }
+        public int RequestId { get; set; }
         public int ContractNo { get; set; }
-        public int Debt { get; set; }
+        public decimal Debt { get; set; }
         public int RemaingPayments { get; set; }
-        public int AmountOfPayment { get; set; }
-        public int Fine { get; set; } 
+        public decimal AmountOfPayment { get; set; }
+      //  public int Fine { get; set; } 
 
         public virtual ClientDB Client { get; set; }
         public virtual RequestDB Request { get; set; }

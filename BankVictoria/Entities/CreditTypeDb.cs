@@ -15,9 +15,9 @@ namespace BankDomainModel
         public int Time { get; set; }
         public int PercentPerYear { get; set; }
         public string Currency { get; set; }
-        public int Fine { get; set; }
-        public string Pledge { get; set; }
-        public string Guarantee { get; set; }
+        public decimal Fine { get; set; }
+        public bool Pledge { get; set; }
+        public bool Guarantee { get; set; }
 
         public virtual ICollection<CreditDB> Credits { get; set; }
     }
