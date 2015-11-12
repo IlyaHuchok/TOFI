@@ -10,9 +10,9 @@ using BankDomainModel;
 
 namespace BankDAL.Repositories
 {
-    public class CreditRepository : GenericDataRepository<Credit, BankDbContext>, ICreditRepository
+    public class CreditTypeRepository : GenericDataRepository<CreditType, BankDbContext>, ICreditTypeRepository
     {
-        public CreditRepository(BankDbContext context)
+        public CreditTypeRepository(BankDbContext context)
             : base(context)
         {
         }
