@@ -52,10 +52,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CreditRepository.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UnitOfWork\Interfaces\" />
-    <Folder Include="UnitOfWork\UnitsOfWork\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\BankDomainModel\BankDomainModel.csproj">
       <Project>{40059d1b-d3d1-44f8-ad1b-91fc7aad35ea}</Project>

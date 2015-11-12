@@ -17,7 +17,7 @@ namespace Entities
         public decimal Debt { get; set; }
         public int RemaingPayments { get; set; }
         public decimal AmountOfPayment { get; set; }
-      //  public int Fine { get; set; } 
+        //  public int Fine { get; set; } 
 
         public virtual Account Account { get; set; }
         public virtual CreditType CreditType { get; set; }

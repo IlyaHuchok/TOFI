@@ -16,8 +16,8 @@ namespace Entities
         public int PercentPerYear { get; set; }
         public string Currency { get; set; }
         public decimal Fine { get; set; }
-        public bool Pledge { get; set; }
-        public bool Guarantee { get; set; }
+        //public bool Pledge { get; set; }
+        //public bool Guarantee { get; set; }
 
         public virtual ICollection<Credit> Credits { get; set; }
     }

@@ -18,8 +18,8 @@ namespace Entities
         public string Status { get; set; } 
         public decimal AmountOfCredit { get; set; }
         public decimal Salary { get; set; }
-        public string Pledge { get; set; } 
-        public string Guarantee { get; set; }
+        //public string Pledge { get; set; } 
+        //public string Guarantee { get; set; }
 
         public virtual Client Client { get; set; }
         public virtual User Operator { get; set; }
