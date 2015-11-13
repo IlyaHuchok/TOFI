@@ -15,6 +15,7 @@ namespace Entities
         public int OperatorId { get; set; }
         public int SecurityServiceEmployeeId { get; set; }
         public int RequestStatusId { get; set; }
+        public int CreditTypeId { get; set; }
         public string Status { get; set; } 
         public decimal AmountOfCredit { get; set; }
         public decimal Salary { get; set; }
@@ -22,6 +23,7 @@ namespace Entities
         //public string Guarantee { get; set; }
 
         public virtual Client Client { get; set; }
+        public virtual CreditType CreditType { get; set; }
         public virtual User Operator { get; set; }
         public virtual User SecurityServiceEmployee { get; set; }
         public virtual RequestStatus RequestStatus { get; set; }

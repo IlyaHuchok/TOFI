@@ -19,6 +19,6 @@ namespace Entities
         //public bool Pledge { get; set; }
         //public bool Guarantee { get; set; }
 
-        public virtual ICollection<Credit> Credits { get; set; }
+        //public virtual ICollection<Credit> Credits { get; set; }
     }
 }
