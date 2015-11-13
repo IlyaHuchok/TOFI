@@ -8,7 +8,7 @@ using Entities;
 
 namespace BankDAL.Interfaces
 {
-    interface IUserRepository : IGenericDataRepository<User>
+    public interface IUserRepository : IGenericDataRepository<User>
     {
     }
 }
