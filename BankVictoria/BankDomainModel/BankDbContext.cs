@@ -18,5 +18,12 @@ namespace BankDomainModel
         public DbSet<User> Users { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<RequestStatus> RequestStatuses { get; set; }
+
+      protected override void OnModelCreating(DbModelBuilder modelBuilder)
+      {
+        modelBuilder.Entity<Credit>().HasRequired(x => x.Request).WithOptional(x => x.Credit);
+
+        base.OnModelCreating(modelBuilder);
+      }
     }
 }

@@ -23,6 +23,7 @@ namespace Entities
         //public string Guarantee { get; set; }
 
         public virtual Client Client { get; set; }
+        public virtual Credit Credit { get; set; }
         public virtual CreditType CreditType { get; set; }
         public virtual User Operator { get; set; }
         public virtual User SecurityServiceEmployee { get; set; }
