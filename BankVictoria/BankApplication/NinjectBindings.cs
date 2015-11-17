@@ -19,6 +19,7 @@ namespace BankApplication
     public override void Load()
     {
       Bind<ILoginWindow>().To<LoginWindow>();
+      Bind<IMainPage>().To<MainPage>();
 
       Bind<IAccountRepository>().To<AccountRepository>();
       Bind<IClientRepository>().To<ClientRepository>();
