@@ -15,7 +15,11 @@ using System.Windows.Shapes;
 
 using BankPresentation.Interfaces;
 
+using Entities.Enums;
+
+using Ninject;
 using Ninject.Modules;
+using Ninject.Parameters;
 
 namespace BankPresentation
 {
@@ -24,14 +28,40 @@ namespace BankPresentation
   /// </summary>
   public partial class LoginWindow : Window, ILoginWindow
   {
-    private readonly INinjectModule _ninjectModule;
+    private readonly IKernel _ninjectKernel;
     // ADD YOUR COMPONENTS HERE
 
-    public LoginWindow(INinjectModule ninjectModule/*ENTER NEEDED BUSINESS COMPONENTS HERE*/)
+    public LoginWindow(IKernel ninjectKernel/*ENTER NEEDED BUSINESS COMPONENTS HERE*/)
     {
-      _ninjectModule = ninjectModule;
+      _ninjectKernel = ninjectKernel;
 
       InitializeComponent();
+    }
+
+    private void Passwordbox_OnKeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.Key == Key.Enter)
+      {
+        Login(LoginTextbox.Text, Passwordbox.Password);
+      }
+    }
+
+    private void LoginButton_Click(object sender, RoutedEventArgs e)
+    {
+      Login(LoginTextbox.Text, Passwordbox.Password);
+    }
+
+    private void Login(string username, string password)
+    {
+      //afdasdfadsf
+      // BC activities
+
+      this.SetPage(UserRole.Admin);//stub
+    }
+
+    private void SetPage(UserRole role)
+    {
+      this.Content = _ninjectKernel.Get<MainPage>(new ConstructorArgument("userRole", role));
     }
   }
 }
