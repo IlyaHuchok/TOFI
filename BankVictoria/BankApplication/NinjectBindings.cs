@@ -11,6 +11,7 @@ using BankPresentation;
 using BankPresentation.Interfaces;
 
 using Ninject.Modules;
+using Ninject;
 
 namespace BankApplication
 {

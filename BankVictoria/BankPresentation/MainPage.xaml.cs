@@ -27,6 +27,7 @@ namespace BankPresentation
   /// </summary>
   public partial class MainPage : Page, IMainPage
   {
+    private const string windowTitle = "Main";
     private readonly UserRole _userRole;
     private readonly IKernel _ninjectKernel;
     // ADD YOUR COMPONENTS HERE
@@ -37,6 +38,7 @@ namespace BankPresentation
       _userRole = userRole;
 
       InitializeComponent();
+      this.WindowTitle = windowTitle;
     }
   }
 }

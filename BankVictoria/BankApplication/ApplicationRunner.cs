@@ -20,7 +20,7 @@ namespace BankApplication
       this.Configure();
 
       var app = new BankApp();
-      using (var kernel = new StandardKernel())
+      using (var kernel = new StandardKernel(new NinjectBindings()))
       {
         var loginWindow = kernel.Get<ILoginWindow>();
         app.Run((LoginWindow)loginWindow); // KOSTYLLL!1
