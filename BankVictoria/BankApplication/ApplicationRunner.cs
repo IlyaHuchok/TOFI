@@ -7,7 +7,6 @@ using System.Windows;
 using System.Xaml;
 
 using BankPresentation;
-using BankPresentation.Interfaces;
 
 using Ninject;
 
@@ -22,8 +21,8 @@ namespace BankApplication
       var app = new BankApp();
       using (var kernel = new StandardKernel(new NinjectBindings()))
       {
-        var loginWindow = kernel.Get<ILoginWindow>();
-        app.Run((LoginWindow)loginWindow); // KOSTYLLL!1
+        var loginWindow = kernel.Get<LoginWindow>();
+        app.Run(loginWindow); // KOSTYLLL!1
       }
     }
 

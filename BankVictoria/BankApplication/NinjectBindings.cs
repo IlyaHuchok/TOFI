@@ -8,7 +8,6 @@ using BankDAL.Interfaces;
 using BankDAL.Repositories;
 
 using BankPresentation;
-using BankPresentation.Interfaces;
 
 using Ninject.Modules;
 using Ninject;
@@ -19,9 +18,6 @@ namespace BankApplication
   {
     public override void Load()
     {
-      Bind<ILoginWindow>().To<LoginWindow>();
-      Bind<IMainPage>().To<MainPage>();
-
       Bind<IAccountRepository>().To<AccountRepository>();
       Bind<IClientRepository>().To<ClientRepository>();
       Bind<ICreditRepository>().To<CreditRepository>();

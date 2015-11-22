@@ -13,8 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using BankPresentation.Interfaces;
-
 using Entities.Enums;
 
 using Ninject;
@@ -25,7 +23,7 @@ namespace BankPresentation
   /// <summary>
   /// Interaction logic for MainPage.xaml
   /// </summary>
-  public partial class MainPage : Page, IMainPage
+  public partial class MainPage : Page
   {
     private const string windowTitle = "Main";
     private readonly UserRole _userRole;

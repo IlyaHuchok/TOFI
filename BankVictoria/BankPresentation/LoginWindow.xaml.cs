@@ -13,8 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using BankPresentation.Interfaces;
-
 using Entities.Enums;
 
 using Ninject;
@@ -26,7 +24,7 @@ namespace BankPresentation
   /// <summary>
   /// Interaction logic for MainWindow.xaml
   /// </summary>
-  public partial class LoginWindow : Window, ILoginWindow
+  public partial class LoginWindow : Window
   {
     private readonly IKernel _ninjectKernel;
     // ADD YOUR COMPONENTS HERE
