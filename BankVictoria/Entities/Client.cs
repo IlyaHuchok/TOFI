@@ -24,7 +24,7 @@ namespace Entities
         public DateTime PassportExpirationDate { get; set; }
         public string PlaceOfResidence { get; set; }
         public string RegistrationAddress { get; set; }
-        public string MotherSurname { get; set; }
+     //   public string MotherSurname { get; set; }
 
         public virtual User User { get; set; }
 
