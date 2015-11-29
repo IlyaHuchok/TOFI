@@ -54,12 +54,15 @@ namespace BankPresentation
       //afdasdfadsf
       // BC activities
 
-      this.SetPage(UserRole.Admin);//stub
+      this.SetPage(UserRole.Client);//stub
     }
 
     private void SetPage(UserRole role)
     {
-      this.Content = _ninjectKernel.Get<MainPage>(new ConstructorArgument("userRole", role));
+        this.Content = _ninjectKernel.Get<MainPage>(new ConstructorArgument("userRole", role));
+
+        //var newWindow = _ninjectKernel.Get<RegistrationWindow>(new ConstructorArgument("userRole", role));
+        //newWindow.ShowDialog();      
     }
   }
 }

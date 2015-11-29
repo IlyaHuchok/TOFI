@@ -39,13 +39,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessComponents\UserBusinessComponent.cs" />
+    <Compile Include="Interfaces\IUserBusinessComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="BusinessComponents\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="UnitOfWork\Interfaces\" />
-    <Folder Include="UnitOfWork\UnitsOfWork\" />
+    <ProjectReference Include="..\BankUnitOfWork\BankUnitOfWork.csproj">
+      <Project>{844feaa0-6844-4346-8d25-128fe328e389}</Project>
+      <Name>BankUnitOfWork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BL\BL.csproj">
+      <Project>{0752370d-8f2f-4252-9a76-e42f2d7927fa}</Project>
+      <Name>BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{d2c38b7e-b7a3-44b7-8ee5-3f63d731445b}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnitOfWork\UnitOfWork.csproj">
+      <Project>{e51b4a67-eea3-47a2-b5c0-ea89158beda5}</Project>
+      <Name>UnitOfWork</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

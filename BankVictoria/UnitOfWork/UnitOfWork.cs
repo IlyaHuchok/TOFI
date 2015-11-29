@@ -7,24 +7,17 @@ using System.Data.Entity;
 
 namespace UnitOfWork
 {
-    public class UnitOfWork<TContext> : IUnitOfWork
-        where TContext : DbContext, new()
+    public abstract class UnitOfWork<TContext> : IUnitOfWork
+        where TContext : IDisposable, new()
     {
         // WHEN CREATING CONCRETE IMPLEMENTATION
         // ADD NECESSARY REPOSITORIES LIKE:
         // private readonly IUserRepository UserRepository;
         // AND ADD THEIR INTIAZLIZATION IN CONSTRUCTORS
-        protected readonly TContext _context;
+        protected TContext _context;
 
-        public UnitOfWork(TContext context)
-        {
-            _context = context;
-        }
-
-        public void Save()
-        {
-            _context.SaveChanges();
-        }
+        public abstract void Save();
+            //_context.SaveChanges();
 
         private bool disposed = false;
 

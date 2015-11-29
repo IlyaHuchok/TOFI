@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Entities;
+using Entities.Enums;
+using BankBL.BusinessComponents;
 
 
 namespace BankPresentation
@@ -20,13 +23,27 @@ namespace BankPresentation
     /// </summary>
     public partial class RegistrationWindow : Window
     {
-        public RegistrationWindow()
+        private readonly UserBusinessComponent _userBusinessComponent;
+        private readonly UserRole _role;
+
+        public RegistrationWindow(UserBusinessComponent userBusinessComponent, UserRole userRole)
         {
+            _userBusinessComponent = userBusinessComponent;
+            _role = userRole;
+
             InitializeComponent();
-            comboBox.Items.Add("Client");  
-            comboBox.Items.Add("Operator"); 
-            comboBox.Items.Add("SecurityServiceEmployee"); 
-            comboBox.Items.Add("Admin");
+
+            if (_role != UserRole.Admin)
+            {
+                roleComboBox.IsEnabled = false;
+            }
+            roleComboBox.Items.Add("Client");
+            if (_role == UserRole.Admin)
+            {
+                roleComboBox.Items.Add("Operator");
+                roleComboBox.Items.Add("SecurityServiceEmployee");
+                roleComboBox.Items.Add("Admin");
+            }
         }
 
         private void button_Next_Click(object sender, RoutedEventArgs e)
