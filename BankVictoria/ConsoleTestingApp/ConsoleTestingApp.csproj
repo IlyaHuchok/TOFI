@@ -59,9 +59,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BankDAL\BankDAL.csproj">
+      <Project>{bf4bc368-c253-4110-ba34-da8860b3999f}</Project>
+      <Name>BankDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BankDomainModel\BankDomainModel.csproj">
       <Project>{40059d1b-d3d1-44f8-ad1b-91fc7aad35ea}</Project>
       <Name>BankDomainModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{380deaa7-50c2-48e0-b46a-d1ed57f947aa}</Project>
+      <Name>DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Entities\Entities.csproj">
       <Project>{d2c38b7e-b7a3-44b7-8ee5-3f63d731445b}</Project>
