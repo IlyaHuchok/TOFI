@@ -15,6 +15,7 @@ namespace Entities
         public int CreditId { get; set; }
         public int ContractNo { get; set; }
         public decimal Amount { get; set; }
+        public DateTime Date { get; set; }
 
         public virtual Credit Credits { get; set; }
         public virtual User Users { get; set; }

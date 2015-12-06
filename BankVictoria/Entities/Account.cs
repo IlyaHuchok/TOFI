@@ -12,7 +12,7 @@ namespace Entities
         [Key]
         public int AccountId { get; set; }
         public decimal Balance { get; set; }
-        public int ClientId { get; set; }
+        public int? ClientId { get; set; } //nullable so to allow bank account record to have no client info
 
         public virtual Client Client { get; set; }
     }

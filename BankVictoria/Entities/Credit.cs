@@ -14,9 +14,13 @@ namespace Entities
         public int CreditTypeId { get; set; }
         public int RequestId { get; set; }
         public int ContractNo { get; set; }
-        public decimal Debt { get; set; }
-        public int RemaingPayments { get; set; }
-        public decimal AmountOfPayment { get; set; }
+        //public decimal Debt { get; set; }
+        // How much was allready paid
+        public decimal AllreadyPaid { get; set; }
+        public decimal AmountOfPaymentPerMonth { get; set; }
+        public DateTime StartDate { get; set; }
+        // are all paiments for the credit finished??
+        public bool IsRepaid { get; set; }
         //  public int Fine { get; set; } 
 
         public virtual Account Account { get; set; }

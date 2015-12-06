@@ -9,7 +9,13 @@ using Entities;
 namespace BankDomainModel
 {
     public class BankDbContext : DbContext 
-    { 
+    {
+        public BankDbContext()
+        {
+            // remove this in don't want the data to be deleted
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<BankDbContext>());
+        }
+
         public DbSet<Client> Clients { get; set; }
         public DbSet<Credit> Credits { get; set;}
         public DbSet<CreditType> CreditTypes { get; set; }

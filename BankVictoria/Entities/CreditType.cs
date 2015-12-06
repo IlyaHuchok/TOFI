@@ -12,10 +12,10 @@ namespace Entities
         public int CreditTypeId { get; set; } // или Id?
         public string Name { get; set; }
         public string Type { get; set; }
-        public int Time { get; set; }
-        public int PercentPerYear { get; set; }
+        public int TimeMonths { get; set; }
+        public decimal PercentPerYear { get; set; }
         public string Currency { get; set; }
-        public decimal Fine { get; set; }
+        public decimal FinePercent { get; set; }
         public decimal MinAmount { get; set; }
         public decimal MaxAmount { get; set; }
         //public bool Pledge { get; set; }
