@@ -12,12 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 
 using Entities.Enums;
 
 using Ninject;
 using Ninject.Modules;
 using Ninject.Parameters;
+
+using BankBL.Interfaces;
 
 namespace BankPresentation
 {
@@ -27,11 +30,14 @@ namespace BankPresentation
   public partial class LoginWindow : Window
   {
     private readonly IKernel _ninjectKernel;
+    private readonly IUserBusinessComponent _userBusinessComponent;
     // ADD YOUR COMPONENTS HERE
 
-    public LoginWindow(IKernel ninjectKernel/*ENTER NEEDED BUSINESS COMPONENTS HERE*/)
+    public LoginWindow(IKernel ninjectKernel/*ENTER NEEDED BUSINESS COMPONENTS HERE*/,
+        IUserBusinessComponent userBusinessComponent)
     {
       _ninjectKernel = ninjectKernel;
+      _userBusinessComponent = userBusinessComponent;
 
       InitializeComponent();
     }
@@ -49,12 +55,32 @@ namespace BankPresentation
       Login(LoginTextbox.Text, Passwordbox.Password);
     }
 
+#if DEBUG
+    private const string errorMessage = "Wrong username/password combination!\nEXISTING COMBINATIONS:admin/admin \n security/security\n operator/operator\n client1/client1";
+#else
+    private const string errorMessage = "Wrong username/password combination!";
+    private int _failedLoginAttempts;
+#endif
+
     private void Login(string username, string password)
     {
-      //afdasdfadsf
-      // BC activities
-
-      this.SetPage(UserRole.Client);//stub
+      var loginResult = _userBusinessComponent.Login(username, password);
+      if (loginResult != null)
+      {
+          this.SetPage(loginResult.Value);
+      }
+      else
+      {
+          #if RELEASE
+          _failedLoginAttempts++;
+          if (_failedLoginAttempts >=5)
+          {
+              //lock for 30 seconds 
+              Thread.Sleep(30*1000);
+          }
+          #endif
+        MessageBox.Show(errorMessage);
+      }
     }
 
     private void SetPage(UserRole role)
