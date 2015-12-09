@@ -85,6 +85,8 @@ namespace BankPresentation
 
     private void SetPage(UserRole role)
     {
+        //var registrationWindow = _ninjectKernel.Get<RegistrationWindow>(new ConstructorArgument("userRole", UserRole.Admin));
+        //registrationWindow.ShowDialog();
         this.Content = _ninjectKernel.Get<MainPage>(new ConstructorArgument("userRole", role));
 
         //var newWindow = _ninjectKernel.Get<RegistrationWindow>(new ConstructorArgument("userRole", role));

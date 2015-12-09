@@ -25,7 +25,7 @@ namespace BankUnitOfWork
 
         public override void Save()
         {
-            _context.SaveChanges();
+            GetContext().SaveChanges();
         }
     }
 }

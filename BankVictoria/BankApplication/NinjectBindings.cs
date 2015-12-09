@@ -36,6 +36,8 @@ namespace BankApplication
 
       Bind<IUserUnitOfWork>().To<UserUnitOfWork>();
       Bind<IUserBusinessComponent>().To<UserBusinessComponent>();
+      Bind<IClientUnitOfWork>().To<ClientUnitOfWork>();
+      Bind<IClientBusinessComponent>().To<ClientBusinessComponent>();
       //ADD ALLL BINDING HERE
     }
   }
