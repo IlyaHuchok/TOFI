@@ -45,8 +45,6 @@ namespace BankBL.BusinessComponents
                 RegistrationAddress = registrationAddress,
                 User = userToAdd
             };
-            _unitOfWork.UserRepository.Add(userToAdd);
-            _unitOfWork.Save();
             _unitOfWork.ClientRepository.Add(clientToAdd);
             _unitOfWork.Save();
 

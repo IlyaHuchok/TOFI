@@ -15,7 +15,11 @@ namespace BankUnitOfWork
 
         protected BankDbContext GetContext()
         {
-            return _context ?? _ninjectKernel.Get<BankDbContext>();
+            if (_context == null)
+            {
+                _context = _ninjectKernel.Get<BankDbContext>();
+            }
+            return _context;
         }
 
         public UnitOfWork(IKernel ninjectKernel)
