@@ -49,19 +49,19 @@ namespace BankPresentation.Validation
 
             if (!NameRegex.IsMatch(lastName))
             {
-                error.AppendLine("Wrong lastname format! Can have only words separated by single spaces or dashes");
+                error.AppendLine("Wrong lastname format! Can have only words separated by single spaces or dashes. Lastname must start with capital letter");
                 result.IsValid = false;
             }
 
             if (!NameRegex.IsMatch(name))
             {
-                error.AppendLine("Wrong name format!\n Can have only words separated by single spaces or dashes");
+                error.AppendLine("Wrong name format!\n Can have only words separated by single spaces or dashes. Name must start with capital letter");
                 result.IsValid = false;
             }
 
             if (!NameRegex.IsMatch(patronymic))
             {
-                error.AppendLine("Wrong patronymic format!\n Can have only words separated by single spaces or dashes");
+                error.AppendLine("Wrong patronymic format!\n Can have only words separated by single spaces or dashes. Patronymic must start with capital letter");
                 result.IsValid = false;
             }
 
