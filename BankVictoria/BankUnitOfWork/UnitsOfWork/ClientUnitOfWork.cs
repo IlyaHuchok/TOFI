@@ -22,7 +22,12 @@ namespace BankUnitOfWork.UnitsOfWork
         {
             get
             {
-                return _userRepository ?? _ninjectKernel.Get<IUserRepository>(new ConstructorArgument("context", GetContext()));
+                if (_userRepository == null)
+                {
+                     _userRepository = _ninjectKernel.Get<IUserRepository>(new ConstructorArgument("context", GetContext()));
+                }
+
+                return _userRepository;
             }
         }
 
@@ -30,7 +35,12 @@ namespace BankUnitOfWork.UnitsOfWork
         {
             get
             {
-                return _clientRepository ?? _ninjectKernel.Get<IClientRepository>(new ConstructorArgument("context", GetContext()));
+                if (_clientRepository == null)
+                {
+                    _clientRepository = _ninjectKernel.Get<IClientRepository>(new ConstructorArgument("context", GetContext()));
+                }
+
+                return _clientRepository;
             }
         }
     }
