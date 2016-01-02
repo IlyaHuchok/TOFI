@@ -21,7 +21,12 @@ namespace BankUnitOfWork.UnitsOfWork
         {
             get
             {
-                return _userRepository ?? _ninjectKernel.Get<IUserRepository>(new ConstructorArgument("context", GetContext()));
+                if (_userRepository == null)
+                {
+                    _userRepository = _ninjectKernel.Get<IUserRepository>(new ConstructorArgument("context", GetContext()));
+                }
+
+                return _userRepository;
             }
         }
     }

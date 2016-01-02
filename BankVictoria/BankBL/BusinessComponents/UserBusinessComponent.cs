@@ -29,6 +29,26 @@ namespace BankBL.BusinessComponents
             }
         }
 
+        public bool Exists(string name, string pass)
+        {
+            var user = _unitOfWork.UserRepository.GetSingle(x => x.Login == name && x.Password == pass);
+            return user != null;
+        }
+
+        public int Add(string name, string pass, UserRole userRole)
+        {
+            var userToAdd = 
+                new User
+                {
+                    Login = name,
+                    Password = pass,
+                    Role = userRole
+                };
+            _unitOfWork.UserRepository.Add(userToAdd);
+            _unitOfWork.Save();
+
+            return userToAdd.UserId;
+        }
         /// TODO: Add remaining methods here
     }
 }

@@ -7,48 +7,49 @@
         mc:Ignorable="d"
         Title="RegistrationWindow" Height="318" Width="530">
     <Grid>
-        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="288" VerticalAlignment="Top" Width="522">
-            <TabItem Header="Account">
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="288" VerticalAlignment="Top" Width="522" >
+            <TabItem Header="Account" Name="UserInfoTabItem">
                 <Grid Background="#FFE5E5E5">
                     <TextBox x:Name="textBox_Create_Login" HorizontalAlignment="Center" Height="23" Margin="196,26,196,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
                     <PasswordBox x:Name="passwordBox_Create_Password" HorizontalAlignment="Center" Margin="196,75,196,0" VerticalAlignment="Top" Width="120"/>
-                    <Label x:Name="label" Content="Login" HorizontalAlignment="Left" Margin="190,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.6,-0.874"/>
+                    <Label x:Name="label" Content="Username" HorizontalAlignment="Left" Margin="190,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.6,-0.874"/>
                     <Label x:Name="label1" Content="Password" HorizontalAlignment="Left" Margin="190,49,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="button_Next" Content="Next" HorizontalAlignment="Center" Margin="0,224,0,10" VerticalAlignment="Center" Width="75" Click="button_Next_Click"/>
-                    <ComboBox x:Name="roleComboBox" HorizontalAlignment="Center" Margin="196,170,196,0" VerticalAlignment="Top" Width="120"/>
+                    <Button x:Name="button_Next" Content="Next" HorizontalAlignment="Center" Margin="0,224,0,10" VerticalAlignment="Center" Width="75" Click="button_Next_Click" IsEnabled="False" Visibility="Hidden"/>
+                    <ComboBox x:Name="roleComboBox" HorizontalAlignment="Center" Margin="196,170,196,0" VerticalAlignment="Top" Width="120" SelectionChanged="roleComboBox_SelectionChanged"/>
                     <Label x:Name="label2" Content="Role" HorizontalAlignment="Left" Margin="190,144,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label33" Content="Confirm password" HorizontalAlignment="Left" Margin="190,95,0,0" VerticalAlignment="Top"/>
                     <PasswordBox x:Name="passwordBox_Create_Password_Copy" HorizontalAlignment="Center" Margin="196,126,196,0" VerticalAlignment="Top" Width="120"/>
+                    <Button x:Name="button_End_Tab1" Content="End" HorizontalAlignment="Center" Margin="220,208,216,26" VerticalAlignment="Center" Width="76" Click="button_End_Tab1_Click" IsEnabled="True" Visibility="Visible"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Personal data">
+            <TabItem Header="Personal data" Name="ClientInfoTabItem">
                 <Grid Background="#FFE5E5E5">
-                    <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="135,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="23" Margin="262,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <DatePicker HorizontalAlignment="Left" Margin="387,17,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="23" Margin="10,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="textBox4" HorizontalAlignment="Left" Height="23" Margin="135,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="LastNameTextBox" HorizontalAlignment="Left" Height="23" Margin="10,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="NameTextBox" HorizontalAlignment="Left" Height="23" Margin="135,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="PatronymicTextBox" HorizontalAlignment="Left" Height="23" Margin="262,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <DatePicker x:Name="BirthdayDatePicker" HorizontalAlignment="Left" Margin="387,17,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="MobilePhoneNumberTextBox" HorizontalAlignment="Left" Height="23" Margin="10,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="EmailTextBox" HorizontalAlignment="Left" Height="23" Margin="135,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <Label x:Name="label3" Content="Last name" HorizontalAlignment="Left" Margin="10,-3,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label4" Content="Name" HorizontalAlignment="Left" Margin="135,-3,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label5" Content="Patronymic" HorizontalAlignment="Left" Margin="262,-3,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label6" Content="Birthday" HorizontalAlignment="Left" Margin="387,-3,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label7" Content="Mobile" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label8" Content="Email" HorizontalAlignment="Left" Margin="139,46,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBox5" HorizontalAlignment="Left" Height="23" Margin="262,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="PassportNoTextBox" HorizontalAlignment="Left" Height="23" Margin="262,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <Label x:Name="label9" Content="Passport №" HorizontalAlignment="Left" Margin="262,46,0,0" VerticalAlignment="Top"/>
-                    <DatePicker HorizontalAlignment="Left" Margin="387,66,0,0" VerticalAlignment="Top"/>
+                    <DatePicker x:Name="PasswordExpirationDatePicker" HorizontalAlignment="Left" Margin="387,66,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label10" Content="PassportExpiration" HorizontalAlignment="Left" Margin="387,46,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBox6" HorizontalAlignment="Left" Height="23" Margin="10,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="textBox7" HorizontalAlignment="Left" Height="23" Margin="135,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="textBox8" HorizontalAlignment="Left" Height="23" Margin="262,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="textBox9" HorizontalAlignment="Left" Height="23" Margin="387,116,-8,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="PassportIdentityNoTextBox" HorizontalAlignment="Left" Height="23" Margin="10,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="PassportAuthorityTextBox" HorizontalAlignment="Left" Height="23" Margin="135,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="PlaceOfResidenceTextBox" HorizontalAlignment="Left" Height="23" Margin="262,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="RegistrationAddressTextBox" HorizontalAlignment="Left" Height="23" Margin="387,116,-8,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <Label x:Name="label11" Content="PassportIdentification" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label12" Content="PassportAuthority" HorizontalAlignment="Left" Margin="135,95,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label13" Content="PlaceOfResidence" HorizontalAlignment="Left" Margin="262,95,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label14" Content="RegistrationAddress" HorizontalAlignment="Left" Margin="387,95,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="button_Back" Content="Back" HorizontalAlignment="Left" Margin="135,174,0,0" VerticalAlignment="Top" Width="75" Click="button_Back_Click"/>
-                    <Button x:Name="button_End" Content="End" HorizontalAlignment="Left" Margin="256,174,0,0" VerticalAlignment="Top" Width="75" Click="button_End_Click"/>
+                    <Button x:Name="button_Back" Content="Back" HorizontalAlignment="Left" Margin="165,214,0,0" VerticalAlignment="Top" Width="75" Click="button_Back_Click"/>
+                    <Button x:Name="button_End" Content="End" HorizontalAlignment="Left" Margin="256,214,0,0" VerticalAlignment="Top" Width="75" Click="button_End_Click"/>
 
                 </Grid>
             </TabItem>
