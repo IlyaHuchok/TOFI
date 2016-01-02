@@ -23,6 +23,7 @@ namespace ConsoleApplication1
             FillDb(); //comment if don't want to refill database
 
             Console.ReadLine();
+            decimal a;
         }
 
         public static void FillDb()
