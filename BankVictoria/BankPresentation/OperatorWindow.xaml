@@ -13,8 +13,8 @@
                     <Button x:Name="Registration" Content="Registration" HorizontalAlignment="Left" Margin="405,10,0,0" VerticalAlignment="Top" Width="75"/>
                     <Label Content="PassportNo" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="CreditFieldPassportNo" HorizontalAlignment="Left" Height="23" Margin="86,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <Button x:Name="CreditSearch" Content="Search" HorizontalAlignment="Left" Margin="224,10,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Label Content="Name" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="CreditSearch" Content="Search" HorizontalAlignment="Left" Margin="224,10,0,0" VerticalAlignment="Top" Width="75" Click="CreditSearch_Click"/>
+                    <Label x:Name="NameCredit" Content="Name" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="CreditFieldName" HorizontalAlignment="Left" Height="23" Margin="10,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="309" IsReadOnly="True"/>
                     <Button x:Name="Details" Content="Details" HorizontalAlignment="Left" Margin="337,66,0,0" VerticalAlignment="Top" Width="75" Click="Details_Click"/>
                     <Label Content="Credit type"  HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top"/>
@@ -37,7 +37,7 @@
                     <Label Content="To pay" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" IsReadOnly="True"/>
                     <Label Content="Left to pay" HorizontalAlignment="Left" Margin="10,149,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Name" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="NameRepayment" Content="Name" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
                     <Button x:Name="RepaymentSearch" Content="Search" HorizontalAlignment="Left" Margin="220,10,0,0" VerticalAlignment="Top" Width="75"/>
                     
                 </Grid>

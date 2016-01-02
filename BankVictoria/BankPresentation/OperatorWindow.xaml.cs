@@ -21,7 +21,7 @@ namespace BankPresentation
     {
         public OperatorWindow()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         private void RepaymentSubmit_Click(object sender, RoutedEventArgs e)
@@ -35,5 +35,12 @@ namespace BankPresentation
                             "Birthday B" + Environment.NewLine +
                             "...");
         }
+
+        private void CreditSearch_Click(object sender, RoutedEventArgs e)
+        {
+            CreditFieldName.IsReadOnly = false;
+            
+        }
+
     }
 }
