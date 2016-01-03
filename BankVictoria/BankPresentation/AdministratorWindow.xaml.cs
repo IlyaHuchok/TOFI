@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace BankPresentation
 {
     /// <summary>
-    /// Логика взаимодействия для SecurityServiceEployeeWindow.xaml
+    /// Логика взаимодействия для AdministratorWindow.xaml
     /// </summary>
-    public partial class SecurityServiceEployeeWindow : Window
+    public partial class AdministratorWindow : Window
     {
-        public SecurityServiceEployeeWindow()
+        public AdministratorWindow()
         {
             InitializeComponent();
             TimeComboBox.Items.Add("All time");
