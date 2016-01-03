@@ -11,7 +11,7 @@ namespace Entities
         [Key]
         public int CreditTypeId { get; set; } // или Id?
         public string Name { get; set; }
-        public string Type { get; set; }
+       // public string Type { get; set; }
         public int TimeMonths { get; set; }
         public decimal PercentPerYear { get; set; }
         public string Currency { get; set; }
