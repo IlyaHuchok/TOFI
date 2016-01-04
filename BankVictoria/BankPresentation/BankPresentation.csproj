@@ -58,18 +58,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ClientWindow.xaml.cs">
+      <DependentUpon>ClientWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OperatorWindow.xaml.cs">
       <DependentUpon>OperatorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SecurityServiceEployeeWindow.xaml.cs">
-      <DependentUpon>SecurityServiceEployeeWindow.xaml</DependentUpon>
+    <Compile Include="AdministratorWindow.xaml.cs">
+      <DependentUpon>AdministratorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SecurityOfficerWindow.xaml.cs">
+      <DependentUpon>SecurityOfficerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Validation\ClientValidation.cs" />
     <Compile Include="Validation\UserValidation.cs" />
     <Compile Include="Validation\ValidationResult.cs" />
+    <Page Include="ClientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -94,7 +104,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SecurityServiceEployeeWindow.xaml">
+    <Page Include="AdministratorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SecurityOfficerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
