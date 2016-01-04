@@ -23,5 +23,10 @@ namespace BankPresentation
         {
             InitializeComponent();
         }
+
+        private void SendRequest_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
