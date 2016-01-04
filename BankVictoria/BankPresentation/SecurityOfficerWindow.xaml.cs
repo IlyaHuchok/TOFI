@@ -23,5 +23,14 @@ namespace BankPresentation
         {
             InitializeComponent();
         }
+
+        private void button_Back_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void button_Next_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
