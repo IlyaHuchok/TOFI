@@ -30,7 +30,7 @@ namespace BankPresentation
         {
             _clientBusinessComponent = clientBusinessComponent;
             _requestBusinessComponent = requestBusinessComponent;
-            InitializeComponent();            
+            InitializeComponent();
         }
 
         private void RepaymentSubmit_Click(object sender, RoutedEventArgs e)
@@ -47,13 +47,17 @@ namespace BankPresentation
 
         private void CreditSearch_Click(object sender, RoutedEventArgs e)
         {
-            CreditFieldName.IsReadOnly = false;
+            IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.Created);
+            foreach(var req in request)
+            {
+                if(req.Client.PassportNo == CreditFieldPassportNo.Text)
+                {
+                    CreditFieldName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
+                    CreditTypeField.Text = req.CreditType.Name;
+                    CreditAmount.Text = req.AmountOfCredit.ToString();
+                }
+            }
             
-        }
-
-        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
 
         private void FillListBox()
@@ -62,11 +66,23 @@ namespace BankPresentation
             foreach (var req in request)
             {
                 Client client = _clientBusinessComponent.GetByID(req.ClientId);
-                ClientListBox.Items.Add(client.Name + " " + client.LastName + " " + client.Patronymic);
-                AmountListBox.Items.Add(req.AmountOfCredit);
-                CreditListBox.Items.Add(req.CreditType.Name);
-            }           
+                listView.Items.Add(new ClientAmountCredit()
+                {
+                    PassportNo = req.Client.PassportNo,
+                    Amount = req.AmountOfCredit.ToString(),
+                    Credit = req.CreditType.Name
+                });
+            }            
         }
 
+        private void Reject_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Request_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

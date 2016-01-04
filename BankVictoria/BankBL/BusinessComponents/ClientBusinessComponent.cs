@@ -56,6 +56,11 @@ namespace BankBL.BusinessComponents
             return _unitOfWork.ClientRepository.GetAll().Count; ;
         }
 
+        public IList<Client> GetAll()
+        {
+            return _unitOfWork.ClientRepository.GetAll();
+        }
+
         public Client GetByID(int id)
         {
             return _unitOfWork.ClientRepository.GetSingle(x=> x.ClientId == id);

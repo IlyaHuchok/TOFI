@@ -16,6 +16,11 @@ namespace BankBL.BusinessComponents
     {
         public RequestBusinessComponent(IRequestUintOfWork unitOfWork) : base(unitOfWork) { }
 
+        public IList<Request> GetAll(RequestStatus status)
+        {
+            return _unitOfWork.RequestRepository.GetAll();
+        }
+
         public IList<Request> GetByStatus(RequestStatus status)
         {
             return _unitOfWork.RequestRepository.GetAll(x=> x.Status == status);
@@ -25,5 +30,6 @@ namespace BankBL.BusinessComponents
         {
             return _unitOfWork.RequestRepository.GetAll(x => x.Status != status);
         }
+        
     }
 }
