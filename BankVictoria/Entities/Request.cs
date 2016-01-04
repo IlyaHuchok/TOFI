@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
+using Entities.Enums;
+
 namespace Entities
 {
     public class Request
@@ -14,9 +16,9 @@ namespace Entities
         public int ClientId { get; set; }
         public int? OperatorId { get; set; }
         public int? SecurityServiceEmployeeId { get; set; }
-        public int RequestStatusId { get; set; }
+        //public int RequestStatusId { get; set; }
         public int CreditTypeId { get; set; }
-        public string Status { get; set; } 
+        public RequestStatus/*string*/ Status { get; set; } 
         public decimal AmountOfCredit { get; set; }
         public decimal Salary { get; set; }
 
@@ -28,7 +30,7 @@ namespace Entities
         public virtual CreditType CreditType { get; set; }
         public virtual User Operator { get; set; }
         public virtual User SecurityServiceEmployee { get; set; }
-        public virtual RequestStatus RequestStatus { get; set; }
+        //public virtual RequestStatus RequestStatus { get; set; }
 
     }
 }
