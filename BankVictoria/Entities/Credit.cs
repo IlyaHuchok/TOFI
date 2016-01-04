@@ -16,7 +16,7 @@ namespace Entities
         public int ContractNo { get; set; }
         //public decimal Debt { get; set; }
         // How much was allready paid
-        public decimal AllreadyPaid { get; set; }
+        //public decimal AllreadyPaid { get; set; }
         public decimal AmountOfPaymentPerMonth { get; set; }
         public DateTime StartDate { get; set; }
         // are all paiments for the credit finished??
