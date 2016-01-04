@@ -24,10 +24,12 @@ namespace BankPresentation
     public partial class OperatorWindow : Window
     {
         private readonly IClientBusinessComponent _clientBusinessComponent;
+        private readonly IRequestBusinessComponent _requestBusinessComponent;
 
-        public OperatorWindow(IClientBusinessComponent clientBusinessComponent)
+        public OperatorWindow(IClientBusinessComponent clientBusinessComponent, IRequestBusinessComponent requestBusinessComponent)
         {
             _clientBusinessComponent = clientBusinessComponent;
+            _requestBusinessComponent = requestBusinessComponent;
             InitializeComponent();            
         }
 
@@ -55,15 +57,15 @@ namespace BankPresentation
         }
 
         private void FillListBox()
-        {            
-            for(int i=0;i<_clientBusinessComponent.Count();i++)
-            { 
-                Client client = _clientBusinessComponent.GetByID(i);
-                ClientListBox.Items.Add(client.Name+" "+client.LastName+" "+client.Patronymic);                
-            }
-            
-            TimeListBox.Items.Add("");
-            CreditListBox.Items.Add("");
+        {
+            IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.Created);
+            foreach (var req in request)
+            {
+                Client client = _clientBusinessComponent.GetByID(req.ClientId);
+                ClientListBox.Items.Add(client.Name + " " + client.LastName + " " + client.Patronymic);
+                AmountListBox.Items.Add(req.AmountOfCredit);
+                CreditListBox.Items.Add(req.CreditType.Name);
+            }           
         }
 
     }

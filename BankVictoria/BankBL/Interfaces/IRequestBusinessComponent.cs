@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entities;
+using Entities.Enums;
 namespace BankBL.Interfaces
 {
     public interface IRequestBusinessComponent
     {
-        Request GetByStatus(string status);
+        IList<Request> GetByStatus(RequestStatus status);
+        IList<Request> GetExceptStatus(RequestStatus status);
     }
 }
