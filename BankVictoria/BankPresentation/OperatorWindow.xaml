@@ -10,14 +10,14 @@
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="288" VerticalAlignment="Top" Width="522">
             <TabItem Header="CreditList" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="68">
                 <Grid Background="#FFE5E5E5">
-                    <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="224" Margin="339,22,0,0" VerticalAlignment="Top" Width="163"/>
+                    <ListBox x:Name="CreditListBox" HorizontalAlignment="Left" Height="224" Margin="339,22,0,0" VerticalAlignment="Top" Width="163"/>
                     <Label Content="Sort by" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="0,22,0,0" VerticalAlignment="Top" Width="143"/>
+                    <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="0,22,0,0" VerticalAlignment="Top" Width="143" SelectionChanged="comboBox_SelectionChanged"/>
                     <Label x:Name="label1" Content="Credit" HorizontalAlignment="Left" Margin="402,0,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label2" Content="Time" HorizontalAlignment="Left" Margin="296,0,0,0" VerticalAlignment="Top"/>
-                    <ListBox x:Name="listBox1" HorizontalAlignment="Left" Height="224" Margin="284,22,0,0" VerticalAlignment="Top" Width="55"/>
+                    <ListBox x:Name="TimeListBox" HorizontalAlignment="Left" Height="224" Margin="284,22,0,0" VerticalAlignment="Top" Width="55"/>
                     <Label x:Name="label3" Content="Client" HorizontalAlignment="Left" Margin="194,0,0,0" VerticalAlignment="Top"/>
-                    <ListBox x:Name="listBox2" HorizontalAlignment="Left" Height="224" Margin="143,22,0,0" VerticalAlignment="Top" Width="141"/>
+                    <ListBox x:Name="ClientListBox" HorizontalAlignment="Left" Height="224" Margin="143,22,0,0" VerticalAlignment="Top" Width="141"/>
                     <TextBox x:Name="PassportNoCreditList" HorizontalAlignment="Left" Height="23" Margin="0,223,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" IsReadOnly="True"/>
                     <Label  Content="PassportNo" HorizontalAlignment="Left" Margin="0,197,0,0" VerticalAlignment="Top" />
                 </Grid>

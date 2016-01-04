@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Entities.Enums;
-
+using Entities;
 namespace BankBL.Interfaces
 {
     public interface IClientBusinessComponent 
@@ -15,5 +15,7 @@ namespace BankBL.Interfaces
             string mobile, string email, string passportNo,
             DateTime passwordExpiration, string passportIdentityNo, string passportAuthority,
             string placeOfResidence, string registrationAddress);
+        Client GetByID(int id);
+        int Count();
     }
 }

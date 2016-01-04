@@ -50,5 +50,15 @@ namespace BankBL.BusinessComponents
 
             return clientToAdd.ClientId;
         }
+
+        public int Count()
+        {
+            return _unitOfWork.ClientRepository.GetAll().Count; ;
+        }
+
+        public Client GetByID(int id)
+        {
+            return _unitOfWork.ClientRepository.GetSingle(x=> x.ClientId == id);
+        }
     }
 }

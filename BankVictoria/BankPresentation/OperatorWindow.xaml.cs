@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using Entities;
+using Entities.Enums;
+using BankBL.Interfaces;
+
 namespace BankPresentation
 {
     /// <summary>
@@ -19,8 +23,11 @@ namespace BankPresentation
     /// </summary>
     public partial class OperatorWindow : Window
     {
-        public OperatorWindow()
+        private readonly IClientBusinessComponent _clientBusinessComponent;
+
+        public OperatorWindow(IClientBusinessComponent clientBusinessComponent)
         {
+            _clientBusinessComponent = clientBusinessComponent;
             InitializeComponent();            
         }
 
@@ -40,6 +47,23 @@ namespace BankPresentation
         {
             CreditFieldName.IsReadOnly = false;
             
+        }
+
+        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void FillListBox()
+        {            
+            for(int i=0;i<_clientBusinessComponent.Count();i++)
+            { 
+                Client client = _clientBusinessComponent.GetByID(i);
+                ClientListBox.Items.Add(client.Name+" "+client.LastName+" "+client.Patronymic);                
+            }
+            
+            TimeListBox.Items.Add("");
+            CreditListBox.Items.Add("");
         }
 
     }
