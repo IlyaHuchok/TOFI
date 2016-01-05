@@ -42,7 +42,8 @@ namespace BankPresentation
 
         private void FieldToPay_TextChanged(object sender, TextChangedEventArgs e)
         {
-            LeftToPay.Text = (Convert.ToInt32(RepaymentFieldAmountOfPaymentPerMonth.Text) - Convert.ToInt32(FieldToPay.Text)).ToString();
+
+           // FieldDebt.Text = 
         }
 
         private void RepaymentSearch_Click(object sender, RoutedEventArgs e)
@@ -53,7 +54,7 @@ namespace BankPresentation
                 if (req.Client.PassportNo == RepaymentFieldPassportNo.Text)
                 {
                     RepaymentFieldName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
-                    RepaymentFieldAmountOfPaymentPerMonth.Text = req.Credit.AmountOfPaymentPerMonth.ToString();
+                    RepaymentFieldToRepayTheLoan.Text = (req.Credit.AmountOfPaymentPerMonth*req.CreditType.TimeMonths + Convert.ToInt32(FieldDebt.Text)).ToString();
                     CreditAmount.Text = req.AmountOfCredit.ToString();
                 }
             }
@@ -87,13 +88,6 @@ namespace BankPresentation
             }
         }
 
-        private void Details_Click(object sender, RoutedEventArgs e)//?
-        {
-            MessageBox.Show("Name: N " + Environment.NewLine +
-                            "Birthday B" + Environment.NewLine +
-                            "...");
-        }
-
         private void CreditSearch_Click(object sender, RoutedEventArgs e)
         {
             IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.Created);
@@ -121,18 +115,18 @@ namespace BankPresentation
                     CreditAmount.Text = "";
                     RepaymentFieldPassportNo.Text = "";
                     RepaymentFieldName.Text = "";
-                    RepaymentFieldAmountOfPaymentPerMonth.Text = "";
+                    RepaymentFieldToRepayTheLoan.Text = "";
                     FieldToPay.Text = "";
-                    LeftToPay.Text = "";
+                    FieldDebt.Text = "";
                 }
                 if (TabCredit.IsSelected)
                 {
                     listView.Items.Clear();
                     RepaymentFieldPassportNo.Text = "";
                     RepaymentFieldName.Text = "";
-                    RepaymentFieldAmountOfPaymentPerMonth.Text = "";
+                    RepaymentFieldToRepayTheLoan.Text = "";
                     FieldToPay.Text = "";
-                    LeftToPay.Text = "";
+                    FieldDebt.Text = "";
                 }
                 if(TabRepayment.IsSelected)
                 {
