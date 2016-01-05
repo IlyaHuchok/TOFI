@@ -37,6 +37,7 @@ namespace BankPresentation
             _operatorId = operatorId;
 
             InitializeComponent();
+            
         }
 
         private void FieldToPay_TextChanged(object sender, TextChangedEventArgs e)
