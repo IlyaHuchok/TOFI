@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using Entities;
 using Entities.Enums;
 using BankBL.Interfaces;
-
+using System.Collections.ObjectModel;
 namespace BankPresentation
 {
     /// <summary>
@@ -23,6 +23,8 @@ namespace BankPresentation
     /// </summary>
     public partial class OperatorWindow : Window
     {
+        private ObservableCollection<ClientAmountCredit> dataList = new ObservableCollection<ClientAmountCredit>();
+        private ObservableCollection<ContractNoCreditType> dataList1 = new ObservableCollection<ContractNoCreditType>();
         private readonly int _operatorId;
         private readonly IClientBusinessComponent _clientBusinessComponent;
         private readonly IRequestBusinessComponent _requestBusinessComponent;
@@ -37,13 +39,9 @@ namespace BankPresentation
             _operatorId = operatorId;
 
             InitializeComponent();
+            listView.ItemsSource = dataList;
+            listView1.ItemsSource = dataList1;
             
-        }
-
-        private void FieldToPay_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-           // FieldDebt.Text = 
         }
 
         private void RepaymentSearch_Click(object sender, RoutedEventArgs e)
@@ -53,9 +51,25 @@ namespace BankPresentation
             {
                 if (req.Client.PassportNo == RepaymentFieldPassportNo.Text)
                 {
-                    RepaymentFieldName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
-                    RepaymentFieldToRepayTheLoan.Text = (req.Credit.AmountOfPaymentPerMonth*req.CreditType.TimeMonths + Convert.ToInt32(FieldDebt.Text)).ToString();
-                    CreditAmount.Text = req.AmountOfCredit.ToString();
+                    dataList1.Add(new ContractNoCreditType() { ContractNO = req.Credit.ContractNo.ToString(), CreditType = req.CreditType.Name});
+                }
+            }
+        }
+        private void RepaymentOpen_Click(object sender, RoutedEventArgs e)
+        {
+            if (listView1.SelectedItem == null)
+                MessageBox.Show("Сhoose ContractNo please");
+            else {
+                IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.CreditProvided);
+                foreach (var req in request)
+                {
+                    ContractNoCreditType cnct = (ContractNoCreditType)listView1.SelectedItem;
+                    if ((req.Client.PassportNo == RepaymentFieldPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.ContractNo))
+                    {
+                        RepaymentFieldName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
+                        FieldDebt.Text = req.Credit.Debt.ToString();
+                        RepaymentFieldToRepayTheLoan.Text = (req.Credit.AmountOfPaymentPerMonth * req.CreditType.TimeMonths + Convert.ToInt32(FieldDebt.Text)).ToString();
+                    }
                 }
             }
         }
@@ -108,6 +122,7 @@ namespace BankPresentation
             {
                 if(TabCreditList.IsSelected)
                 {
+                    dataList1.Clear();
                     FillListView();
                     CreditFieldCreditId.Text = "";
                     CreditFieldName.Text = "";
@@ -121,7 +136,8 @@ namespace BankPresentation
                 }
                 if (TabCredit.IsSelected)
                 {
-                    listView.Items.Clear();
+                    dataList.Clear();
+                    dataList1.Clear();
                     RepaymentFieldPassportNo.Text = "";
                     RepaymentFieldName.Text = "";
                     RepaymentFieldToRepayTheLoan.Text = "";
@@ -130,7 +146,7 @@ namespace BankPresentation
                 }
                 if(TabRepayment.IsSelected)
                 {
-                    listView.Items.Clear();
+                    dataList.Clear();
                     FillListView();
                     CreditFieldCreditId.Text = "";
                     CreditFieldName.Text = "";
@@ -146,7 +162,7 @@ namespace BankPresentation
             foreach (var req in request)
             {
                 //Client client = _clientBusinessComponent.GetByID(req.ClientId);
-                listView.Items.Add(new ClientAmountCredit()
+                dataList.Add(new ClientAmountCredit()
                 {
                     CreditId = req.Credit.CreditId,
                     PassportNo = req.Client.PassportNo,
@@ -155,5 +171,7 @@ namespace BankPresentation
                 });
             }
         }
+
+        
     }
 }
