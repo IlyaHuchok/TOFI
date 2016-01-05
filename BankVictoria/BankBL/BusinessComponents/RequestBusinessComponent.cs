@@ -30,6 +30,15 @@ namespace BankBL.BusinessComponents
         {
             return _unitOfWork.RequestRepository.GetAll(x => x.Status != status);
         }
-        
+
+        public void Update(int? OperatorId, int? SecurityServiceEmployeeId, RequestStatus status)
+        {
+            var q = _unitOfWork.RequestRepository.GetSingle(x => x.ClientId == 1);
+            q.OperatorId = OperatorId;
+            q.SecurityServiceEmployeeId = SecurityServiceEmployeeId;
+            q.Status = status;
+            _unitOfWork.RequestRepository.Update(q);
+            _unitOfWork.Save();
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace BankPresentation
 {
     public class ClientAmountCredit
     {
+        public int CreditId { get; set; }
         public string PassportNo { get; set; }
         public string Amount { get; set; }
         public string Credit { get; set; }
