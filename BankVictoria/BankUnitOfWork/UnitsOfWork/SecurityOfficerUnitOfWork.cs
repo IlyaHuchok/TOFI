@@ -16,6 +16,7 @@ namespace BankUnitOfWork.UnitsOfWork
         private IUserRepository _userRepository;
         private IClientRepository _clientRepository;
         private IRequestRepository _requestRepository;
+        private ICreditRepository _creditRepository;
 
         public SecurityOfficerUnitOfWork(IKernel kernel) : base(kernel) { }
 
@@ -49,12 +50,25 @@ namespace BankUnitOfWork.UnitsOfWork
         {
             get
             {
-                if (_clientRepository == null)
+                if (_requestRepository == null)
                 {
-                    _clientRepository = _ninjectKernel.Get<IClientRepository>(new ConstructorArgument("context", GetContext()));
+                    _requestRepository = _ninjectKernel.Get<IRequestRepository>(new ConstructorArgument("context", GetContext()));
                 }
 
                 return _requestRepository;
+            }
+        }
+
+        public ICreditRepository CreditRepository
+        {
+            get
+            {
+                if (_creditRepository == null)
+                {
+                    _creditRepository = _ninjectKernel.Get<ICreditRepository>(new ConstructorArgument("context", GetContext()));
+                }
+
+                return _creditRepository;
             }
         }
     }

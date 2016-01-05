@@ -54,6 +54,7 @@
     <Compile Include="Client.cs" />
     <Compile Include="Credit.cs" />
     <Compile Include="CreditType.cs" />
+    <Compile Include="Enums\RequestStatus.cs" />
     <Compile Include="Enums\UserRole.cs" />
     <Compile Include="Payment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -8,7 +8,7 @@ using Entities;
 
 namespace BankDAL.Interfaces
 {
-    public interface IRequestStatusRepository : IGenericDataRepository<RequestStatus>
-    {
-    }
+    //public interface IRequestStatusRepository : IGenericDataRepository<RequestStatus>
+    //{
+    //}
 }

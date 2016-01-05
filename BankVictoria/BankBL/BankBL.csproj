@@ -40,8 +40,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessComponents\ClientBusinessComponent.cs" />
+    <Compile Include="BusinessComponents\SecurityOfficerBusinessComponent.cs" />
     <Compile Include="BusinessComponents\UserBusinessComponent.cs" />
+    <Compile Include="Entities\CreditSummary.cs" />
     <Compile Include="Interfaces\IClientBusinessComponent.cs" />
+    <Compile Include="Interfaces\ISecurityOfficerBusinessComponent.cs" />
     <Compile Include="Interfaces\IUserBusinessComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

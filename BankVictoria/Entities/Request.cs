@@ -21,7 +21,7 @@ namespace Entities
         public RequestStatus/*string*/ Status { get; set; } 
         public decimal AmountOfCredit { get; set; }
         public decimal Salary { get; set; }
-
+        public string Note { get; set; }
         //public string Pledge { get; set; } 
         //public string Guarantee { get; set; }
 

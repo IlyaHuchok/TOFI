@@ -58,8 +58,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ClientDetailsWindow.xaml.cs">
+      <DependentUpon>ClientDetailsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ClientWindow.xaml.cs">
       <DependentUpon>ClientWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CreditTypesWindow.xaml.cs">
+      <DependentUpon>CreditTypesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="OperatorWindow.xaml.cs">
       <DependentUpon>OperatorWindow.xaml</DependentUpon>
@@ -76,7 +82,15 @@
     <Compile Include="Validation\ClientValidation.cs" />
     <Compile Include="Validation\UserValidation.cs" />
     <Compile Include="Validation\ValidationResult.cs" />
+    <Page Include="ClientDetailsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ClientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CreditTypesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -45,7 +45,7 @@ namespace ConsoleApplication1
                 context.SaveChanges();
                 // CLEARS ALL DATA !!!
 
-                var statusRepo = new RequestStatusRepository(context);
+                //var statusRepo = new RequestStatusRepository(context);
                 //var statusCreated = new RequestStatus { Status = "Created" };
                 //var statusConfirmedByOperator = new RequestStatus { Status = "statusConfirmedByOperator" };
                 //var statusConfirmedBySse = new RequestStatus { Status = "statusConfirmedBySecurityServiceEmployee" };

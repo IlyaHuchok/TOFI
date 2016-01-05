@@ -16,7 +16,9 @@ namespace BankBL.Interfaces
         IEnumerable<Request> GetAllRequests();
         IEnumerable<Request> GetRequestsByClientLastname(string lastnameSubstring, int numberOfRequests, int startingIndex = 0);
         IEnumerable<Request> GetAllRequestsByClientLastname(string lastnameSubstring);
-        IEnumerable<CreditSummary> GetClientCreditHistoryFull(int clientId);
-        IEnumerable<CreditSummary> GetClientCreditHistory(int clientId, int numberOfRecords, int startingIndex = 0);
+        IEnumerable<Credit> GetClientCreditHistoryFull(int clientId);
+        IEnumerable<Credit> GetClientCreditHistory(int clientId, int numberOfRecords, int startingIndex = 0);
+        void AcceptRequest(Request request);
+        void RejectRequest(Request request, string reason = null);
     }
 }

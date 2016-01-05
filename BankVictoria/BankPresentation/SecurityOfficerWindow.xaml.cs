@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 
 using BankBL.Interfaces;
 
+using Entities;
+
 using Ninject;
 
 namespace BankPresentation
@@ -30,18 +32,25 @@ namespace BankPresentation
 
         private int loadedRecordsCount = 0;
 
+        private List<Request> _requestList;
         public SecurityOfficerWindow(IKernel ninjectKernel, ISecurityOfficerBusinessComponent securityOfficerBusinessComponent)
         {
             this._ninjectKernel = ninjectKernel;
             this._securityOfficerBusinessComponent = securityOfficerBusinessComponent;
 
             InitializeComponent();
-
+            
             ButtonNextRequests.IsEnabled = false;
             ButtonPreviousRequests.IsEnabled = false;
+            CreditHistoryButton.IsEnabled = false;
+            ClientDetailsButton.IsEnabled = false;
+            RejectButton.IsEnabled = false;
+            AcceptButton.IsEnabled = false;
 
             RequestsDataGrid.SelectionMode = DataGridSelectionMode.Single;
-            RequestsDataGrid.ItemsSource = _securityOfficerBusinessComponent.GetAllRequests();
+
+            _requestList = _securityOfficerBusinessComponent.GetAllRequests().ToList();
+            RequestsDataGrid.ItemsSource = _requestList;
         }
 
         private void button_Back_Click(object sender, RoutedEventArgs e)
@@ -52,6 +61,30 @@ namespace BankPresentation
         private void button_Next_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void RequestsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void AcceptButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RejectButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ClientDetailsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CreditHistoryButton_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

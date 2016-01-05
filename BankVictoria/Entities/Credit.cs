@@ -21,6 +21,7 @@ namespace Entities
         public DateTime StartDate { get; set; }
         // are all paiments for the credit finished??
         public bool IsRepaid { get; set; }
+        public bool HasDelays { get; set; }
         //  public int Fine { get; set; } 
 
         public virtual Account Account { get; set; }

@@ -10,11 +10,11 @@ using BankDomainModel;
 
 namespace BankDAL.Repositories
 {
-    public class RequestStatusRepository : GenericDataRepository<RequestStatus, BankDbContext>, IRequestStatusRepository
-    {
-        public RequestStatusRepository(BankDbContext context)
-            : base(context)
-        {
-        }
-    }
+    //public class RequestStatusRepository : GenericDataRepository<RequestStatus, BankDbContext>, IRequestStatusRepository
+    //{
+    //    public RequestStatusRepository(BankDbContext context)
+    //        : base(context)
+    //    {
+    //    }
+    //}
 }
