@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using BankBL.Interfaces;
+
+using Ninject;
+
 namespace BankPresentation
 {
     /// <summary>
@@ -19,15 +23,32 @@ namespace BankPresentation
     /// </summary>
     public partial class SecurityOfficerWindow : Window
     {
-        public SecurityOfficerWindow()
+        private readonly ISecurityOfficerBusinessComponent _securityOfficerBusinessComponent;
+        private readonly IKernel _ninjectKernel;
+
+        private const int RecordsPerPage = 1000;
+
+        private int loadedRecordsCount = 0;
+
+        public SecurityOfficerWindow(IKernel ninjectKernel, ISecurityOfficerBusinessComponent securityOfficerBusinessComponent)
         {
+            this._ninjectKernel = ninjectKernel;
+            this._securityOfficerBusinessComponent = securityOfficerBusinessComponent;
+
             InitializeComponent();
+
+            ButtonNextRequests.IsEnabled = false;
+            ButtonPreviousRequests.IsEnabled = false;
+
+            RequestsDataGrid.SelectionMode = DataGridSelectionMode.Single;
+            RequestsDataGrid.ItemsSource = _securityOfficerBusinessComponent.GetAllRequests();
         }
 
         private void button_Back_Click(object sender, RoutedEventArgs e)
         {
 
         }
+
         private void button_Next_Click(object sender, RoutedEventArgs e)
         {
 
