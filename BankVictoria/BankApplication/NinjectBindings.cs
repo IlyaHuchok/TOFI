@@ -30,7 +30,7 @@ namespace BankApplication
       Bind<ICreditTypeRepository>().To<CreditTypeRepository>();
       Bind<IPaymentRepository>().To<PaymentRepository>();
       Bind<IRequestRepository>().To<RequestRepository>();
-      Bind<IRequestStatusRepository>().To<RequestStatusRepository>();
+   ///   Bind<IRequestStatusRepository>().To<RequestStatusRepository>();
       Bind<IUserRepository>().To<UserRepository>();
       Bind<IAccountRepository>().To<AccountRepository>();
 

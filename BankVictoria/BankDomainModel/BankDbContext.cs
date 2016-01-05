@@ -23,7 +23,7 @@ namespace BankDomainModel
         public DbSet<Payment> Payments { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<RequestStatus> RequestStatuses { get; set; }
+        //public DbSet<RequestStatus> RequestStatuses { get; set; }
 
       protected override void OnModelCreating(DbModelBuilder modelBuilder)
       {

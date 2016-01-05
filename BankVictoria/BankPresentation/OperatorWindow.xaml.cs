@@ -77,10 +77,15 @@ namespace BankPresentation
 
         private void Reject_Click(object sender, RoutedEventArgs e)
         {
-
+            //поставить статус отклонено
         }
 
         private void Request_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

@@ -14,7 +14,7 @@ namespace Entities
         public int ClientId { get; set; }
         public int? OperatorId { get; set; }
         public int? SecurityServiceEmployeeId { get; set; }
-        public int RequestStatusId { get; set; }
+     //   public int RequestStatusId { get; set; }
         public int CreditTypeId { get; set; }
         public RequestStatus Status { get; set; } 
         public decimal AmountOfCredit { get; set; }

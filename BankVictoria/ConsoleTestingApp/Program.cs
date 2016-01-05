@@ -40,24 +40,24 @@ namespace ConsoleApplication1
                 context.CreditTypes.RemoveRange(context.CreditTypes);
                 context.Payments.RemoveRange(context.Payments);
                 context.Requests.RemoveRange(context.Requests);
-                context.RequestStatuses.RemoveRange(context.RequestStatuses);
+             //   context.RequestStatuses.RemoveRange(context.RequestStatuses);
                 context.Users.RemoveRange(context.Users);
                 context.SaveChanges();
                 // CLEARS ALL DATA !!!
 
-                var statusRepo = new RequestStatusRepository(context);
-                var statusCreated = new RequestStatus { Status = "Created" };
-                var statusConfirmedByOperator = new RequestStatus { Status = "statusConfirmedByOperator" };
-                var statusConfirmedBySse = new RequestStatus { Status = "statusConfirmedBySecurityServiceEmployee" };
+//                var statusRepo = new RequestStatusRepository(context);
+ //               var statusCreated = new RequestStatus { Status = "Created" };
+   //             var statusConfirmedByOperator = new RequestStatus { Status = "statusConfirmedByOperator" };
+     //           var statusConfirmedBySse = new RequestStatus { Status = "statusConfirmedBySecurityServiceEmployee" };
                 //var statusConfirmed = new RequestStatus { Status = "ConfirmedBy" };
-                var statusCreditProvided = new RequestStatus { Status = "statusCreditProvided" };
-                var statusDenied = new RequestStatus { Status = "Denied" };
-                statusRepo.Add(statusCreated, statusConfirmedByOperator, statusConfirmedByOperator, statusCreditProvided,statusDenied);
+       //         var statusCreditProvided = new RequestStatus { Status = "statusCreditProvided" };
+         //       var statusDenied = new RequestStatus { Status = "Denied" };
+           //     statusRepo.Add(statusCreated, statusConfirmedByOperator, statusConfirmedByOperator, statusCreditProvided,statusDenied);
 
-                context.SaveChanges();
-                var confirmedByOperatorStatusId = statusCreditProvided.RequestStatusId;
-                var createdStatusId = statusCreated.RequestStatusId;
-                var deinedStatusId = statusDenied.RequestStatusId;
+             //   context.SaveChanges();
+    //            var confirmedByOperatorStatusId = statusCreditProvided.RequestStatusId;
+   //             var createdStatusId = statusCreated.RequestStatusId;
+   //             var deinedStatusId = statusDenied.RequestStatusId;
 
                 var creditShort = new CreditType
                 {
@@ -216,7 +216,8 @@ namespace ConsoleApplication1
                 var request1client1 = new Request
                 {
                     ClientId = client1Info.ClientId,
-                    RequestStatusId = createdStatusId,
+                    //RequestStatusId = createdStatusId,
+                    Status = RequestStatus.Created,
                     CreditTypeId = creditEasyId,
                     AmountOfCredit = 1000,
                     Salary = 500
@@ -225,7 +226,8 @@ namespace ConsoleApplication1
                 var request2client1 = new Request
                 {
                     ClientId = client1Info.ClientId,
-                    RequestStatusId = createdStatusId,
+                    //RequestStatusId = createdStatusId,
+                    Status = RequestStatus.Created,
                     OperatorId = operator1.UserId,
                     CreditTypeId = creditMediumId,
                     AmountOfCredit = 1200,
@@ -235,7 +237,8 @@ namespace ConsoleApplication1
                 var request3client1 = new Request
                 {
                     ClientId = client1Info.ClientId,
-                    RequestStatusId = confirmedByOperatorStatusId,
+                    //RequestStatusId = confirmedByOperatorStatusId,
+                    Status = RequestStatus.ConfirmedByOperator,
                     OperatorId = operator1.UserId,
                     CreditTypeId = creditLongId,
                     AmountOfCredit = 1000,
@@ -290,9 +293,9 @@ namespace ConsoleApplication1
                 };
                 //var credit
 
-                var test = context.RequestStatuses.Where(x => x.Status.Contains("Created")).FirstOrDefault();
-                context.RequestStatuses.Add(new RequestStatus { Status = "Created" });
-                context.SaveChanges();
+                var test = context.Requests.Where(x => x.Status == RequestStatus.Created).FirstOrDefault();
+               // context.RequestStatuses.Add(new RequestStatus { Status = "Created" });
+               // context.SaveChanges();
             }
         }
     }
