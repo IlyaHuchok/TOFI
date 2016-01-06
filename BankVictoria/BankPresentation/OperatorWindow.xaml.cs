@@ -68,7 +68,7 @@ namespace BankPresentation
                     if ((req.Client.PassportNo == RepaymentFieldPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.CreditId)) // CreditId==ContrqctNo
                     {
                         RepaymentFieldName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
-                        FieldDebt.Text = req.Credit.Debt.ToString();//это как-то считаться должно 
+                        FieldDebt.Text = req.Credit.PaidForFine.ToString();//req.Credit.Debt.ToString();//это как-то считаться должно 
                         RepaymentFieldToRepayTheLoan.Text = (req.Credit.AmountOfPaymentPerMonth * req.CreditType.TimeMonths + Convert.ToInt32(FieldDebt.Text)).ToString();
                     }
                 }
@@ -92,7 +92,7 @@ namespace BankPresentation
                         System.TimeSpan ts = now - creditStart;
                         int Mounths = ts.Days / 30;
                         standartAlreadyPaid = Mounths * req.Credit.AmountOfPaymentPerMonth;
-                        allreadyPaid = req.Credit.AllreadyPaid;
+                        allreadyPaid = req.Credit.AllreadyPaid;//???
                         if(allreadyPaid > standartAlreadyPaid)//мы переплатили и DateItWasDelay должен улететь вверх
                         {
                             double i = 0.0;//за сколько месяцев мы заплптили

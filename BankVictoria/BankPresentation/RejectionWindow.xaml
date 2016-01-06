@@ -1,0 +1,13 @@
+﻿<Window x:Class="BankPresentation.RejectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Rejection Confirmation" Height="204.942" Width="335.294">
+  <Grid>
+    <Button x:Name="Reject" Content="Yes" HorizontalAlignment="Left" Margin="47,141,0,0" VerticalAlignment="Top" Width="75" Click="Reject_Click"/>
+    <Button x:Name="Cancel" Content="No" HorizontalAlignment="Left" Margin="191,141,0,0" VerticalAlignment="Top" Width="75" Click="Cancel_Click"/>
+    <TextBox x:Name ="RejectionReasonTextbox" HorizontalAlignment="Left" Height="53" Margin="30,83,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
+    <Label Content="Are you sure you want to reject request?" HorizontalAlignment="Center" Height="25" Margin="30,10,29,0" VerticalAlignment="Top" Width="268" FontSize="13" FontWeight="Bold"/>
+    <Label Content="Rejection Reason" HorizontalAlignment="Left" Height="26" Margin="30,52,0,0" VerticalAlignment="Top" Width="268"/>
+
+  </Grid>
+</Window>

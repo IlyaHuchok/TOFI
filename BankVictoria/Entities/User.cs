@@ -15,7 +15,7 @@ namespace Entities
         public string Login { get; set; }
         public string Password { get; set; }
         public UserRole Role { get; set; }
-
+        public bool? IsActive { get; set; }
         public virtual ICollection<Request> Requests { get; set; }
         // public virtual ICollection<Client> Clients { get; set; } ??
     }

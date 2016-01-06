@@ -30,14 +30,15 @@ namespace BankApplication
       Bind<ICreditTypeRepository>().To<CreditTypeRepository>();
       Bind<IPaymentRepository>().To<PaymentRepository>();
       Bind<IRequestRepository>().To<RequestRepository>();
-   ///   Bind<IRequestStatusRepository>().To<RequestStatusRepository>();
+      //Bind<IRequestStatusRepository>().To<RequestStatusRepository>();
       Bind<IUserRepository>().To<UserRepository>();
-      Bind<IAccountRepository>().To<AccountRepository>();
 
       Bind<IUserUnitOfWork>().To<UserUnitOfWork>();
       Bind<IUserBusinessComponent>().To<UserBusinessComponent>();
       Bind<IClientUnitOfWork>().To<ClientUnitOfWork>();
       Bind<IClientBusinessComponent>().To<ClientBusinessComponent>();
+      Bind<ISecurityOfficerUnitOfWork>().To<SecurityOfficerUnitOfWork>();
+      Bind<ISecurityOfficerBusinessComponent>().To<SecurityOfficerBusinessComponent>();
       //ADD ALLL BINDING HERE
     }
   }

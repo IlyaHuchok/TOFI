@@ -15,22 +15,13 @@ using System.Windows.Shapes;
 namespace BankPresentation
 {
     /// <summary>
-    /// Логика взаимодействия для SecurityOfficerWindow.xaml
+    /// Interaction logic for CreditTypesWindow.xaml
     /// </summary>
-    public partial class SecurityOfficerWindow : Window
+    public partial class CreditTypesWindow : Window
     {
-        public SecurityOfficerWindow()
+        public CreditTypesWindow()
         {
             InitializeComponent();
-        }
-
-        private void button_Back_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void button_Next_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

@@ -13,5 +13,6 @@ namespace BankBL.Interfaces
         UserRole? Login(string name, string pass);
         int Add(string name, string pass, UserRole userRole);
         bool Exists(string name, string pass);
+        int GetIdByLogin(string name);
     }
 }
