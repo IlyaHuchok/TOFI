@@ -32,7 +32,6 @@ namespace BankApplication
       Bind<IRequestRepository>().To<RequestRepository>();
       //Bind<IRequestStatusRepository>().To<RequestStatusRepository>();
       Bind<IUserRepository>().To<UserRepository>();
-      Bind<IAccountRepository>().To<AccountRepository>();
 
       Bind<IUserUnitOfWork>().To<UserUnitOfWork>();
       Bind<IUserBusinessComponent>().To<UserBusinessComponent>();

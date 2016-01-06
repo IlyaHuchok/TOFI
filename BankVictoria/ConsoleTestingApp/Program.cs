@@ -283,6 +283,9 @@ namespace ConsoleApplication1
                     AmountOfPaymentPerMonth = creditMedium.PercentPerYear/12,
                     StartDate = DateTime.Now.AddDays(-(30*4+5)),
                     IsRepaid = false,
+                    HasDelays = false,
+                    CountFineFromThisDate = DateTime.UtcNow.AddDays(30), //!!! hard-coded!!!
+                    PaidForFine = 0
                 };
                 request2client1.Credit = credit1Client1; // IMPORTANT do this for 1-1 relationship (exception otherwise)
 

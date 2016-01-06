@@ -49,6 +49,12 @@ namespace BankBL.BusinessComponents
 
             return userToAdd.UserId;
         }
+
+        public int GetIdByLogin(string name)
+        {
+            var id = _unitOfWork.UserRepository.GetSingle(x => x.Login == name).UserId;
+            return id;
+        }
         /// TODO: Add remaining methods here
     }
 }

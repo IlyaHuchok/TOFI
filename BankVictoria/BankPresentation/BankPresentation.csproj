@@ -58,6 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ClientCreditHistoryWindow.xaml.cs">
+      <DependentUpon>ClientCreditHistoryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ClientDetailsWindow.xaml.cs">
       <DependentUpon>ClientDetailsWindow.xaml</DependentUpon>
     </Compile>
@@ -76,23 +79,30 @@
     <Compile Include="AdministratorWindow.xaml.cs">
       <DependentUpon>AdministratorWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SecurityOfficerWindow.xaml.cs">
-      <DependentUpon>SecurityOfficerWindow.xaml</DependentUpon>
+    <Compile Include="RejectionWindow.xaml.cs">
+      <DependentUpon>RejectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SecurityOfficerPage.xaml.cs">
+      <DependentUpon>SecurityOfficerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Validation\ClientValidation.cs" />
     <Compile Include="Validation\UserValidation.cs" />
     <Compile Include="Validation\ValidationResult.cs" />
-    <Page Include="ClientDetailsWindow.xaml">
+    <Page Include="ClientCreditHistoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientDetailsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ClientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CreditTypesWindow.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -122,7 +132,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SecurityOfficerWindow.xaml">
+    <Page Include="RejectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SecurityOfficerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

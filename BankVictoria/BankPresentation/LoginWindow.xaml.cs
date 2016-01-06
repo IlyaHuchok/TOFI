@@ -67,7 +67,7 @@ namespace BankPresentation
       var loginResult = _userBusinessComponent.Login(username, password);
       if (loginResult != null)
       {
-          this.SetPage(loginResult.Value);
+          this.SetPage(loginResult.Value, username);
       }
       else
       {
@@ -83,8 +83,10 @@ namespace BankPresentation
       }
     }
 
-    private void SetPage(UserRole role)
+    private void SetPage(UserRole role, string username)
     {
+        var userId = _userBusinessComponent.GetIdByLogin(username);
+        this.SizeToContent = SizeToContent.WidthAndHeight;
         switch (role)
         {
             case UserRole.Admin:
@@ -97,7 +99,7 @@ namespace BankPresentation
                 this.Content = _ninjectKernel.Get<OperatorWindow>();
                 break;
             case UserRole.SecurityServiceEmployee:
-                this.Content = _ninjectKernel.Get<SecurityOfficerWindow>();
+                this.Content = _ninjectKernel.Get<SecurityOfficerPage>(new ConstructorArgument("userId", userId));
                 break;
         }     
     }
