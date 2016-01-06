@@ -23,7 +23,7 @@ namespace BankPresentation
     /// </summary>
     public partial class OperatorWindow : Window
     {
-        private ObservableCollection<ClientAmountCredit> dataList = new ObservableCollection<ClientAmountCredit>();
+        private ObservableCollection<OperatorRequestListClass> dataList = new ObservableCollection<OperatorRequestListClass>();
         private ObservableCollection<ContractNoCreditType> dataList1 = new ObservableCollection<ContractNoCreditType>();
         private readonly int _operatorId;
         private readonly IClientBusinessComponent _clientBusinessComponent;
@@ -39,7 +39,7 @@ namespace BankPresentation
             _operatorId = operatorId;
 
             InitializeComponent();
-            listView.ItemsSource = dataList;
+            RequestListView.ItemsSource = dataList;
             listView1.ItemsSource = dataList1;
             
         }
@@ -51,7 +51,7 @@ namespace BankPresentation
             {
                 if (req.Client.PassportNo == RepaymentFieldPassportNo.Text)
                 {
-                    dataList1.Add(new ContractNoCreditType() { ContractNO = req.Credit.ContractNo.ToString(), CreditType = req.CreditType.Name});
+                    dataList1.Add(new ContractNoCreditType() { ContractNO = req.Credit.CreditId.ToString(), CreditType = req.CreditType.Name});
                 }
             }
         }
@@ -65,55 +65,108 @@ namespace BankPresentation
                 foreach (var req in request)
                 {
                     ContractNoCreditType cnct = (ContractNoCreditType)listView1.SelectedItem;
-                    if ((req.Client.PassportNo == RepaymentFieldPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.ContractNo))
+                    if ((req.Client.PassportNo == RepaymentFieldPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.CreditId)) // CreditId==ContrqctNo
                     {
                         RepaymentFieldName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
-                        FieldDebt.Text = req.Credit.Debt.ToString();//это как-то считаться должно ?
+                        FieldDebt.Text = req.Credit.Debt.ToString();//это как-то считаться должно 
                         RepaymentFieldToRepayTheLoan.Text = (req.Credit.AmountOfPaymentPerMonth * req.CreditType.TimeMonths + Convert.ToInt32(FieldDebt.Text)).ToString();
                     }
                 }
             }
         }
-        private void CreateNewDebt()
+        private void CountUpNewDebt()
         {
-            decimal StandartAlreadyPaid;
+            decimal standartAlreadyPaid;
+            decimal allreadyPaid;
+            if (listView1.SelectedItem == null)
+                MessageBox.Show("Сhoose ContractNo please");
+            else {
+                IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.CreditProvided);
+                foreach (var req in request)
+                {
+                    ContractNoCreditType cnct = (ContractNoCreditType)listView1.SelectedItem;
+                    if ((req.Client.PassportNo == RepaymentFieldPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.CreditId))
+                    {
+                        DateTime creditStart = req.Credit.StartDate;
+                        DateTime now = DateTime.Now;
+                        System.TimeSpan ts = now - creditStart;
+                        int Mounths = ts.Days / 30;
+                        standartAlreadyPaid = Mounths * req.Credit.AmountOfPaymentPerMonth;
+                        allreadyPaid = req.Credit.AllreadyPaid;
+                        if(allreadyPaid > standartAlreadyPaid)//мы переплатили и DateItWasDelay должен улететь вверх
+                        {
+                            double i = 0.0;//за сколько месяцев мы заплптили
+                            while (allreadyPaid > standartAlreadyPaid)
+                            {
+                                
+                                if (allreadyPaid - standartAlreadyPaid >= req.Credit.AmountOfPaymentPerMonth)//переплатили больше чем на месяц
+                                {
+                                    allreadyPaid -= req.Credit.AmountOfPaymentPerMonth;  //смотрим насколько далеко улетит DateItWasDelay
+                                    i+= 1.0;
+                                }
+                                else
+                                {
+                                    allreadyPaid -= allreadyPaid - standartAlreadyPaid;//смотрим насколько далеко улетит DateItWasDelay
+                                    i = i + (double)((allreadyPaid - standartAlreadyPaid)/ req.Credit.AmountOfPaymentPerMonth); 
+                                }
+                            }
+                            int Days = (int)(i * 30);//на сколько дней вперед улетит DateItWasDelay
+                            TimeSpan ts2 = new TimeSpan(Days,0,0,0);
+                            //_creditBusinessComponent.GetByContractNo(contractNo).Update();     обновление DateItWasDelay
 
+                        }
+                        if (allreadyPaid < standartAlreadyPaid)//у нас есть долг
+                        {
+
+                        }
+                        if(allreadyPaid == standartAlreadyPaid)
+                        {
+
+                        }
+                    }
+                }
+            }
         }
 
         private void RepaymentSubmit_Click(object sender, RoutedEventArgs e)
         {
             Client client = _clientBusinessComponent.GetAll().Where(x=> x.PassportNo == RepaymentFieldPassportNo.Text).FirstOrDefault();
+            ContractNoCreditType cnct = (ContractNoCreditType)listView1.SelectedValue;
+            _paymentBusinessComponent.Add(
+                _operatorId,
+                client.Requests.Where(x =>x.Status == RequestStatus.CreditProvided && x.Credit.CreditId == Convert.ToInt32(cnct.ContractNO)).FirstOrDefault().Credit.CreditId,
+                Convert.ToDecimal(FieldToPay.Text),
+                DateTime.Now);
 
-            _paymentBusinessComponent.Add(_operatorId,
-                client.Requests.Where(x =>x.Status == RequestStatus.CreditProvided && x.Credit.CreditId == Convert.ToUInt32(CreditFieldCreditId.Text)).FirstOrDefault().Credit.CreditId,
-                client.Requests.Where(x=>x.Credit.CreditId == Convert.ToUInt32(CreditFieldCreditId.Text)).FirstOrDefault().Credit.ContractNo,
-                Convert.ToDecimal(FieldToPay.Text),DateTime.Now);
+            //добавить взаимодействие с Credit (погашение додга? увеличение AllreadyPaid)
         }             
 
-        private void Request_Click(object sender, RoutedEventArgs e)
+        private void RequestSendRequest_Click(object sender, RoutedEventArgs e)
         {
             IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.Created);
             foreach (var req in request)
             {
-                _requestBusinessComponent.Update(_operatorId, null, RequestStatus.ConfirmedByOperator);
+                if(req.RequestId == Convert.ToInt32(RequestRequestId.Text))
+                    _requestBusinessComponent.Update(req.ClientId, _operatorId, null, RequestStatus.ConfirmedByOperator);
             }
         }
 
-        private void Reject_Click(object sender, RoutedEventArgs e)
+        private void RequestReject_Click(object sender, RoutedEventArgs e)
         {
             IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.Created);
             foreach (var req in request)
             {
-                _requestBusinessComponent.Update(_operatorId, null, RequestStatus.Denied);
+                if (req.RequestId== Convert.ToInt32(RequestRequestId.Text))
+                    _requestBusinessComponent.Update(req.ClientId, _operatorId, null, RequestStatus.Denied);
             }
         }
 
-        private void CreditSearch_Click(object sender, RoutedEventArgs e)
+        private void RequestSearch_Click(object sender, RoutedEventArgs e)
         {
             IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.Created);
             foreach (var req in request)
             {
-                if (req.Credit.CreditId == Convert.ToUInt32(CreditFieldCreditId.Text))
+                if (req.RequestId == Convert.ToUInt32(RequestRequestId.Text))
                 {
                     CreditFieldName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
                     CreditTypeField.Text = req.CreditType.Name;
@@ -126,11 +179,11 @@ namespace BankPresentation
         {
             if(e.Source is TabControl)
             {
-                if(TabCreditList.IsSelected)
+                if(TabRequestList.IsSelected)
                 {
                     dataList1.Clear();
                     FillListView();
-                    CreditFieldCreditId.Text = "";
+                    RequestRequestId.Text = "";
                     CreditFieldName.Text = "";
                     CreditTypeField.Text = "";
                     CreditAmount.Text = "";
@@ -140,7 +193,7 @@ namespace BankPresentation
                     FieldToPay.Text = "";
                     FieldDebt.Text = "";
                 }
-                if (TabCredit.IsSelected)
+                if (TabRequest.IsSelected)
                 {
                     dataList.Clear();
                     dataList1.Clear();
@@ -154,7 +207,7 @@ namespace BankPresentation
                 {
                     dataList.Clear();
                     FillListView();
-                    CreditFieldCreditId.Text = "";
+                    RequestRequestId.Text = "";
                     CreditFieldName.Text = "";
                     CreditTypeField.Text = "";
                     CreditAmount.Text = "";
@@ -168,9 +221,9 @@ namespace BankPresentation
             foreach (var req in request)
             {
                 //Client client = _clientBusinessComponent.GetByID(req.ClientId);
-                dataList.Add(new ClientAmountCredit()
+                dataList.Add(new OperatorRequestListClass()
                 {
-                    CreditId = req.Credit.CreditId,
+                    RequestId = req.RequestId,
                     PassportNo = req.Client.PassportNo,
                     Amount = req.AmountOfCredit.ToString(),
                     Credit = req.CreditType.Name

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BankPresentation
 {
-    public class ClientAmountCredit
+    public class OperatorRequestListClass
     {
-        public int CreditId { get; set; }
+        public int RequestId { get; set; }
         public string PassportNo { get; set; }
         public string Amount { get; set; }
         public string Credit { get; set; }

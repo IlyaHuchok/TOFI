@@ -17,13 +17,13 @@ namespace BankBL.BusinessComponents
     {
         public PaymentBusinessComponent(IPaymentUnitOfWork unitOfWork) : base(unitOfWork) { }
 
-        public int Add(int operatorId, int creditId, int contractNo, decimal amount, DateTime date)
+        public int Add(int operatorId, int creditId/*, int contractNo*/, decimal amount, DateTime date)
         {
             var paymentToAdd = new Payment
             {
                 OperatorId = operatorId,
                 CreditId = creditId,
-                ContractNo = contractNo,
+                //ContractNo = contractNo,
                 Amount = amount,
                 Date = date
             };

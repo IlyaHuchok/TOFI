@@ -8,6 +8,6 @@ namespace BankBL.Interfaces
 {
     public interface IPaymentBusinessComponent
     {
-        int Add(int operatorId, int creditId, int contractNo, decimal amount, DateTime date);
+        int Add(int operatorId, int creditId/*, int contractNo*/, decimal amount, DateTime date);
     }
 }

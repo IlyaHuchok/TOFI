@@ -13,7 +13,7 @@ namespace Entities
         public int PaymentId { get; set; }
         public int OperatorId { get; set; }
         public int CreditId { get; set; }
-        public int ContractNo { get; set; }
+      //  public int ContractNo { get; set; }
         public decimal Amount { get; set; }
         public DateTime Date { get; set; }
 

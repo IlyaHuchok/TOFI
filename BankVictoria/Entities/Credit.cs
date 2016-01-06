@@ -9,11 +9,11 @@ namespace Entities
     public class Credit
     {
         [Key]
-        public int CreditId { get; set; }
+        public int CreditId { get; set; } // == ContractNo
         public int AccountId { get; set; }
         public int CreditTypeId { get; set; }
         public int RequestId { get; set; }
-        public int ContractNo { get; set; }
+       // public int ContractNo { get; set; }
         //
         // How much was allready paid
         public decimal AllreadyPaid { get; set; }
