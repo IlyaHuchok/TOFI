@@ -39,6 +39,7 @@ namespace BankPresentation
             _operatorId = operatorId;
 
             InitializeComponent();
+
             RequestListView.ItemsSource = dataList;
             listView1.ItemsSource = dataList1;
             
@@ -49,7 +50,7 @@ namespace BankPresentation
             IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.CreditProvided);
             foreach (var req in request)
             {
-                if (req.Client.PassportNo == RepaymentFieldPassportNo.Text)
+                if (req.Client.PassportNo == RepaymentPassportNo.Text)
                 {
                     dataList1.Add(new ContractNoCreditType() { ContractNO = req.Credit.CreditId.ToString(), CreditType = req.CreditType.Name});
                 }
@@ -65,11 +66,11 @@ namespace BankPresentation
                 foreach (var req in request)
                 {
                     ContractNoCreditType cnct = (ContractNoCreditType)listView1.SelectedItem;
-                    if ((req.Client.PassportNo == RepaymentFieldPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.CreditId)) // CreditId==ContrqctNo
+                    if ((req.Client.PassportNo == RepaymentPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.CreditId)) // CreditId==ContrqctNo
                     {
-                        RepaymentFieldName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
-                        FieldDebt.Text = req.Credit.Debt.ToString();//это как-то считаться должно 
-                        RepaymentFieldToRepayTheLoan.Text = (req.Credit.AmountOfPaymentPerMonth * req.CreditType.TimeMonths + Convert.ToInt32(FieldDebt.Text)).ToString();
+                        RepaymentName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
+                        RepaymentDebt.Text = req.Credit.Debt.ToString();//это как-то считаться должно 
+                        RepaymentToRepayTheLoan.Text = (req.Credit.AmountOfPaymentPerMonth * req.CreditType.TimeMonths + Convert.ToInt32(RepaymentDebt.Text)).ToString();
                     }
                 }
             }

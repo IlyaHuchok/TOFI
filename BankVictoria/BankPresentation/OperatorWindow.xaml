@@ -41,18 +41,19 @@
             </TabItem>
             <TabItem Header="Repayment" Name="TabRepayment">
                 <Grid Background="#FFE5E5E5">
-                    <TextBox x:Name="RepaymentFieldPassportNo" HorizontalAlignment="Left" Height="23" Margin="86,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
-                    <TextBox x:Name="RepaymentFieldName" HorizontalAlignment="Left" Height="23" Margin="10,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="309" IsReadOnly="True"/>
-                    <TextBox x:Name="RepaymentFieldToRepayTheLoan" HorizontalAlignment="Left" Height="23" Margin="10,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" IsReadOnly="True"/>
-                    <TextBox x:Name="FieldToPay" HorizontalAlignment="Left" Height="23" Margin="10,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" />
-                    <TextBox x:Name="FieldDebt" HorizontalAlignment="Left" Height="23" Margin="10,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" IsReadOnly="True"/>
+                    <TextBox x:Name="RepaymentPassportNo" HorizontalAlignment="Left" Height="23" Margin="86,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+                    <TextBox x:Name="RepaymentName" HorizontalAlignment="Left" Height="23" Margin="10,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="309" IsReadOnly="True"/>
+                    <TextBox x:Name="RepaymentToRepayTheLoan" HorizontalAlignment="Left" Height="23" Margin="10,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" IsReadOnly="True"/>
+                    <TextBox x:Name="RepaymentToPay" HorizontalAlignment="Left" Height="23" Margin="10,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" />
+                    <TextBox x:Name="RepaymentDebt" HorizontalAlignment="Left" Height="23" Margin="10,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" IsReadOnly="True"/>
 
                     <Label  Content="PassportNo" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label" Content="To repay the loan" HorizontalAlignment="Left" Margin="10,203,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="RepaymentSubmit" Content="Submit" HorizontalAlignment="Left" Margin="205,230,0,0" VerticalAlignment="Top" Width="75" Click="RepaymentSubmit_Click"/>
                     <Label Content="To pay" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top"/>
                     <Label Content="Debt" HorizontalAlignment="Left" Margin="10,149,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="NameRepayment" Content="Name" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
+                    
+                    <Button x:Name="RepaymentSubmit" Content="Submit" HorizontalAlignment="Left" Margin="205,230,0,0" VerticalAlignment="Top" Width="75" Click="RepaymentSubmit_Click"/>                    
                     <Button x:Name="RepaymentOpen" Content="Open" HorizontalAlignment="Left" Margin="223,38,0,0" VerticalAlignment="Top" Width="75" Click="RepaymentOpen_Click"/>
                     <ListView x:Name="listView1" HorizontalAlignment="Left" Height="236" Margin="324,10,0,0" VerticalAlignment="Top" Width="178">
                         <ListView.View>
