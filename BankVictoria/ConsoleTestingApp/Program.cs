@@ -40,19 +40,19 @@ namespace ConsoleApplication1
                 context.CreditTypes.RemoveRange(context.CreditTypes);
                 context.Payments.RemoveRange(context.Payments);
                 context.Requests.RemoveRange(context.Requests);
-             //   context.RequestStatuses.RemoveRange(context.RequestStatuses);
+                //context.RequestStatuses.RemoveRange(context.RequestStatuses);
                 context.Users.RemoveRange(context.Users);
                 context.SaveChanges();
                 // CLEARS ALL DATA !!!
 
-//                var statusRepo = new RequestStatusRepository(context);
- //               var statusCreated = new RequestStatus { Status = "Created" };
-   //             var statusConfirmedByOperator = new RequestStatus { Status = "statusConfirmedByOperator" };
-     //           var statusConfirmedBySse = new RequestStatus { Status = "statusConfirmedBySecurityServiceEmployee" };
-                //var statusConfirmed = new RequestStatus { Status = "ConfirmedBy" };
-       //         var statusCreditProvided = new RequestStatus { Status = "statusCreditProvided" };
-         //       var statusDenied = new RequestStatus { Status = "Denied" };
-           //     statusRepo.Add(statusCreated, statusConfirmedByOperator, statusConfirmedByOperator, statusCreditProvided,statusDenied);
+                //var statusRepo = new RequestStatusRepository(context);
+                //var statusCreated = new RequestStatus { Status = "Created" };
+                //var statusConfirmedByOperator = new RequestStatus { Status = "statusConfirmedByOperator" };
+                //var statusConfirmedBySse = new RequestStatus { Status = "statusConfirmedBySecurityServiceEmployee" };
+                ////var statusConfirmed = new RequestStatus { Status = "ConfirmedBy" };
+                //var statusCreditProvided = new RequestStatus { Status = "statusCreditProvided" };
+                //var statusDenied = new RequestStatus { Status = "Denied" };
+                //statusRepo.Add(statusCreated, statusConfirmedByOperator, statusConfirmedByOperator, statusCreditProvided,statusDenied);
 
              //   context.SaveChanges();
     //            var confirmedByOperatorStatusId = statusCreditProvided.RequestStatusId;
@@ -245,6 +245,16 @@ namespace ConsoleApplication1
                     Salary = 500
                 };
 
+                var request4client1 = new Request
+                {
+                    ClientId = client1Info.ClientId,
+                    Status = RequestStatus.ConfirmedByOperator,// createdStatusId,
+                    OperatorId = operator1.UserId,
+                    CreditTypeId = creditMediumId,
+                    AmountOfCredit = 1100,
+                    Salary = 500
+                };
+
                 var requestRepo = new RequestRepository(context);
                 requestRepo.Add(request1client1, request2client1, request3client1);
                 context.SaveChanges();
@@ -270,12 +280,15 @@ namespace ConsoleApplication1
                 {
                     AccountId = acc2.AccountId,
                     CreditTypeId = creditMedium.CreditTypeId,
-                    ContractNo = 123123, //random
+                    //ContractNo = 123123, //random
                     RequestId = request2client1.RequestId,
-                    AllreadyPaid = 0,
+                    //AllreadyPaid = 0,
                     AmountOfPaymentPerMonth = creditMedium.PercentPerYear/12,
                     StartDate = DateTime.Now.AddDays(-(30*4+5)),
                     IsRepaid = false,
+                    HasDelays = false,
+                    CountFineFromThisDate = DateTime.UtcNow.AddDays(30), //!!! hard-coded!!!
+                    PaidForFine = 0
                 };
                 request2client1.Credit = credit1Client1; // IMPORTANT do this for 1-1 relationship (exception otherwise)
 
@@ -287,15 +300,15 @@ namespace ConsoleApplication1
                 {
                     OperatorId = operator1.UserId,
                     CreditId = credit1Client1.CreditId,
-                    ContractNo = credit1Client1.ContractNo,
+                    //ContractNo = credit1Client1.ContractNo,
                     Amount = 75,
                     Date = credit1Client1.StartDate.AddDays(15)
                 };
                 //var credit
 
-                var test = context.Requests.Where(x => x.Status == RequestStatus.Created).FirstOrDefault();
-               // context.RequestStatuses.Add(new RequestStatus { Status = "Created" });
-               // context.SaveChanges();
+                //var test = context.RequestStatuses.Where(x => x.Status.Contains("Created")).FirstOrDefault();
+                //context.RequestStatuses.Add(new RequestStatus { Status = "Created" });
+                context.SaveChanges();
             }
         }
     }

@@ -69,7 +69,7 @@ namespace BankPresentation
                     if ((req.Client.PassportNo == RepaymentPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.CreditId)) // CreditId==ContrqctNo
                     {
                         RepaymentName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
-                        RepaymentDebt.Text = req.Credit.Debt.ToString();//это как-то считаться должно 
+                        RepaymentDebt.Text = req.Credit.PaidForFine.ToString();//это как-то считаться должно 
                         RepaymentToRepayTheLoan.Text = (req.Credit.AmountOfPaymentPerMonth * req.CreditType.TimeMonths + Convert.ToInt32(RepaymentDebt.Text)).ToString();
                     }
                 }
@@ -86,7 +86,7 @@ namespace BankPresentation
                 foreach (var req in request)
                 {
                     ContractNoCreditType cnct = (ContractNoCreditType)listView1.SelectedItem;
-                    if ((req.Client.PassportNo == RepaymentFieldPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.CreditId))
+                    if ((req.Client.PassportNo == RepaymentPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.CreditId))
                     {
                         DateTime creditStart = req.Credit.StartDate;
                         DateTime now = DateTime.Now;
@@ -131,12 +131,12 @@ namespace BankPresentation
 
         private void RepaymentSubmit_Click(object sender, RoutedEventArgs e)
         {
-            Client client = _clientBusinessComponent.GetAll().Where(x=> x.PassportNo == RepaymentFieldPassportNo.Text).FirstOrDefault();
+            Client client = _clientBusinessComponent.GetAll().Where(x=> x.PassportNo == RepaymentPassportNo.Text).FirstOrDefault();
             ContractNoCreditType cnct = (ContractNoCreditType)listView1.SelectedValue;
             _paymentBusinessComponent.Add(
                 _operatorId,
                 client.Requests.Where(x =>x.Status == RequestStatus.CreditProvided && x.Credit.CreditId == Convert.ToInt32(cnct.ContractNO)).FirstOrDefault().Credit.CreditId,
-                Convert.ToDecimal(FieldToPay.Text),
+                Convert.ToDecimal(RepaymentToPay.Text),
                 DateTime.Now);
 
             //добавить взаимодействие с Credit (погашение додга? увеличение AllreadyPaid)
@@ -188,21 +188,21 @@ namespace BankPresentation
                     CreditFieldName.Text = "";
                     CreditTypeField.Text = "";
                     CreditAmount.Text = "";
-                    RepaymentFieldPassportNo.Text = "";
-                    RepaymentFieldName.Text = "";
-                    RepaymentFieldToRepayTheLoan.Text = "";
-                    FieldToPay.Text = "";
-                    FieldDebt.Text = "";
+                    RepaymentPassportNo.Text = "";
+                    RepaymentName.Text = "";
+                    RepaymentToRepayTheLoan.Text = "";
+                    RepaymentToPay.Text = "";
+                    RepaymentDebt.Text = "";
                 }
                 if (TabRequest.IsSelected)
                 {
                     dataList.Clear();
                     dataList1.Clear();
-                    RepaymentFieldPassportNo.Text = "";
-                    RepaymentFieldName.Text = "";
-                    RepaymentFieldToRepayTheLoan.Text = "";
-                    FieldToPay.Text = "";
-                    FieldDebt.Text = "";
+                    RepaymentPassportNo.Text = "";
+                    RepaymentName.Text = "";
+                    RepaymentToRepayTheLoan.Text = "";
+                    RepaymentToPay.Text = "";
+                    RepaymentDebt.Text = "";
                 }
                 if(TabRepayment.IsSelected)
                 {

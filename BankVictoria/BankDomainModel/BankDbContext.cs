@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using Entities;
+using Entities.Enums;
 
 namespace BankDomainModel
 {

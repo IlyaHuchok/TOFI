@@ -67,7 +67,7 @@ namespace BankPresentation
       var loginResult = _userBusinessComponent.Login(username, password);
       if (loginResult != null)
       {
-          this.SetPage(loginResult.Value);
+          this.SetPage(loginResult.Value, username);
       }
       else
       {
@@ -83,14 +83,25 @@ namespace BankPresentation
       }
     }
 
-    private void SetPage(UserRole role)
+    private void SetPage(UserRole role, string username)
     {
-        //var registrationWindow = _ninjectKernel.Get<RegistrationWindow>(new ConstructorArgument("userRole", UserRole.Admin));
-        //registrationWindow.ShowDialog(); // UNCOMMENT THIS TO TEST REGISTRATION
-        this.Content = _ninjectKernel.Get<MainPage>(new ConstructorArgument("userRole", role));
-
-        //var newWindow = _ninjectKernel.Get<RegistrationWindow>(new ConstructorArgument("userRole", role));
-        //newWindow.ShowDialog();      
+        var userId = _userBusinessComponent.GetIdByLogin(username);
+        this.SizeToContent = SizeToContent.WidthAndHeight;
+        switch (role)
+        {
+            case UserRole.Admin:
+                this.Content = _ninjectKernel.Get<AdministratorWindow>();
+                break;
+            case UserRole.Client:
+                this.Content = _ninjectKernel.Get<ClientWindow>();
+                break;
+            case UserRole.Operator:
+                this.Content = _ninjectKernel.Get<OperatorWindow>();
+                break;
+            case UserRole.SecurityServiceEmployee:
+                this.Content = _ninjectKernel.Get<SecurityOfficerPage>(new ConstructorArgument("userId", userId));
+                break;
+        }     
     }
   }
 }
