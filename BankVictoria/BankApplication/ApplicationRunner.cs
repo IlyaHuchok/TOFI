@@ -23,6 +23,8 @@ namespace BankApplication
       {
         var loginWindow = kernel.Get<LoginWindow>();
         app.Run(loginWindow); // KOSTYLLL!1
+      //  var loginWindow = kernel.Get<OperatorWindow>();
+     //   app.Run(loginWindow); // KOSTYLLL!1
       }
     }
 

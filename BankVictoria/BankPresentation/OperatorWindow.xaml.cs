@@ -55,6 +55,7 @@ namespace BankPresentation
                 }
             }
         }
+
         private void RepaymentOpen_Click(object sender, RoutedEventArgs e)
         {
             if (listView1.SelectedItem == null)
@@ -67,11 +68,16 @@ namespace BankPresentation
                     if ((req.Client.PassportNo == RepaymentFieldPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.ContractNo))
                     {
                         RepaymentFieldName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
-                        FieldDebt.Text = req.Credit.Debt.ToString();
+                        FieldDebt.Text = req.Credit.Debt.ToString();//это как-то считаться должно ?
                         RepaymentFieldToRepayTheLoan.Text = (req.Credit.AmountOfPaymentPerMonth * req.CreditType.TimeMonths + Convert.ToInt32(FieldDebt.Text)).ToString();
                     }
                 }
             }
+        }
+        private void CreateNewDebt()
+        {
+            decimal StandartAlreadyPaid;
+
         }
 
         private void RepaymentSubmit_Click(object sender, RoutedEventArgs e)
