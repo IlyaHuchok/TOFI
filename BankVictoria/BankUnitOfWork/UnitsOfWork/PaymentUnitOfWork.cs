@@ -13,6 +13,8 @@ namespace BankUnitOfWork.UnitsOfWork
     public class PaymentUnitOfWork : UnitOfWork, IPaymentUnitOfWork
     {
         private IPaymentRepository _paymentRepository;
+        private ICreditRepository _creditRepository;
+        private IUserRepository _userRepository;
         public PaymentUnitOfWork(IKernel kernel) : base(kernel) { }
 
         public IPaymentRepository PaymentRepository
@@ -25,6 +27,32 @@ namespace BankUnitOfWork.UnitsOfWork
                 }
 
                 return _paymentRepository;
+            }
+        }
+
+        public ICreditRepository CreditRepository
+        {
+            get
+            {
+                if (_creditRepository == null)
+                {
+                    _creditRepository = _ninjectKernel.Get<ICreditRepository>(new ConstructorArgument("context", GetContext()));
+                }
+
+                return _creditRepository;
+            }
+        }
+
+        public IUserRepository UserRepository
+        {
+            get
+            {
+                if (_userRepository == null)
+                {
+                    _userRepository = _ninjectKernel.Get<IUserRepository>(new ConstructorArgument("context", GetContext()));
+                }
+
+                return _userRepository;
             }
         }
     }

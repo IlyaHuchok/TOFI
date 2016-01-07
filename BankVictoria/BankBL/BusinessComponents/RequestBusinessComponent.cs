@@ -33,11 +33,11 @@ namespace BankBL.BusinessComponents
 
         public void Update(int ClientId, int? OperatorId, int? SecurityServiceEmployeeId, RequestStatus status)
         {
-            var q = _unitOfWork.RequestRepository.GetSingle(x => x.ClientId == ClientId);
-            q.OperatorId = OperatorId;
-            q.SecurityServiceEmployeeId = SecurityServiceEmployeeId;
-            q.Status = status;
-            _unitOfWork.RequestRepository.Update(q);
+            var old = _unitOfWork.RequestRepository.GetSingle(x => x.ClientId == ClientId);
+            old.OperatorId = OperatorId;
+            old.SecurityServiceEmployeeId = SecurityServiceEmployeeId;
+            old.Status = status;
+            _unitOfWork.RequestRepository.Update(old);
             _unitOfWork.Save();
         }
     }

@@ -27,7 +27,6 @@ namespace BankBL.BusinessComponents
                 Amount = amount,
                 Date = date
             };
-            _unitOfWork.PaymentRepository.Add(paymentToAdd);
             _unitOfWork.Save();
             return paymentToAdd.PaymentId;
         }

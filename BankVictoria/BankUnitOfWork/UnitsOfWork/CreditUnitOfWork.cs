@@ -8,30 +8,17 @@ using BankDAL.Interfaces;
 using BankDomainModel;
 using Ninject;
 using Ninject.Parameters;
-
 namespace BankUnitOfWork.UnitsOfWork
 {
-    public class RequestUintOfWork : UnitOfWork, IRequestUintOfWork
+    public class CreditUnitOfWork : UnitOfWork, ICreditUnitOfWork
     {
-        private IRequestRepository _requestRepository;
-        private IClientRepository _clientRepository;
         private ICreditRepository _creditRepository;
+        private IAccountRepository _accountRepository;
         private ICreditTypeRepository _creditTypeRepository;
-        private IUserRepository _userRepository;
-        public RequestUintOfWork(IKernel kernel) : base(kernel) { }
+        private IRequestRepository _requestRepository;
 
-        public IClientRepository ClientRepository
-        {
-            get
-            {
-                if (_clientRepository == null)
-                {
-                    _clientRepository = _ninjectKernel.Get<IClientRepository>(new ConstructorArgument("context", GetContext()));
-                }
+        public CreditUnitOfWork(IKernel kernel) : base(kernel){}
 
-                return _clientRepository;
-            }
-        }
 
         public ICreditRepository CreditRepository
         {
@@ -43,6 +30,19 @@ namespace BankUnitOfWork.UnitsOfWork
                 }
 
                 return _creditRepository;
+            }
+        }
+
+        public IAccountRepository AccountRepository
+        {
+            get
+            {
+                if (_accountRepository == null)
+                {
+                    _accountRepository = _ninjectKernel.Get<IAccountRepository>(new ConstructorArgument("context", GetContext()));
+                }
+
+                return _accountRepository;
             }
         }
 
@@ -69,19 +69,6 @@ namespace BankUnitOfWork.UnitsOfWork
                 }
 
                 return _requestRepository;
-            }
-        }
-
-        public IUserRepository UserRepository
-        {
-            get
-            {
-                if (_userRepository == null)
-                {
-                    _userRepository = _ninjectKernel.Get<IUserRepository>(new ConstructorArgument("context", GetContext()));
-                }
-
-                return _userRepository;
             }
         }
     }

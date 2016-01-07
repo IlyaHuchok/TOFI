@@ -94,7 +94,7 @@ namespace BankPresentation
                         int Mounths = ts.Days / 30;
                         standartAlreadyPaid = Mounths * req.Credit.AmountOfPaymentPerMonth;
                         allreadyPaid = req.Credit.AllreadyPaid;
-                        if(allreadyPaid > standartAlreadyPaid)//мы переплатили и DateItWasDelay должен улететь вверх
+                        if(allreadyPaid > standartAlreadyPaid)//мы переплатили и CountFineFromThisDate должен улететь вверх
                         {
                             double i = 0.0;//за сколько месяцев мы заплптили
                             while (allreadyPaid > standartAlreadyPaid)
@@ -102,18 +102,18 @@ namespace BankPresentation
                                 
                                 if (allreadyPaid - standartAlreadyPaid >= req.Credit.AmountOfPaymentPerMonth)//переплатили больше чем на месяц
                                 {
-                                    allreadyPaid -= req.Credit.AmountOfPaymentPerMonth;  //смотрим насколько далеко улетит DateItWasDelay
-                                    i+= 1.0;
+                                    allreadyPaid -= req.Credit.AmountOfPaymentPerMonth;  //смотрим насколько далеко улетит CountFineFromThisDate
+                                    i += 1.0;
                                 }
                                 else
                                 {
-                                    allreadyPaid -= allreadyPaid - standartAlreadyPaid;//смотрим насколько далеко улетит DateItWasDelay
+                                    allreadyPaid -= allreadyPaid - standartAlreadyPaid;//смотрим насколько далеко улетит CountFineFromThisDate
                                     i = i + (double)((allreadyPaid - standartAlreadyPaid)/ req.Credit.AmountOfPaymentPerMonth); 
                                 }
                             }
-                            int Days = (int)(i * 30);//на сколько дней вперед улетит DateItWasDelay
+                            int Days = (int)(i * 30);//на сколько дней вперед улетит CountFineFromThisDate
                             TimeSpan ts2 = new TimeSpan(Days,0,0,0);
-                            //_creditBusinessComponent.GetByContractNo(contractNo).Update();     обновление DateItWasDelay
+                            //_creditBusinessComponent.GetByContractNo(contractNo).Update();     обновление CountFineFromThisDate
 
                         }
                         if (allreadyPaid < standartAlreadyPaid)//у нас есть долг

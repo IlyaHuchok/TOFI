@@ -7,12 +7,11 @@ using UnitOfWork;
 using BankDAL.Interfaces;
 namespace BankUnitOfWork.Interfaces
 {
-    public interface IRequestUintOfWork : IUnitOfWork
+    public interface ICreditUnitOfWork : IUnitOfWork
     {
-        IRequestRepository RequestRepository { get; }
-        IClientRepository ClientRepository { get; }
         ICreditRepository CreditRepository { get; }
+        IAccountRepository AccountRepository { get; }
         ICreditTypeRepository CreditTypeRepository { get; }
-        IUserRepository UserRepository { get; }
+        IRequestRepository RequestRepository { get; }
     }
 }
