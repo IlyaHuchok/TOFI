@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using UnitOfWork;
 using BankDAL.Interfaces;
 
+using Entities;
+
 namespace BankUnitOfWork.Interfaces
 {
     public interface ISecurityOfficerUnitOfWork : IUnitOfWork
@@ -15,5 +17,6 @@ namespace BankUnitOfWork.Interfaces
         IRequestRepository RequestRepository { get; }
         ICreditRepository CreditRepository { get; }
         IAccountRepository AccountRepository { get; }
+        BankAccount BankAccount { get; }
     }
 }

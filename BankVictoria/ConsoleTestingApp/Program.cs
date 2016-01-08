@@ -283,11 +283,19 @@ namespace ConsoleApplication1
                 context.SaveChanges();
 
 
-                var acc1 = new Account  //Bank Account
+                //var acc1 = new Account  //Bank Account
+                //{
+                //    ClientId = null,
+                //    Balance = 40*1000*1000
+                //};
+                var bankAccount = new BankAccount  //Bank Account
                 {
-                    ClientId = null,
-                    Balance = 40*1000*1000
+                    Balance = 40 * 1000 * 1000,
+                    Currency = "USD"
                 };
+                context.BankAccount = bankAccount;
+                context.SaveChanges();
+
 
                 var acc2 = new Account
                 {
@@ -296,7 +304,7 @@ namespace ConsoleApplication1
                 };
 
                 var accountRepo = new AccountRepository(context);
-                accountRepo.Add(acc1, acc2);
+                accountRepo.Add(/*acc1,*/ acc2);
                 context.SaveChanges();
 
                 var credit1Client1 = new Credit
@@ -346,7 +354,7 @@ namespace ConsoleApplication1
 
                 var payRepo = new PaymentRepository(context);
                 payRepo.Add(payment);
-                //var test = context.RequestStatuses.Where(x => x.Status.Contains("Created")).FirstOrDefault();
+                var test = context.BankAccount;//context.RequestStatuses.Where(x => x.Status.Contains("Created")).FirstOrDefault();
                 //context.RequestStatuses.Add(new RequestStatus { Status = "Created" });
                 context.SaveChanges();
             }

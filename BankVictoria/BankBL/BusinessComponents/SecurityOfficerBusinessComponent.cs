@@ -76,8 +76,7 @@ namespace BankBL.BusinessComponents
             _unitOfWork.RequestRepository.Update(request);
 
             var account = new Account { Balance = request.AmountOfCredit, Client = request.Client };
-            var bank = _unitOfWork.AccountRepository.GetSingle(x => x.AccountId == 1);
-            bank.Balance -= request.AmountOfCredit;
+            _unitOfWork.BankAccount.Balance -= request.AmountOfCredit;
 
             var credit = new Credit
             {
