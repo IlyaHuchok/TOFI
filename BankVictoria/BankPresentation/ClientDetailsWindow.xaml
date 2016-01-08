@@ -16,7 +16,7 @@
             <TextBox x:Name="PassportAuthorityTextBox" HorizontalAlignment="Left" Height="23" Margin="135,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
             <TextBox x:Name="PlaceOfResidenceTextBox" HorizontalAlignment="Left" Height="23" Margin="262,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
             <TextBox x:Name="RegistrationAddressTextBox" HorizontalAlignment="Left" Height="23" Margin="387,116,-8,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
-            <TextBox x:Name="SalaryField" HorizontalAlignment="Left" Height="23" Margin="10,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+            <TextBox x:Name="SalaryTextBox" HorizontalAlignment="Left" Height="23" Margin="10,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
 
             <Label x:Name="label3" Content="Last name" HorizontalAlignment="Left" Margin="10,-3,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label4" Content="Name" HorizontalAlignment="Left" Margin="135,-3,0,0" VerticalAlignment="Top"/>
@@ -31,7 +31,6 @@
             <Label x:Name="label13" Content="PlaceOfResidence" HorizontalAlignment="Left" Margin="262,95,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label14" Content="RegistrationAddress" HorizontalAlignment="Left" Margin="387,95,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label15" Content="Salary" HorizontalAlignment="Left" Margin="15,144,0,0" VerticalAlignment="Top"/>
-            <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75"/>
 
 
 

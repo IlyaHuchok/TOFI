@@ -1,8 +1,27 @@
 ﻿<Window x:Class="BankPresentation.CreditTypesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="CreditTypesWindow" Height="300" Width="300">
+        Title="CreditTypesWindow" Height="343" Width="703">
     <Grid>
-        
+        <ListView x:Name="CreditTypesListView" HorizontalAlignment="Left" Height="253" Margin="117,10,0,0" VerticalAlignment="Top" Width="568">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Time" DisplayMemberBinding="{Binding TimeMonths, StringFormat={}{0} month}"/>
+                    <GridViewColumn Header="APR" DisplayMemberBinding="{Binding Path=PercentPerYear, StringFormat={}{0}%}"/>
+                    <GridViewColumn Header="Currency">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="USD"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Fine Percentage" DisplayMemberBinding="{Binding Path=FinePercent, StringFormat={}{0}%}"/>
+                    <GridViewColumn Header="Min Amount"  DisplayMemberBinding="{Binding MinAmount}"/>
+                    <GridViewColumn Header="Max Amount"  DisplayMemberBinding="{Binding MaxAmount}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
     </Grid>
 </Window>

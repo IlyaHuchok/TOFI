@@ -12,12 +12,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Navigation;
 
 using BankBL.Interfaces;
 
 using Entities;
+using Entities.Enums;
 
 using Ninject;
+using Ninject.Parameters;
 
 namespace BankPresentation
 {
@@ -108,11 +111,11 @@ namespace BankPresentation
 
         private void RejectButton_Click(object sender, RoutedEventArgs e)
         {
-            var aaa = new RejectionWindow();
+            var rejectionWindow = _ninjectKernel.Get<RejectionWindow>();
             string rejectionReason;
             //var bbb = aaa.ShowDialog(out rejectionReason);
 
-            MessageBoxResult messageBoxResult = aaa.ShowDialog(out rejectionReason);//MessageBox.Show("Are you sure?", "Accept Confirmation", MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = rejectionWindow.ShowDialog(out rejectionReason);//MessageBox.Show("Are you sure?", "Accept Confirmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 var selectedRequest = (Request)RequestsListView.SelectedItem;
@@ -123,6 +126,13 @@ namespace BankPresentation
 
         private void ClientDetailsButton_Click(object sender, RoutedEventArgs e)
         {
+            var selectedRequest = (Request)RequestsListView.SelectedItem;
+
+            var clientDetailsWindow = _ninjectKernel.Get<ClientDetailsWindow>(
+                new ConstructorArgument("clientId", selectedRequest.ClientId),
+                new ConstructorArgument("salary", selectedRequest.Salary));
+
+            clientDetailsWindow.ShowDialog();
         }
 
         private void CreditHistoryButton_Click(object sender, RoutedEventArgs e)
@@ -140,7 +150,17 @@ namespace BankPresentation
                 this.DisableRequestActionButtons();
             }
         }
+        private void CreditTypeHyperLinkClick(object sender, RoutedEventArgs e)
+        {
+            var hyperlink = sender as Hyperlink;
+            var creditTypeId = (int)(hyperlink.CommandParameter);
 
+            var creditTypesWindow = _ninjectKernel.Get<CreditTypesWindow>(
+                new ConstructorArgument("role", UserRole.Operator),
+                new ConstructorArgument("selectedCreditTypeId", creditTypeId));
+            creditTypesWindow.ShowDialog();
+        }
+        
         private void Reload_Click(object sender, RoutedEventArgs e)
         {
             this.RefreshPage();

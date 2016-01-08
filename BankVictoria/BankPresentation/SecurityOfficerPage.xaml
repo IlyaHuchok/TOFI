@@ -34,27 +34,19 @@
                 <GridViewColumn Header="Request No" DisplayMemberBinding="{Binding RequestId}"/>
                 <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding Client.Name}"/>
                 <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding Client.LastName}"/>
-                <GridViewColumn Header="Credit Type" DisplayMemberBinding="{Binding CreditType.Name}"/>
-                <GridViewColumn Header="Amount">
-                  <GridViewColumn.CellTemplate>
-                    <DataTemplate>
-                      <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding AmountOfCredit}" d:DataContext="{d:DesignInstance {x:Type local:SecurityOfficerPage}}" />
-                        <TextBlock Text="$"/>
-                      </StackPanel>
-                    </DataTemplate>
-                  </GridViewColumn.CellTemplate>
+                <GridViewColumn Header="Credit Type">
+                               <GridViewColumn.CellTemplate>
+                                    <DataTemplate DataType="String">
+                                        <TextBlock>
+                                            <Hyperlink  Click="CreditTypeHyperLinkClick" CommandParameter="{Binding CreditType.CreditTypeId}">
+                                                <TextBlock Text="{Binding CreditType.Name}" />
+                                             </Hyperlink>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
                 </GridViewColumn>
-                <GridViewColumn Header="Salary">
-                  <GridViewColumn.CellTemplate>
-                    <DataTemplate>
-                      <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Salary}" d:DataContext="{d:DesignInstance {x:Type local:SecurityOfficerPage}}" />
-                        <TextBlock Text="$"/>
-                      </StackPanel>
-                    </DataTemplate>
-                  </GridViewColumn.CellTemplate>
-                </GridViewColumn>
+                <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Path=Amount, StringFormat={}{0}$}"/>
+                <GridViewColumn Header="Salary" DisplayMemberBinding="{Binding Path=Salary, StringFormat={}{0}%}"/>
               </GridView>
             </ListView.View>
           </ListView>

@@ -68,7 +68,8 @@ namespace ConsoleApplication1
                     Currency = "USD",
                     FinePercent = 40.0m,
                     MinAmount = 200,
-                    MaxAmount = 2000
+                    MaxAmount = 2000,
+                    IsAvailable = true
                 };
 
                 var creditMedium= new CreditType
@@ -80,7 +81,8 @@ namespace ConsoleApplication1
                     Currency = "USD",
                     FinePercent = 50.0m,
                     MinAmount = 200,
-                    MaxAmount = 5000
+                    MaxAmount = 5000,
+                    IsAvailable = true
                 };
 
                 var creditLong = new CreditType
@@ -92,7 +94,8 @@ namespace ConsoleApplication1
                     Currency = "USD",
                     FinePercent = 60.0m,
                     MinAmount = 200,
-                    MaxAmount = 5000
+                    MaxAmount = 5000,
+                    IsAvailable = true
                 };
 
                 var creditTypeRepo = new CreditTypeRepository(context);
@@ -256,7 +259,7 @@ namespace ConsoleApplication1
                 };
 
                 var requestRepo = new RequestRepository(context);
-                requestRepo.Add(request1client1, request2client1, request3client1);
+                requestRepo.Add(request1client1, request2client1, request3client1, request4client1);
                 context.SaveChanges();
 
 
@@ -306,6 +309,8 @@ namespace ConsoleApplication1
                 };
                 //var credit
 
+                var payRepo = new PaymentRepository(context);
+                payRepo.Add(payment);
                 //var test = context.RequestStatuses.Where(x => x.Status.Contains("Created")).FirstOrDefault();
                 //context.RequestStatuses.Add(new RequestStatus { Status = "Created" });
                 context.SaveChanges();
