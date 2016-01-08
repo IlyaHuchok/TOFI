@@ -51,22 +51,22 @@ namespace BankBL.BusinessComponents
         /// <returns></returns>
         public IEnumerable<Request> GetRequestsByClientLastname(string lastnameSubstring, int numberOfRequests, int startingIndex = 0)
         {
-            return _unitOfWork.RequestRepository.GetAll().Where(x => x.Status == RequestStatus.ConfirmedByOperator && x.Client.LastName.Contains(lastnameSubstring)).OrderByDescending(x => x.RequestId).Skip(startingIndex).Take(numberOfRequests);
+            return _unitOfWork.RequestRepository.GetAll().Where(x => x.Status == RequestStatus.ConfirmedByOperator && x.Client.LastName.Contains(lastnameSubstring)).OrderBy(x => x.RequestId).Skip(startingIndex).Take(numberOfRequests);
         }
 
         public IEnumerable<Request> GetAllRequestsByClientLastname(string lastnameSubstring)
         {
-            return _unitOfWork.RequestRepository.GetAll().Where(x => x.Status == RequestStatus.ConfirmedByOperator && x.Client.LastName.Contains(lastnameSubstring)).OrderByDescending(x => x.RequestId);
+            return _unitOfWork.RequestRepository.GetAll().Where(x => x.Status == RequestStatus.ConfirmedByOperator && x.Client.LastName.Contains(lastnameSubstring)).OrderBy(x => x.RequestId);
         }
 
         public IEnumerable<Credit> GetClientCreditHistoryFull(int clientId)
         {
-            return _unitOfWork.CreditRepository.GetAll().Where(x => x.Request.ClientId == clientId);
+            return _unitOfWork.CreditRepository.GetAll().Where(x => x.Request.ClientId == clientId).OrderBy(x => x.StartDate);
         }
 
         public IEnumerable<Credit> GetClientCreditHistory(int clientId, int numberOfRecords, int startingIndex = 0)
         {
-            return _unitOfWork.CreditRepository.GetAll().Where(x => x.Request.ClientId == clientId).Skip(startingIndex).Take(numberOfRecords);
+            return _unitOfWork.CreditRepository.GetAll().Where(x => x.Request.ClientId == clientId).Skip(startingIndex).Take(numberOfRecords).OrderBy(x => x.StartDate);
         }
 
         public void AllowCredit(int securityOfficerId, Request request)
@@ -76,6 +76,9 @@ namespace BankBL.BusinessComponents
             _unitOfWork.RequestRepository.Update(request);
 
             var account = new Account { Balance = request.AmountOfCredit, Client = request.Client };
+            var bank = _unitOfWork.AccountRepository.GetSingle(x => x.AccountId == 1);
+            bank.Balance -= request.AmountOfCredit;
+
             var credit = new Credit
             {
                 Account = account,

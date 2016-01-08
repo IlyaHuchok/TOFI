@@ -257,9 +257,29 @@ namespace ConsoleApplication1
                     AmountOfCredit = 1100,
                     Salary = 500
                 };
+                var request5client1 = new Request
+                {
+                    ClientId = client1Info.ClientId,
+                    //RequestStatusId = createdStatusId,
+                    Status = RequestStatus.CreditProvided,
+                    OperatorId = operator1.UserId,
+                    CreditTypeId = creditMediumId,
+                    AmountOfCredit = 1300,
+                    Salary = 500
+                };
 
+                var request6client1 = new Request
+                {
+                    ClientId = client1Info.ClientId,
+                    //RequestStatusId = confirmedByOperatorStatusId,
+                    Status = RequestStatus.CreditProvided,
+                    OperatorId = operator1.UserId,
+                    CreditTypeId = creditLongId,
+                    AmountOfCredit = 900,
+                    Salary = 500
+                };
                 var requestRepo = new RequestRepository(context);
-                requestRepo.Add(request1client1, request2client1, request3client1, request4client1);
+                requestRepo.Add(request1client1, request2client1, request3client1, request4client1, request5client1, request6client1);
                 context.SaveChanges();
 
 
@@ -284,7 +304,7 @@ namespace ConsoleApplication1
                     AccountId = acc2.AccountId,
                     CreditTypeId = creditMedium.CreditTypeId,
                     //ContractNo = 123123, //random
-                    RequestId = request2client1.RequestId,
+                    RequestId = request5client1.RequestId,
                     //AllreadyPaid = 0,
                     AmountOfPaymentPerMonth = creditMedium.PercentPerYear/12,
                     StartDate = DateTime.Now.AddDays(-(30*4+5)),
@@ -292,11 +312,26 @@ namespace ConsoleApplication1
                     HasDelays = false,
                     CountFineFromThisDate = DateTime.UtcNow.AddDays(30), //!!! hard-coded!!!
                     PaidForFine = 0
+                }; 
+                var credit2Client1 = new Credit
+                {
+                    AccountId = acc2.AccountId,
+                    CreditTypeId = creditMedium.CreditTypeId,
+                    //ContractNo = 123123, //random
+                    RequestId = request6client1.RequestId,
+                    //AllreadyPaid = 0,
+                    AmountOfPaymentPerMonth = creditMedium.PercentPerYear / 12,
+                    StartDate = DateTime.Now.AddDays(-(30 * 50 + 7)),
+                    IsRepaid = true,
+                    HasDelays = true,
+                    CountFineFromThisDate = DateTime.UtcNow.AddDays(30), //!!! hard-coded!!!
+                    PaidForFine = 0
                 };
-                request2client1.Credit = credit1Client1; // IMPORTANT do this for 1-1 relationship (exception otherwise)
+                request5client1.Credit = credit1Client1; // IMPORTANT do this for 1-1 relationship (exception otherwise)
+                request6client1.Credit = credit2Client1; // IMPORTANT do this for 1-1 relationship (exception otherwise)
 
                 var creditRepo = new CreditRepository(context);
-                creditRepo.Add(credit1Client1);
+                creditRepo.Add(credit1Client1,credit2Client1);
                 context.SaveChanges();
 
                 var payment = new Payment

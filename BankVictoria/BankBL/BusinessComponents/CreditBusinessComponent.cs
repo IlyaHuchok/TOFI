@@ -20,6 +20,11 @@ namespace BankBL.BusinessComponents
             return _unitOfWork.CreditRepository.GetAll();
         }
 
+        public IEnumerable<Credit> GetClientCredits(int clientId)
+        {
+            return _unitOfWork.CreditRepository.GetAll().Where(x => x.Request.ClientId == clientId);
+        }
+
         public void Update(int CreditId, DateTime CountFineFromThisDate)
         {
             var old = _unitOfWork.CreditRepository.GetSingle(x => x.CreditId == CreditId);

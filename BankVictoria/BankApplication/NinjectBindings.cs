@@ -41,6 +41,8 @@ namespace BankApplication
       Bind<ISecurityOfficerBusinessComponent>().To<SecurityOfficerBusinessComponent>();
       Bind<ICreditTypeUnitOfWork>().To<CreditTypeUnitOfWork>();
       Bind<ICreditTypeBusinessComponent>().To<CreditTypeBusinessComponent>();
+      Bind<ICreditBusinessComponent>().To<CreditBusinessComponent>();
+      Bind<ICreditUnitOfWork>().To<CreditUnitOfWork>();
       //ADD ALLL BINDING HERE
     }
   }
