@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessComponents\ClientBusinessComponent.cs" />
+    <Compile Include="BusinessComponents\CreditTypeBusinessComponent.cs" />
     <Compile Include="BusinessComponents\CreditBusinessComponent.cs" />
     <Compile Include="BusinessComponents\SecurityOfficerBusinessComponent.cs" />
     <Compile Include="BusinessComponents\PaymentBusinessComponent.cs" />
@@ -47,6 +48,7 @@
     <Compile Include="BusinessComponents\UserBusinessComponent.cs" />
     <Compile Include="Entities\CreditSummary.cs" />
     <Compile Include="Interfaces\IClientBusinessComponent.cs" />
+    <Compile Include="Interfaces\ICreditTypeBusinessComponent.cs" />
     <Compile Include="Interfaces\ICreditBusinessComponent.cs" />
     <Compile Include="Interfaces\IPaymentBusinessComponent.cs" />
     <Compile Include="Interfaces\IRequestBusinessComponent.cs" />

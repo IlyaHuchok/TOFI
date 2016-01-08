@@ -8,6 +8,7 @@ using BankDAL.Interfaces;
 using BankDomainModel;
 using Ninject;
 using Ninject.Parameters;
+
 namespace BankUnitOfWork.UnitsOfWork
 {
     public class PaymentUnitOfWork : UnitOfWork, IPaymentUnitOfWork

@@ -18,6 +18,11 @@ namespace Entities
         public decimal FinePercent { get; set; }
         public decimal MinAmount { get; set; }
         public decimal MaxAmount { get; set; }
+        /// <summary>
+        /// If we don't want a credit type to be available for new credits
+        /// but still want to support it for existing credits we set its IsAvailable = false
+        /// </summary>
+        public bool IsAvailable { get; set; }
         //public bool Pledge { get; set; }
         //public bool Guarantee { get; set; }
 
