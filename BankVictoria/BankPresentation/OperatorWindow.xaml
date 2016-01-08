@@ -30,9 +30,9 @@
                     <Label Content="Amount" HorizontalAlignment="Left" Margin="14,125,0,0" VerticalAlignment="Top"/>
 
                     <TextBox x:Name="RequestRequestId" HorizontalAlignment="Left" Height="23" Margin="86,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="CreditFieldName" HorizontalAlignment="Left" Height="23" Margin="10,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="309" IsReadOnly="True"/>
-                    <TextBox x:Name="CreditTypeField" HorizontalAlignment="Left" Height="23" Margin="86,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" IsReadOnly="True"/>
-                    <TextBox x:Name="CreditAmount" Height="23" Margin="86,128,248,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" IsReadOnly="True"/>
+                    <TextBox x:Name="RequestName" HorizontalAlignment="Left" Height="23" Margin="10,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="309" IsReadOnly="True"/>
+                    <TextBox x:Name="RequestCreditType" HorizontalAlignment="Left" Height="23" Margin="86,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" IsReadOnly="True"/>
+                    <TextBox x:Name="RequestAmount" Height="23" Margin="86,128,248,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" IsReadOnly="True"/>
 
                     <Button x:Name="RequestSearch" Content="Search" HorizontalAlignment="Left" Margin="224,10,0,0" VerticalAlignment="Top" Width="75" Click="RequestSearch_Click"/>
                     <Button x:Name="RequestSendRequest" Content="Send a request" HorizontalAlignment="Right" Margin="0,184,86,0" VerticalAlignment="Top" Width="93" Click="RequestSendRequest_Click"/>
@@ -55,7 +55,7 @@
                     
                     <Button x:Name="RepaymentSubmit" Content="Submit" HorizontalAlignment="Left" Margin="205,230,0,0" VerticalAlignment="Top" Width="75" Click="RepaymentSubmit_Click"/>                    
                     <Button x:Name="RepaymentOpen" Content="Open" HorizontalAlignment="Left" Margin="223,38,0,0" VerticalAlignment="Top" Width="75" Click="RepaymentOpen_Click"/>
-                    <ListView x:Name="listView1" HorizontalAlignment="Left" Height="236" Margin="324,10,0,0" VerticalAlignment="Top" Width="178">
+                    <ListView x:Name="RepaymentListView" HorizontalAlignment="Left" Height="236" Margin="324,10,0,0" VerticalAlignment="Top" Width="178">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="ContractNo" DisplayMemberBinding="{Binding ContractNo}" Width="108"/>

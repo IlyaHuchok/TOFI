@@ -23,8 +23,8 @@ namespace BankPresentation
     /// </summary>
     public partial class OperatorWindow : Window
     {
-        private ObservableCollection<OperatorRequestListClass> dataList = new ObservableCollection<OperatorRequestListClass>();
-        private ObservableCollection<ContractNoCreditType> dataList1 = new ObservableCollection<ContractNoCreditType>();
+        private ObservableCollection<OperatorRequestListClass> RequestDataList = new ObservableCollection<OperatorRequestListClass>();
+        private ObservableCollection<ContractNoCreditType> RepaymentDataList = new ObservableCollection<ContractNoCreditType>();
         private readonly int _operatorId;
         private readonly IClientBusinessComponent _clientBusinessComponent;
         private readonly IRequestBusinessComponent _requestBusinessComponent;
@@ -40,8 +40,8 @@ namespace BankPresentation
 
             InitializeComponent();
 
-            RequestListView.ItemsSource = dataList;
-            listView1.ItemsSource = dataList1;
+            RequestListView.ItemsSource = RequestDataList;
+            RepaymentListView.ItemsSource = RepaymentDataList;
             
         }
 
@@ -52,20 +52,20 @@ namespace BankPresentation
             {
                 if (req.Client.PassportNo == RepaymentPassportNo.Text)
                 {
-                    dataList1.Add(new ContractNoCreditType() { ContractNO = req.Credit.CreditId.ToString(), CreditType = req.CreditType.Name});
+                    RepaymentDataList.Add(new ContractNoCreditType() { ContractNO = req.Credit.CreditId.ToString(), CreditType = req.CreditType.Name});
                 }
             }
         }
 
         private void RepaymentOpen_Click(object sender, RoutedEventArgs e)
         {
-            if (listView1.SelectedItem == null)
+            if (RepaymentListView.SelectedItem == null)
                 MessageBox.Show("Сhoose ContractNo please");
             else {
                 IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.CreditProvided);
                 foreach (var req in request)
                 {
-                    ContractNoCreditType cnct = (ContractNoCreditType)listView1.SelectedItem;
+                    ContractNoCreditType cnct = (ContractNoCreditType)RepaymentListView.SelectedItem;
                     if ((req.Client.PassportNo == RepaymentPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.CreditId)) // CreditId==ContrqctNo
                     {
                         RepaymentName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
@@ -79,13 +79,13 @@ namespace BankPresentation
         {
             decimal standartAlreadyPaid;
             decimal allreadyPaid;
-            if (listView1.SelectedItem == null)
+            if (RepaymentListView.SelectedItem == null)
                 MessageBox.Show("Сhoose ContractNo please");
             else {
                 IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.CreditProvided);
                 foreach (var req in request)
                 {
-                    ContractNoCreditType cnct = (ContractNoCreditType)listView1.SelectedItem;
+                    ContractNoCreditType cnct = (ContractNoCreditType)RepaymentListView.SelectedItem;
                     if ((req.Client.PassportNo == RepaymentPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.CreditId))
                     {
                         DateTime creditStart = req.Credit.StartDate;
@@ -132,7 +132,7 @@ namespace BankPresentation
         private void RepaymentSubmit_Click(object sender, RoutedEventArgs e)
         {
             Client client = _clientBusinessComponent.GetAll().Where(x=> x.PassportNo == RepaymentPassportNo.Text).FirstOrDefault();
-            ContractNoCreditType cnct = (ContractNoCreditType)listView1.SelectedValue;
+            ContractNoCreditType cnct = (ContractNoCreditType)RepaymentListView.SelectedValue;
             _paymentBusinessComponent.Add(
                 _operatorId,
                 client.Requests.Where(x =>x.Status == RequestStatus.CreditProvided && x.Credit.CreditId == Convert.ToInt32(cnct.ContractNO)).FirstOrDefault().Credit.CreditId,
@@ -144,21 +144,32 @@ namespace BankPresentation
 
         private void RequestSendRequest_Click(object sender, RoutedEventArgs e)
         {
-            IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.Created);
-            foreach (var req in request)
+            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Accept Confirmation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                if(req.RequestId == Convert.ToInt32(RequestRequestId.Text))
-                    _requestBusinessComponent.Update(req.ClientId, _operatorId, null, RequestStatus.ConfirmedByOperator);
+                IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.Created);
+                foreach (var req in request)
+                {
+                    if (req.RequestId == Convert.ToInt32(RequestRequestId.Text))
+                        _requestBusinessComponent.Update(req.ClientId, _operatorId, null, RequestStatus.ConfirmedByOperator);
+                }
             }
         }
 
         private void RequestReject_Click(object sender, RoutedEventArgs e)
         {
-            IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.Created);
-            foreach (var req in request)
+            var rw = new RejectionWindow();
+            string rejectionReason;
+
+            MessageBoxResult messageBoxResult = rw.ShowDialog(out rejectionReason);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                if (req.RequestId== Convert.ToInt32(RequestRequestId.Text))
-                    _requestBusinessComponent.Update(req.ClientId, _operatorId, null, RequestStatus.Denied);
+                IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.Created);
+                foreach (var req in request)
+                {
+                    if (req.RequestId == Convert.ToInt32(RequestRequestId.Text))
+                        _requestBusinessComponent.Update(req.ClientId, _operatorId, null, RequestStatus.Denied);
+                }
             }
         }
 
@@ -169,9 +180,9 @@ namespace BankPresentation
             {
                 if (req.RequestId == Convert.ToUInt32(RequestRequestId.Text))
                 {
-                    CreditFieldName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
-                    CreditTypeField.Text = req.CreditType.Name;
-                    CreditAmount.Text = req.AmountOfCredit.ToString();
+                    RequestName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
+                    RequestCreditType.Text = req.CreditType.Name;
+                    RequestAmount.Text = req.AmountOfCredit.ToString();
                 }
             }
         }
@@ -182,36 +193,20 @@ namespace BankPresentation
             {
                 if(TabRequestList.IsSelected)
                 {
-                    dataList1.Clear();
                     FillListView();
-                    RequestRequestId.Text = "";
-                    CreditFieldName.Text = "";
-                    CreditTypeField.Text = "";
-                    CreditAmount.Text = "";
-                    RepaymentPassportNo.Text = "";
-                    RepaymentName.Text = "";
-                    RepaymentToRepayTheLoan.Text = "";
-                    RepaymentToPay.Text = "";
-                    RepaymentDebt.Text = "";
+                    TabRequestClear();
+                    TabRepaymentClear();
                 }
                 if (TabRequest.IsSelected)
                 {
-                    dataList.Clear();
-                    dataList1.Clear();
-                    RepaymentPassportNo.Text = "";
-                    RepaymentName.Text = "";
-                    RepaymentToRepayTheLoan.Text = "";
-                    RepaymentToPay.Text = "";
-                    RepaymentDebt.Text = "";
+                    RequestDataList.Clear();                    
+                    TabRepaymentClear();
                 }
                 if(TabRepayment.IsSelected)
                 {
-                    dataList.Clear();
+                    RequestDataList.Clear();
                     FillListView();
-                    RequestRequestId.Text = "";
-                    CreditFieldName.Text = "";
-                    CreditTypeField.Text = "";
-                    CreditAmount.Text = "";
+                    TabRequestClear();
                 }
             }
         }
@@ -222,7 +217,7 @@ namespace BankPresentation
             foreach (var req in request)
             {
                 //Client client = _clientBusinessComponent.GetByID(req.ClientId);
-                dataList.Add(new OperatorRequestListClass()
+                RequestDataList.Add(new OperatorRequestListClass()
                 {
                     RequestId = req.RequestId,
                     PassportNo = req.Client.PassportNo,
@@ -231,7 +226,24 @@ namespace BankPresentation
                 });
             }
         }
+        private void TabRequestClear()
+        {
+            RequestRequestId.Clear();
+            RequestName.Clear();
+            RequestCreditType.Clear();
+            RequestAmount.Clear();
+        }
+        private void TabRepaymentClear()
+        {
+            RepaymentPassportNo.Clear();
+            RepaymentName.Clear();
+            RepaymentToRepayTheLoan.Clear();
+            RepaymentToPay.Clear();
+            RepaymentDebt.Clear();
+            RepaymentDataList.Clear();
+        }
 
-        
+
+
     }
 }
