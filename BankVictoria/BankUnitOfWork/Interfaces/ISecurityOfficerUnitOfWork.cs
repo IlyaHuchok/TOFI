@@ -18,5 +18,7 @@ namespace BankUnitOfWork.Interfaces
         ICreditRepository CreditRepository { get; }
         IAccountRepository AccountRepository { get; }
         BankAccount BankAccount { get; }
+
+
     }
 }

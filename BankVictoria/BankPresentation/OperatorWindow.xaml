@@ -33,10 +33,12 @@
                     <TextBox x:Name="RequestName" HorizontalAlignment="Left" Height="23" Margin="10,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="309" IsReadOnly="True"/>
                     <TextBox x:Name="RequestCreditType" HorizontalAlignment="Left" Height="23" Margin="86,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" IsReadOnly="True"/>
                     <TextBox x:Name="RequestAmount" Height="23" Margin="86,128,248,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" IsReadOnly="True"/>
-
+                    <TextBox x:Name="RequestCreditTypeIsAvailable" HorizontalAlignment="Left" Height="23" Margin="269,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" IsReadOnly="True"/>
+                    
                     <Button x:Name="RequestSearch" Content="Search" HorizontalAlignment="Left" Margin="224,10,0,0" VerticalAlignment="Top" Width="75" Click="RequestSearch_Click"/>
                     <Button x:Name="RequestSendRequest" Content="Send a request" HorizontalAlignment="Right" Margin="0,184,86,0" VerticalAlignment="Top" Width="93" Click="RequestSendRequest_Click"/>
                     <Button x:Name="RequestReject" Content="Reject a request" HorizontalAlignment="Left" Margin="76,184,0,0" VerticalAlignment="Top" Width="100" Click="RequestReject_Click"/>
+                    
                 </Grid>
             </TabItem>
             <TabItem Header="Repayment" Name="TabRepayment">
