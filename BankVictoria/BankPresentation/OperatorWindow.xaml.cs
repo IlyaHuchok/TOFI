@@ -61,23 +61,21 @@ namespace BankPresentation
 
         private void RepaymentOpen_Click(object sender, RoutedEventArgs e)
         {
-            if (RepaymentListView.SelectedItem == null)
-                MessageBox.Show("Сhoose ContractNo please");
-            else {
-                IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.CreditProvided);
-                foreach (var req in request)
+
+            IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.CreditProvided);
+            foreach (var req in request)
+            {
+                ContractNoCreditType cnct = (ContractNoCreditType)RepaymentListView.SelectedItem;
+                if ((req.Client.PassportNo == RepaymentPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.CreditId)) // CreditId==ContrqctNo
                 {
-                    ContractNoCreditType cnct = (ContractNoCreditType)RepaymentListView.SelectedItem;
-                    if ((req.Client.PassportNo == RepaymentPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.CreditId)) // CreditId==ContrqctNo
-                    {
-                        CountUpNewDebt();//высчитываем долг
-                        RepaymentName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
-                        RepaymentDebt.Text = req.Credit.PaidForFine.ToString();
-                        RepaymentToRepayTheLoan.Text = (req.Credit.AmountOfPaymentPerMonth * req.CreditType.TimeMonths + req.Credit.PaidForFine).ToString();                        
-                    }
+                    CountUpNewDebt();//высчитываем долг
+                    RepaymentName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
+                    RepaymentDebt.Text = req.Credit.PaidForFine.ToString();
+                    RepaymentToRepayTheLoan.Text = (req.Credit.AmountOfPaymentPerMonth * req.CreditType.TimeMonths + req.Credit.PaidForFine).ToString();
                 }
             }
         }
+
         private void CountUpNewDebt()
         {
             decimal standartAlreadyPaid;
