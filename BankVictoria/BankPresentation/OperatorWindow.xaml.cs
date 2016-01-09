@@ -21,7 +21,7 @@ namespace BankPresentation
     /// <summary>
     /// Логика взаимодействия для OperatorWindow.xaml
     /// </summary>
-    public partial class OperatorWindow : Window
+    public partial class OperatorWindow : Page
     {
         private ObservableCollection<OperatorRequestListClass> RequestDataList = new ObservableCollection<OperatorRequestListClass>();
         private ObservableCollection<ContractNoCreditType> RepaymentDataList = new ObservableCollection<ContractNoCreditType>();

@@ -23,12 +23,12 @@ namespace BankBL.BusinessComponents
 
         public IList<Request> GetByStatus(RequestStatus status)
         {
-            return _unitOfWork.RequestRepository.GetAll(x=> x.Status == status);
+            return _unitOfWork.RequestRepository.GetAll().Where(x => x.Status == status).ToList();
         }
 
         public IList<Request> GetExceptStatus(RequestStatus status)
         {
-            return _unitOfWork.RequestRepository.GetAll(x => x.Status != status);
+            return _unitOfWork.RequestRepository.GetAll().Where(x => x.Status != status).ToList();
         }
 
         public void Update(int ClientId, int? OperatorId, int? SecurityServiceEmployeeId, RequestStatus status)

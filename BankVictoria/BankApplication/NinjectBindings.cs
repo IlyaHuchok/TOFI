@@ -43,7 +43,11 @@ namespace BankApplication
       Bind<ICreditTypeBusinessComponent>().To<CreditTypeBusinessComponent>();
       Bind<ICreditBusinessComponent>().To<CreditBusinessComponent>();
       Bind<ICreditUnitOfWork>().To<CreditUnitOfWork>();
-      //ADD ALLL BINDING HERE
-    }
+      Bind<IRequestBusinessComponent>().To<RequestBusinessComponent>();
+      Bind<IRequestUintOfWork>().To<RequestUintOfWork>();
+            Bind<IPaymentBusinessComponent>().To<PaymentBusinessComponent>();
+            Bind<IPaymentUnitOfWork>().To<PaymentUnitOfWork>();
+            //ADD ALLL BINDING HERE
+        }
   }
 }

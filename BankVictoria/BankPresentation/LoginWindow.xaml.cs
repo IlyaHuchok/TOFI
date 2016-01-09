@@ -96,8 +96,8 @@ namespace BankPresentation
                 this.Content = _ninjectKernel.Get<ClientWindow>();
                 break;
             case UserRole.Operator:
-                this.Content = _ninjectKernel.Get<OperatorWindow>();
-                break;
+                this.Content = _ninjectKernel.Get<OperatorWindow>(new ConstructorArgument("operatorId", userId));//_ninjectKernel.Get<OperatorWindow>();
+                    break;
             case UserRole.SecurityServiceEmployee:
                 this.Content = _ninjectKernel.Get<SecurityOfficerPage>(new ConstructorArgument("userId", userId));
                 break;
