@@ -58,6 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AuxillaryClasses\ValueConverter.cs" />
     <Compile Include="ClientCreditHistoryWindow.xaml.cs">
       <DependentUpon>ClientCreditHistoryWindow.xaml</DependentUpon>
     </Compile>

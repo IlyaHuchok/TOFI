@@ -14,5 +14,6 @@ namespace BankBL.Interfaces
         void Update(int CreditId, bool IsRepaid, bool HasDelays);
         void Update(int CreditId, DateTime CountFineFromThisDate);
         IList<Credit> GetAll();
+        IEnumerable<Credit> GetClientCredits(int clientId);
     }
 }

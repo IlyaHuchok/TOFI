@@ -72,6 +72,12 @@ namespace BankPresentation
             RequestsListView.ItemsSource = _requestList;
         }
 
+        private void RefreshPage(string lastName)
+        {
+            _requestList = new ObservableCollection<Request>(this.securityOfficerBusinessComponent.GetAllRequestsByClientLastname(lastName));
+            RequestsListView.ItemsSource = _requestList;
+        }
+
         private void DisableRequestActionButtons()
         {
             CreditHistoryButton.IsEnabled = false;
@@ -137,6 +143,11 @@ namespace BankPresentation
 
         private void CreditHistoryButton_Click(object sender, RoutedEventArgs e)
         {
+            var selectedRequest = (Request)RequestsListView.SelectedItem;
+
+            var clientCreditHistoryWindow = _ninjectKernel.Get<ClientCreditHistoryWindow>(
+                new ConstructorArgument("clientId", selectedRequest.ClientId));
+            clientCreditHistoryWindow.ShowDialog();
         }
 
         private void RequestsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -150,6 +161,7 @@ namespace BankPresentation
                 this.DisableRequestActionButtons();
             }
         }
+
         private void CreditTypeHyperLinkClick(object sender, RoutedEventArgs e)
         {
             var hyperlink = sender as Hyperlink;
@@ -164,6 +176,16 @@ namespace BankPresentation
         private void Reload_Click(object sender, RoutedEventArgs e)
         {
             this.RefreshPage();
+        }
+
+        private void LastnameTextBox_OnKeyDown_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            this.RefreshPage(LastnameTextBox.Text);
+        }
+
+        private void SearchByLastNameButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.RefreshPage(LastnameTextBox.Text);
         }
     }
 }

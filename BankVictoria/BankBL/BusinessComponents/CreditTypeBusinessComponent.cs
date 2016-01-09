@@ -21,5 +21,10 @@ namespace BankBL.BusinessComponents
         {
             return _unitOfWork.CreditTypeRepository.GetAll();
         }
+
+        public IEnumerable<CreditType> GetAllActiveCreditTypes()
+        {
+            return _unitOfWork.CreditTypeRepository.GetAll().Where(x => x.IsAvailable = true);
+        }
     }
 }

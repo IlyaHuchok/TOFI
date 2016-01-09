@@ -11,15 +11,9 @@
       <TabItem Header="Request" Margin="0,0,-4,-3">
         <Grid Background="#FFE5E5E5">
           <Label Content="Requests" HorizontalAlignment="Left" Margin="196,6,0,0" VerticalAlignment="Top" Width="102" FontSize="14"/>
-          <ComboBox x:Name="TimeComboBox" HorizontalAlignment="Left" Margin="57,6,0,0" VerticalAlignment="Top" Width="120"/>
-          <Label x:Name="label" Content="During" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top"/>
-          <Label Content="Where amount" HorizontalAlignment="Left" Margin="14,37,0,0" VerticalAlignment="Top"/>
-          <ComboBox x:Name="WhereAmountsComboBox" HorizontalAlignment="Left" Margin="108,41,0,0" VerticalAlignment="Top" Width="44"/>
-          <TextBox x:Name="AmountField" HorizontalAlignment="Left" Height="23" Margin="14,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163"/>
-          <Label Content="and" HorizontalAlignment="Left" Margin="76,91,0,0" VerticalAlignment="Top"/>
-          <Label Content="Where lastname" HorizontalAlignment="Left" Margin="14,114,0,0" VerticalAlignment="Top"/>
-          <TextBox x:Name="LastnameTextBox" HorizontalAlignment="Left" Height="23" Margin="14,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163"/>
-          <Button x:Name="Details" Content="Details" HorizontalAlignment="Left" Margin="57,187,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.307,-0.091"/>
+          <Label Content="Where lastname" HorizontalAlignment="Left" Margin="14,41,0,0" VerticalAlignment="Top"/>
+          <TextBox x:Name="LastnameTextBox" KeyDown="LastnameTextBox_OnKeyDown_OnKeyDown" HorizontalAlignment="Left" Height="23" Margin="14,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163"/>
+          <Button x:Name="SearchByLastNameButton" Content="Search" HorizontalAlignment="Left" Margin="14,100,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.307,-0.091" Click="SearchByLastNameButton_Click"/>
           <Button x:Name="ButtonPreviousRequests" Content="Previous" HorizontalAlignment="Left" Margin="196,290,0,0" VerticalAlignment="Top" Width="75"/>
           <Button x:Name="ButtonNextRequests" Content="Next" HorizontalAlignment="Left" Margin="578,290,0,0" VerticalAlignment="Top" Width="75"/>
           <Label x:Name="PaginationLabel" Content="" HorizontalAlignment="Left" Height="22" Margin="369,290,0,0" VerticalAlignment="Top" Width="90"/>
@@ -35,15 +29,15 @@
                 <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding Client.Name}"/>
                 <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding Client.LastName}"/>
                 <GridViewColumn Header="Credit Type">
-                               <GridViewColumn.CellTemplate>
-                                    <DataTemplate DataType="String">
-                                        <TextBlock>
+                  <GridViewColumn.CellTemplate>
+                    <DataTemplate DataType="String">
+                      <TextBlock>
                                             <Hyperlink  Click="CreditTypeHyperLinkClick" CommandParameter="{Binding CreditType.CreditTypeId}">
                                                 <TextBlock Text="{Binding CreditType.Name}" />
                                              </Hyperlink>
                                         </TextBlock>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
+                    </DataTemplate>
+                  </GridViewColumn.CellTemplate>
                 </GridViewColumn>
                 <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Path=Amount, StringFormat={}{0}$}"/>
                 <GridViewColumn Header="Salary" DisplayMemberBinding="{Binding Path=Salary, StringFormat={}{0}%}"/>

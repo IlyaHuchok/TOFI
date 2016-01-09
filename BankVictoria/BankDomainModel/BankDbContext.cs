@@ -13,7 +13,7 @@ namespace BankDomainModel
     {
         public BankDbContext()
         {
-            // remove this in don't want the data to be deleted
+            // remove this if don't want the data to be deleted
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<BankDbContext>());
         }
 
@@ -24,6 +24,25 @@ namespace BankDomainModel
         public DbSet<Payment> Payments { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Account> Accounts { get; set; }
+
+        public DbSet<BankAccount> _bankAccounts { get; set; } //should be private !!!
+        public BankAccount BankAccount
+        {
+            get
+            {
+                return _bankAccounts.FirstOrDefault();
+            }
+            set
+            {
+                if (_bankAccounts.Any())
+                {
+                    _bankAccounts.Remove(BankAccount);
+                }
+
+                _bankAccounts.Add(value);
+            }
+        }
+
         //public DbSet<RequestStatus> RequestStatuses { get; set; }
 
       protected override void OnModelCreating(DbModelBuilder modelBuilder)

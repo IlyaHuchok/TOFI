@@ -11,5 +11,7 @@ namespace BankBL.Interfaces
     public interface ICreditTypeBusinessComponent
     {
         IEnumerable<CreditType> GetAllCreditTypes();
+
+        IEnumerable<CreditType> GetAllActiveCreditTypes();
     }
 }
