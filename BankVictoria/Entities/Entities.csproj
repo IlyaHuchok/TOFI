@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
+    <Compile Include="BankAccount.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Credit.cs" />
     <Compile Include="CreditType.cs" />
