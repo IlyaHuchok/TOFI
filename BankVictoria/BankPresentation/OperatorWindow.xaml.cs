@@ -29,13 +29,15 @@ namespace BankPresentation
         private readonly IClientBusinessComponent _clientBusinessComponent;
         private readonly IRequestBusinessComponent _requestBusinessComponent;
         private readonly IPaymentBusinessComponent _paymentBusinessComponent;
+        private readonly ICreditBusinessComponent _creditBusinessComponent;
 
         public OperatorWindow(IClientBusinessComponent clientBusinessComponent, IRequestBusinessComponent requestBusinessComponent, IPaymentBusinessComponent paymentBusinessComponent,
-            int operatorId)
+            ICreditBusinessComponent creditBusinessComponent, int operatorId)
         {
             _clientBusinessComponent = clientBusinessComponent;
             _requestBusinessComponent = requestBusinessComponent;
             _paymentBusinessComponent = paymentBusinessComponent;
+            _creditBusinessComponent = creditBusinessComponent;
             _operatorId = operatorId;
 
             InitializeComponent();
@@ -68,9 +70,10 @@ namespace BankPresentation
                     ContractNoCreditType cnct = (ContractNoCreditType)RepaymentListView.SelectedItem;
                     if ((req.Client.PassportNo == RepaymentPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.CreditId)) // CreditId==ContrqctNo
                     {
+                        CountUpNewDebt();//высчитываем долг
                         RepaymentName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
-                        RepaymentDebt.Text = req.Credit.PaidForFine.ToString();//это как-то считаться должно 
-                        RepaymentToRepayTheLoan.Text = (req.Credit.AmountOfPaymentPerMonth * req.CreditType.TimeMonths + Convert.ToInt32(RepaymentDebt.Text)).ToString();
+                        RepaymentDebt.Text = req.Credit.PaidForFine.ToString();
+                        RepaymentToRepayTheLoan.Text = (req.Credit.AmountOfPaymentPerMonth * req.CreditType.TimeMonths + req.Credit.PaidForFine).ToString();                        
                     }
                 }
             }
@@ -82,64 +85,80 @@ namespace BankPresentation
             if (RepaymentListView.SelectedItem == null)
                 MessageBox.Show("Сhoose ContractNo please");
             else {
-                IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.CreditProvided);
-                foreach (var req in request)
+                ContractNoCreditType cnct = (ContractNoCreditType)RepaymentListView.SelectedValue;
+                Request request = _requestBusinessComponent.GetByStatus(RequestStatus.CreditProvided).Where(x=> x.Client.PassportNo == RepaymentPassportNo.Text && 
+                                                                        Convert.ToInt32(cnct.ContractNO) == x.Credit.CreditId).FirstOrDefault();                
+                Credit credit = _creditBusinessComponent.GetAll().Where(x => x.CreditId == Convert.ToInt32(cnct.ContractNO)).FirstOrDefault();
+                DateTime creditStart = request.Credit.StartDate;
+                DateTime now = DateTime.Now;
+                System.TimeSpan ts = now - creditStart;
+                int Mounths = ts.Days / 30;
+                standartAlreadyPaid = Mounths * request.Credit.AmountOfPaymentPerMonth;
+                allreadyPaid = request.Credit.AllreadyPaid;
+                if (allreadyPaid > standartAlreadyPaid)//мы переплатили и CountFineFromThisDate должен улететь вверх
                 {
-                    ContractNoCreditType cnct = (ContractNoCreditType)RepaymentListView.SelectedItem;
-                    if ((req.Client.PassportNo == RepaymentPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.CreditId))
+                    double i = 0.0;//за сколько месяцев мы заплптили
+                    while (allreadyPaid > standartAlreadyPaid)
                     {
-                        DateTime creditStart = req.Credit.StartDate;
-                        DateTime now = DateTime.Now;
-                        System.TimeSpan ts = now - creditStart;
-                        int Mounths = ts.Days / 30;
-                        standartAlreadyPaid = Mounths * req.Credit.AmountOfPaymentPerMonth;
-                        allreadyPaid = req.Credit.AllreadyPaid;
-                        if(allreadyPaid > standartAlreadyPaid)//мы переплатили и CountFineFromThisDate должен улететь вверх
-                        {
-                            double i = 0.0;//за сколько месяцев мы заплптили
-                            while (allreadyPaid > standartAlreadyPaid)
-                            {
-                                
-                                if (allreadyPaid - standartAlreadyPaid >= req.Credit.AmountOfPaymentPerMonth)//переплатили больше чем на месяц
-                                {
-                                    allreadyPaid -= req.Credit.AmountOfPaymentPerMonth;  //смотрим насколько далеко улетит CountFineFromThisDate
-                                    i += 1.0;
-                                }
-                                else
-                                {
-                                    allreadyPaid -= allreadyPaid - standartAlreadyPaid;//смотрим насколько далеко улетит CountFineFromThisDate
-                                    i = i + (double)((allreadyPaid - standartAlreadyPaid)/ req.Credit.AmountOfPaymentPerMonth); 
-                                }
-                            }
-                            int Days = (int)(i * 30);//на сколько дней вперед улетит CountFineFromThisDate
-                            TimeSpan ts2 = new TimeSpan(Days,0,0,0);
-                            //_creditBusinessComponent.GetByContractNo(contractNo).Update();     обновление CountFineFromThisDate
 
+                        if (allreadyPaid - standartAlreadyPaid >= request.Credit.AmountOfPaymentPerMonth)//переплатили больше чем на месяц
+                        {
+                            allreadyPaid -= request.Credit.AmountOfPaymentPerMonth;  //смотрим насколько далеко улетит CountFineFromThisDate
+                            i += 1.0;
                         }
-                        if (allreadyPaid < standartAlreadyPaid)//у нас есть долг
+                        else
                         {
-
-                        }
-                        if(allreadyPaid == standartAlreadyPaid)
-                        {
-
+                            allreadyPaid -= allreadyPaid - standartAlreadyPaid;//смотрим насколько далеко улетит CountFineFromThisDate
+                            i = i + (double)((allreadyPaid - standartAlreadyPaid) / request.Credit.AmountOfPaymentPerMonth);
                         }
                     }
+                    int Days = (int)(i * 30);//на сколько дней вперед улетит CountFineFromThisDate                        
+                    _creditBusinessComponent.Update(credit.CreditId, credit.CountFineFromThisDate + new TimeSpan(Days, 0, 0, 0));
+                    allreadyPaid = request.Credit.AllreadyPaid;
+                }
+                else if (allreadyPaid < standartAlreadyPaid)//у нас есть долг
+                {
+
+                    TimeSpan ts3 = DateTime.Now - credit.CountFineFromThisDate; ;
+                    int daysFromTheStartOfTheDebt = ts3.Days;
+                    decimal Debt = daysFromTheStartOfTheDebt * credit.AmountOfPaymentPerMonth * (decimal)0.01; // 0.01 = 1% --- пеня за день
+                    while (daysFromTheStartOfTheDebt > 30)
+                    {
+                        daysFromTheStartOfTheDebt -= 30;
+                        Debt += daysFromTheStartOfTheDebt * credit.AmountOfPaymentPerMonth * (decimal)0.01;/// не Debt += Debt !!!!!
+                    }
+                    _creditBusinessComponent.Update(credit.CreditId, credit.AllreadyPaid, Debt);
+                    allreadyPaid = request.Credit.AllreadyPaid;
+                }
+                else if (allreadyPaid == standartAlreadyPaid)
+                {
+                    DateTime newDateToStartDebt = DateTime.Now;
+                    while(newDateToStartDebt.Day != 1)//просрочка начинается в первый день месяца
+                    {
+                        newDateToStartDebt -= new TimeSpan(1, 0, 0, 0, 0);
+                    }
+                    _creditBusinessComponent.Update(credit.CreditId, newDateToStartDebt);
                 }
             }
         }
 
         private void RepaymentSubmit_Click(object sender, RoutedEventArgs e)
         {
-            Client client = _clientBusinessComponent.GetAll().Where(x=> x.PassportNo == RepaymentPassportNo.Text).FirstOrDefault();
-            ContractNoCreditType cnct = (ContractNoCreditType)RepaymentListView.SelectedValue;
-            _paymentBusinessComponent.Add(
-                _operatorId,
-                client.Requests.Where(x =>x.Status == RequestStatus.CreditProvided && x.Credit.CreditId == Convert.ToInt32(cnct.ContractNO)).FirstOrDefault().Credit.CreditId,
-                Convert.ToDecimal(RepaymentToPay.Text),
-                DateTime.Now);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Accept Confirmation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                ContractNoCreditType cnct = (ContractNoCreditType)RepaymentListView.SelectedValue;
+                Client client = _clientBusinessComponent.GetAll().Where(x => x.PassportNo == RepaymentPassportNo.Text).FirstOrDefault();
+                Credit credit = _creditBusinessComponent.GetAll().Where(x => x.CreditId == Convert.ToInt32(cnct.ContractNO)).FirstOrDefault();
+                _paymentBusinessComponent.Add(
+                    _operatorId,
+                    client.Requests.Where(x => x.Status == RequestStatus.CreditProvided && x.Credit.CreditId == Convert.ToInt32(cnct.ContractNO)).FirstOrDefault().Credit.CreditId,
+                    Convert.ToDecimal(RepaymentToPay.Text),
+                    DateTime.Now);
 
-            //добавить взаимодействие с Credit (погашение додга? увеличение AllreadyPaid)
+                _creditBusinessComponent.Update(credit.CreditId, credit.AllreadyPaid + Convert.ToInt32(RepaymentToPay.Text), credit.PaidForFine - Convert.ToInt32(RepaymentToPay.Text));
+                TabRepaymentClear(false);
+            }
         }             
 
         private void RequestSendRequest_Click(object sender, RoutedEventArgs e)
@@ -183,6 +202,7 @@ namespace BankPresentation
                     RequestName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
                     RequestCreditType.Text = req.CreditType.Name;
                     RequestAmount.Text = req.AmountOfCredit.ToString();
+                    RequestCreditTypeIsAvailable.Text = req.CreditType.IsAvailable.ToString();
                 }
             }
         }
@@ -195,12 +215,12 @@ namespace BankPresentation
                 {
                     FillListView();
                     TabRequestClear();
-                    TabRepaymentClear();
+                    TabRepaymentClear(true);
                 }
                 if (TabRequest.IsSelected)
                 {
                     RequestDataList.Clear();                    
-                    TabRepaymentClear();
+                    TabRepaymentClear(true);
                 }
                 if(TabRepayment.IsSelected)
                 {
@@ -232,15 +252,17 @@ namespace BankPresentation
             RequestName.Clear();
             RequestCreditType.Clear();
             RequestAmount.Clear();
+            RequestCreditTypeIsAvailable.Clear();
         }
-        private void TabRepaymentClear()
+        private void TabRepaymentClear(bool ClearList)
         {
             RepaymentPassportNo.Clear();
             RepaymentName.Clear();
             RepaymentToRepayTheLoan.Clear();
             RepaymentToPay.Clear();
             RepaymentDebt.Clear();
-            RepaymentDataList.Clear();
+            if(ClearList == true)
+                RepaymentDataList.Clear();
         }
 
 
