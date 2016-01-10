@@ -60,7 +60,7 @@
                     <ListView x:Name="RepaymentListView" HorizontalAlignment="Left" Height="236" Margin="324,10,0,0" VerticalAlignment="Top" Width="178">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="ContractNo" DisplayMemberBinding="{Binding ContractNo}" Width="108"/>
+                                <GridViewColumn Header="ContractNo" DisplayMemberBinding="{Binding ContractNO}" Width="108"/>
                                 <GridViewColumn Header="Credit type" DisplayMemberBinding="{Binding CreditType}" Width="65"/>
                             </GridView>
                         </ListView.View>

@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{D2C38B7E-B7A3-44B7-8EE5-3F63D731445B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTestingApp", "ConsoleTestingApp\ConsoleTestingApp.csproj", "{992B13CE-4C81-445F-BD55-92FC5D595742}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTestDbFiller", "ConsoleTestingApp\ConsoleTestDbFiller.csproj", "{992B13CE-4C81-445F-BD55-92FC5D595742}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{380DEAA7-50C2-48E0-B46A-D1ED57F947AA}"
 EndProject

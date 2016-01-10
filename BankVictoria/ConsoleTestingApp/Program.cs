@@ -11,7 +11,7 @@ using BankDAL.Repositories;
 using Entities;
 using Entities.Enums;
 
-namespace ConsoleApplication1
+namespace ConsoleTestDbFiller
 {
     class Program
     {

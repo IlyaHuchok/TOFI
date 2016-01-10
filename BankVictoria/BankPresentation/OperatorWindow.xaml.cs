@@ -52,7 +52,7 @@ namespace BankPresentation
             IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.CreditProvided);
             foreach (var req in request)
             {
-                if (req.Client.PassportNo == RepaymentPassportNo.Text)
+                if ((req.Client.PassportNo == RepaymentPassportNo.Text) &&(req.Credit.CreditId != null) )
                 {
                     RepaymentDataList.Add(new ContractNoCreditType() { ContractNO = req.Credit.CreditId.ToString(), CreditType = req.CreditType.Name});
                 }
