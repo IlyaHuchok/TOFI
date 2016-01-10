@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using BankPresentation.ListViewClasses;
 namespace BankPresentation
 {
     /// <summary>
@@ -26,7 +26,7 @@ namespace BankPresentation
 
         private void SendRequest_Click(object sender, RoutedEventArgs e)
         {
-
+            ClientListView clv = (ClientListView)listView.SelectedValue;
         }
     }
 }

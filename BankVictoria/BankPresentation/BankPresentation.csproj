@@ -65,11 +65,12 @@
     <Compile Include="ClientDetailsWindow.xaml.cs">
       <DependentUpon>ClientDetailsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OperatorRequestListClass.cs" />
+    <Compile Include="ListViewClasses\ClientListView.cs" />
+    <Compile Include="ListViewClasses\OperatorRequestListClass.cs" />
     <Compile Include="ClientWindow.xaml.cs">
       <DependentUpon>ClientWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ContractNoCreditType.cs" />
+    <Compile Include="ListViewClasses\ContractNoCreditType.cs" />
     <Compile Include="CreditTypesWindow.xaml.cs">
       <DependentUpon>CreditTypesWindow.xaml</DependentUpon>
     </Compile>
@@ -194,6 +195,7 @@
       <Name>UnitOfWork</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
