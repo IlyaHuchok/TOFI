@@ -89,6 +89,7 @@
       <DependentUpon>SecurityOfficerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Validation\ClientValidation.cs" />
+    <Compile Include="Validation\OperatorValidation.cs" />
     <Compile Include="Validation\UserValidation.cs" />
     <Compile Include="Validation\ValidationResult.cs" />
     <Page Include="ClientCreditHistoryWindow.xaml">
