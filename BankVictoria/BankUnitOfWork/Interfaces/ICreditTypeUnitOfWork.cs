@@ -12,5 +12,6 @@ namespace BankUnitOfWork.Interfaces
     public interface ICreditTypeUnitOfWork : IUnitOfWork
     {
         ICreditTypeRepository CreditTypeRepository { get; }
+        ICreditRepository CreditRepository { get; }
     }
 }

@@ -26,5 +26,32 @@ namespace BankBL.BusinessComponents
         {
             return _unitOfWork.CreditTypeRepository.GetAll().Where(x => x.IsAvailable = true);
         }
+
+        public void Add(CreditType creditType)
+        {
+            _unitOfWork.CreditTypeRepository.Add(creditType);
+            _unitOfWork.Save(); 
+        }
+
+        public void Delete(CreditType creditType)
+        {
+            _unitOfWork.CreditTypeRepository.Remove(creditType);
+            _unitOfWork.Save();
+        }
+
+        public bool IsUsed(CreditType creditType)
+        {
+            return
+                _unitOfWork.CreditRepository.GetAll()
+                    .Where(x => x.IsRepaid == false)
+                    .Any(x => x.CreditType.CreditTypeId == creditType.CreditTypeId);
+        }
+
+        public void Disable(CreditType creditType)
+        {
+            creditType.IsAvailable = false;
+            _unitOfWork.CreditTypeRepository.Update(creditType);
+            _unitOfWork.Save();
+        }
     }
 }

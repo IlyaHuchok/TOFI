@@ -22,6 +22,8 @@ using Ninject.Parameters;
 
 using BankBL.Interfaces;
 
+using Entities;
+
 namespace BankPresentation
 {
   /// <summary>
@@ -90,7 +92,8 @@ namespace BankPresentation
         switch (role)
         {
             case UserRole.Admin:
-                this.Content = _ninjectKernel.Get<AdministratorWindow>();
+                this.Content = _ninjectKernel.Get<AdministratorPage>(
+                    new ConstructorArgument("clientToUpdate", (Client)null));
                 break;
             case UserRole.Client:
                 this.Content = _ninjectKernel.Get<ClientWindow>();
@@ -102,6 +105,14 @@ namespace BankPresentation
                 this.Content = _ninjectKernel.Get<SecurityOfficerPage>(new ConstructorArgument("userId", userId));
                 break;
         }     
+    }
+
+    private void Register_Click(object sender, RoutedEventArgs e)
+    {
+        var registrationWindow = _ninjectKernel.Get<RegistrationWindow>(
+            new ConstructorArgument("userRole", UserRole.Client),
+            new ConstructorArgument("clientToUpdate", (Client)null));
+        registrationWindow.ShowDialog();
     }
   }
 }

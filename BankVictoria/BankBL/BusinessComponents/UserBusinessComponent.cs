@@ -42,7 +42,8 @@ namespace BankBL.BusinessComponents
                 {
                     Login = name,
                     Password = pass,
-                    Role = userRole
+                    Role = userRole,
+                    IsActive = true
                 };
             _unitOfWork.UserRepository.Add(userToAdd);
             _unitOfWork.Save();
@@ -50,10 +51,27 @@ namespace BankBL.BusinessComponents
             return userToAdd.UserId;
         }
 
+        public IEnumerable<User> GetAll()
+        {
+            return _unitOfWork.UserRepository.GetAll();
+        } 
+
         public int GetIdByLogin(string name)
         {
             var id = _unitOfWork.UserRepository.GetSingle(x => x.Login == name).UserId;
             return id;
+        }
+
+        public void Update(User user)
+        {
+            _unitOfWork.UserRepository.Update(user);
+            _unitOfWork.Save();
+        }
+
+        public void Delete(User user)
+        {
+            _unitOfWork.UserRepository.Remove(user);
+            _unitOfWork.Save();
         }
         /// TODO: Add remaining methods here
     }

@@ -13,5 +13,13 @@ namespace BankBL.Interfaces
         IEnumerable<CreditType> GetAllCreditTypes();
 
         IEnumerable<CreditType> GetAllActiveCreditTypes();
+
+        void Add(CreditType creditType);
+
+        void Delete(CreditType creditType);
+
+        bool IsUsed(CreditType creditType);
+
+        void Disable(CreditType creditType);
     }
 }

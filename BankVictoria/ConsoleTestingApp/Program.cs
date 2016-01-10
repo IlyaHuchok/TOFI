@@ -109,28 +109,32 @@ namespace ConsoleApplication1
                 {
                     Login = "admin",
                     Password = "admin",
-                    Role = UserRole.Admin
+                    Role = UserRole.Admin,
+                    IsActive = true
                 };
 
                 var ss = new User // security service employee
                 {
                     Login = "security",
                     Password = "security",
-                    Role = UserRole.SecurityServiceEmployee
+                    Role = UserRole.SecurityServiceEmployee,
+                    IsActive = true
                 };
 
                 var operator1 = new User // 
                 {
                     Login = "operator1",
                     Password = "operator1",
-                    Role = UserRole.Operator
+                    Role = UserRole.Operator,
+                    IsActive = true
                 }; 
 
                 var operator2 = new User // 
                 {
                     Login = "operator2",
                     Password = "operator2",
-                    Role = UserRole.Operator
+                    Role = UserRole.Operator,
+                    IsActive = true
                 };
 
                 var client1 = new User

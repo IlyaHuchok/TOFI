@@ -28,11 +28,14 @@ namespace BankPresentation
         private readonly IClientBusinessComponent _clientBusinessComponent;
         private readonly UserRole _role;
 
+        private readonly Client _clientToUpdate;
+
         public RegistrationWindow(IUserBusinessComponent userBusinessComponent, UserRole userRole,
-            IClientBusinessComponent clientBusinessComponent)
+            IClientBusinessComponent clientBusinessComponent, Client clientToUpdate)
         {
             _userBusinessComponent = userBusinessComponent;
             _clientBusinessComponent = clientBusinessComponent;
+            this._clientToUpdate = clientToUpdate;
             _role = userRole;
 
             InitializeComponent();
@@ -72,12 +75,52 @@ namespace BankPresentation
             }
             else
             {
-                roleComboBox.Items.Add("Client");
-                if (_role == UserRole.Admin)
+                if (_clientToUpdate == null)
                 {
-                    roleComboBox.Items.Add("Operator");
-                    roleComboBox.Items.Add("Security Service Employee");
-                    roleComboBox.Items.Add("Admin");
+
+                    roleComboBox.Items.Add("Client");
+                    if (_role == UserRole.Admin)
+                    {
+                        roleComboBox.Items.Add("Operator");
+                        roleComboBox.Items.Add("Security Service Employee");
+                        roleComboBox.Items.Add("Admin");
+                    }
+                }
+                else
+                {
+                    roleComboBox.Items.Add("Client");
+                    roleComboBox.SelectedValue = "Client";
+                    roleComboBox.IsEnabled = false;
+                    roleComboBox.Visibility = Visibility.Hidden;
+                    labelRole.Visibility = Visibility.Hidden;
+
+
+                    tabControl.SelectedIndex = 1;
+                    UserInfoTabItem.IsEnabled = false;
+                    UserInfoTabItem.Visibility = Visibility.Hidden;
+
+                    ClientInfoTabItem.Visibility = Visibility.Visible;
+                    ClientInfoTabItem.IsEnabled = true;
+
+                    button_Back.Visibility = Visibility.Hidden;
+                    button_Back.IsEnabled = false;
+
+                    button_End.Content = "Apply";
+
+
+                    textBox_Create_Login.Text = _clientToUpdate.Name;
+                    LastNameTextBox.Text = _clientToUpdate.LastName;
+                    NameTextBox.Text = _clientToUpdate.Name;
+                    PatronymicTextBox.Text = _clientToUpdate.Patronymic;
+                    BirthdayDatePicker.SelectedDate = _clientToUpdate.Birthday;
+                    MobilePhoneNumberTextBox.Text = _clientToUpdate.Mobile;
+                    EmailTextBox.Text = _clientToUpdate.Email;
+                    PassportNoTextBox.Text = _clientToUpdate.PassportNo;
+                    PasswordExpirationDatePicker.SelectedDate = _clientToUpdate.PassportExpirationDate;
+                    PassportIdentityNoTextBox.Text = _clientToUpdate.PassportIdentificationNo;
+                    PassportAuthorityTextBox.Text = _clientToUpdate.PassportAuthority;
+                    PlaceOfResidenceTextBox.Text = _clientToUpdate.PlaceOfResidence;
+                    RegistrationAddressTextBox.Text = _clientToUpdate.RegistrationAddress;
                 }
             }
         }
@@ -187,51 +230,74 @@ namespace BankPresentation
                     RegistrationAddressTextBox.Text);
                 if (validationResult.IsValid)
                 {
-                    UserRole selectedRole;
-                    switch ((string)roleComboBox.SelectedValue)
+                    if (_clientToUpdate != null)
                     {
-                        case "Client":
-                            selectedRole = UserRole.Client;
-                            break;
-                        case "Admin":
-                            selectedRole = UserRole.Admin;
-                            break;
-                        case "Operator":
-                            selectedRole = UserRole.Operator;
-                            break;
-                        case "Security Service Employee":
-                            selectedRole = UserRole.SecurityServiceEmployee;
-                            break;
-                        default:
-                            selectedRole = UserRole.Client;
-                            break;
+                        _clientToUpdate.Name = textBox_Create_Login.Text;
+                        _clientToUpdate.LastName = LastNameTextBox.Text;
+                        _clientToUpdate.Name = NameTextBox.Text;
+                        _clientToUpdate.Patronymic = PatronymicTextBox.Text;
+                        _clientToUpdate.Birthday = BirthdayDatePicker.SelectedDate.Value;
+                        _clientToUpdate.Mobile = MobilePhoneNumberTextBox.Text;
+                        _clientToUpdate.Email = EmailTextBox.Text;
+                        _clientToUpdate.PassportNo = PassportNoTextBox.Text;
+                        _clientToUpdate.PassportExpirationDate = PasswordExpirationDatePicker.SelectedDate.Value;
+                        _clientToUpdate.PassportIdentificationNo = PassportIdentityNoTextBox.Text;
+                        _clientToUpdate.PassportAuthority = PassportAuthorityTextBox.Text;
+                        _clientToUpdate.PlaceOfResidence = PlaceOfResidenceTextBox.Text;
+                        _clientToUpdate.RegistrationAddress = RegistrationAddressTextBox.Text;
+
+                        _clientBusinessComponent.Update(_clientToUpdate);
+                        MessageBox.Show("Updated successfully!");
+                        this.Close();
                     }
-                    _clientBusinessComponent.Add(
-                        textBox_Create_Login.Text,
-                        passwordBox_Create_Password.Password,
-                        selectedRole,
-                        LastNameTextBox.Text,
-                        NameTextBox.Text,
-                        PatronymicTextBox.Text,
-                        BirthdayDatePicker.SelectedDate.Value,
-                        MobilePhoneNumberTextBox.Text,
-                        EmailTextBox.Text,
-                        PassportNoTextBox.Text,
-                        PasswordExpirationDatePicker.SelectedDate.Value,
-                        PassportIdentityNoTextBox.Text,
-                        PassportAuthorityTextBox.Text,
-                        PlaceOfResidenceTextBox.Text,
-                        RegistrationAddressTextBox.Text
-                        );
-                    MessageBox.Show("Registered successfully!");
+                    else
+                    {
 
-                    //go back
-                    ClientInfoTabItem.IsEnabled = false;
-                    ClientInfoTabItem.Visibility = Visibility.Hidden;
+                        UserRole selectedRole;
+                        switch ((string)roleComboBox.SelectedValue)
+                        {
+                            case "Client":
+                                selectedRole = UserRole.Client;
+                                break;
+                            case "Admin":
+                                selectedRole = UserRole.Admin;
+                                break;
+                            case "Operator":
+                                selectedRole = UserRole.Operator;
+                                break;
+                            case "Security Service Employee":
+                                selectedRole = UserRole.SecurityServiceEmployee;
+                                break;
+                            default:
+                                selectedRole = UserRole.Client;
+                                break;
+                        }
+                        _clientBusinessComponent.Add(
+                            textBox_Create_Login.Text,
+                            passwordBox_Create_Password.Password,
+                            selectedRole,
+                            LastNameTextBox.Text,
+                            NameTextBox.Text,
+                            PatronymicTextBox.Text,
+                            BirthdayDatePicker.SelectedDate.Value,
+                            MobilePhoneNumberTextBox.Text,
+                            EmailTextBox.Text,
+                            PassportNoTextBox.Text,
+                            PasswordExpirationDatePicker.SelectedDate.Value,
+                            PassportIdentityNoTextBox.Text,
+                            PassportAuthorityTextBox.Text,
+                            PlaceOfResidenceTextBox.Text,
+                            RegistrationAddressTextBox.Text);
+                        MessageBox.Show("Registered successfully!");
 
-                    tabControl.SelectedIndex = 0;
-                    UserInfoTabItem.Visibility = Visibility.Visible;
-                    UserInfoTabItem.IsEnabled = true;
+                        //go back
+                        ClientInfoTabItem.IsEnabled = false;
+                        ClientInfoTabItem.Visibility = Visibility.Hidden;
+
+                        tabControl.SelectedIndex = 0;
+                        UserInfoTabItem.Visibility = Visibility.Visible;
+                        UserInfoTabItem.IsEnabled = true;
+                    }
                 }
                 else
                 {

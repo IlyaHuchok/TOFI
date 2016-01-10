@@ -7,7 +7,7 @@
     <TextBox Name="LoginTextbox" HorizontalAlignment="Left" Height="32" Margin="121,99,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="144" />
     <PasswordBox  KeyDown="Passwordbox_OnKeyDown" Name="Passwordbox" HorizontalAlignment="Left" Height="32" Margin="121,197,0,0" VerticalAlignment="Top" Width="144" PasswordChar="*"/>
     <Label Content="Password" HorizontalAlignment="Left" Margin="121,161,0,0" VerticalAlignment="Top" Height="36" Width="257"/>
-    <Button Name="LoginButton" Content="Log in" HorizontalAlignment="Left" Margin="121,244,0,0" VerticalAlignment="Top" Width="75" Click="LoginButton_Click"/>
-
+    <Button Name="LoginButton" Content="Log in" HorizontalAlignment="Left" Margin="121,250,0,0" VerticalAlignment="Top" Width="75" Click="LoginButton_Click"/>
+    <Button x:Name="Register" Content="Register" HorizontalAlignment="Left" Margin="229,250,0,0" VerticalAlignment="Top" Width="76" IsEnabled="True" Visibility="Visible" Click="Register_Click"/>
   </Grid>
 </Window>

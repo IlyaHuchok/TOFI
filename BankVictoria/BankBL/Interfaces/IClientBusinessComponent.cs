@@ -16,7 +16,11 @@ namespace BankBL.Interfaces
             DateTime passwordExpiration, string passportIdentityNo, string passportAuthority,
             string placeOfResidence, string registrationAddress);
         Client GetByID(int id);
+
+        Client GetByUserId(int userId);
         IList<Client> GetAll();
         int Count();
+        void Update(Client user);
+        void Delete(Client user);
     }
 }

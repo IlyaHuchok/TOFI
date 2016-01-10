@@ -65,6 +65,9 @@
     <Compile Include="ClientDetailsWindow.xaml.cs">
       <DependentUpon>ClientDetailsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CreditTypeWindow.xaml.cs">
+      <DependentUpon>CreditTypeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ListViewClasses\ClientListView.cs" />
     <Compile Include="ListViewClasses\OperatorRequestListClass.cs" />
     <Compile Include="ClientWindow.xaml.cs">
@@ -80,8 +83,8 @@
     <Compile Include="RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AdministratorWindow.xaml.cs">
-      <DependentUpon>AdministratorWindow.xaml</DependentUpon>
+    <Compile Include="AdministratorPage.xaml.cs">
+      <DependentUpon>AdministratorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="RejectionWindow.xaml.cs">
       <DependentUpon>RejectionWindow.xaml</DependentUpon>
@@ -90,6 +93,7 @@
       <DependentUpon>SecurityOfficerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Validation\ClientValidation.cs" />
+    <Compile Include="Validation\CreditTypeValidation.cs" />
     <Compile Include="Validation\OperatorValidation.cs" />
     <Compile Include="Validation\UserValidation.cs" />
     <Compile Include="Validation\ValidationResult.cs" />
@@ -108,6 +112,10 @@
     <Page Include="CreditTypesWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CreditTypeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -133,7 +141,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AdministratorWindow.xaml">
+    <Page Include="AdministratorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

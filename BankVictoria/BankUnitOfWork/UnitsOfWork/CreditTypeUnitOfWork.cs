@@ -14,6 +14,7 @@ namespace BankUnitOfWork.UnitsOfWork
     public class CreditTypeUnitOfWork : UnitOfWork, ICreditTypeUnitOfWork
     {
         private ICreditTypeRepository _creditTypeRepository;
+        private ICreditRepository _creditRepository;
         public CreditTypeUnitOfWork(IKernel kernel) : base(kernel) { }
 
         public ICreditTypeRepository CreditTypeRepository
@@ -26,6 +27,19 @@ namespace BankUnitOfWork.UnitsOfWork
                 }
 
                 return _creditTypeRepository;
+            }
+        }
+
+        public ICreditRepository CreditRepository
+        {
+            get
+            {
+                if (_creditRepository == null)
+                {
+                    _creditRepository = _ninjectKernel.Get<ICreditRepository>(new ConstructorArgument("context", GetContext()));
+                }
+
+                return _creditRepository;
             }
         }
     }
