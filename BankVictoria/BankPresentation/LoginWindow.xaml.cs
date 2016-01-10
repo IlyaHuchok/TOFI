@@ -96,8 +96,8 @@ namespace BankPresentation
                     new ConstructorArgument("clientToUpdate", (Client)null));
                 break;
             case UserRole.Client:
-                this.Content = _ninjectKernel.Get<ClientWindow>();
-                break;
+                this.Content = _ninjectKernel.Get<ClientWindow>(new ConstructorArgument("userId", userId));//_ninjectKernel.Get<ClientWindow>();
+                    break; 
             case UserRole.Operator:
                 this.Content = _ninjectKernel.Get<OperatorWindow>(new ConstructorArgument("operatorId", userId));//_ninjectKernel.Get<OperatorWindow>();
                     break;

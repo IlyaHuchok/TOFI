@@ -209,22 +209,22 @@ namespace BankPresentation
         {
             if(e.Source is TabControl)
             {
-                if(TabRequestList.IsSelected)
-                {
-                    FillListView();
-                    TabRequestClear();
-                    TabRepaymentClear(true);
-                }
-                if (TabRequest.IsSelected)
-                {
-                    RequestDataList.Clear();                    
-                    TabRepaymentClear(true);
-                }
-                if(TabRepayment.IsSelected)
+
+                if (TabRequestList.IsSelected)
                 {
                     RequestDataList.Clear();
                     FillListView();
-                    TabRequestClear();
+                   // 
+                }
+                if (TabRequest.IsSelected)
+                {
+
+                }               
+                if(TabRepayment.IsSelected)
+                {
+                    RepaymentDataList.Clear();
+                    TabRepaymentClear(true);
+                    FillListView();
                 }
             }
         }
