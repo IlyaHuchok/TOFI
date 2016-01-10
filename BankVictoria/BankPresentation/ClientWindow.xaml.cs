@@ -20,7 +20,7 @@ namespace BankPresentation
     /// <summary>
     /// Логика взаимодействия для ClientWindow.xaml
     /// </summary>
-    public partial class ClientWindow : Window
+    public partial class ClientWindow : Page
     {
         private ObservableCollection<CTypeListView> CTypetDataList = new ObservableCollection<CTypeListView>();
         private ObservableCollection<ClientListView> CreditDataList = new ObservableCollection<ClientListView>();
@@ -28,15 +28,15 @@ namespace BankPresentation
         private readonly ICreditBusinessComponent _creditBusinessComponent;
         private readonly IClientBusinessComponent _clientBusinessComponent;
         private readonly IRequestBusinessComponent _requestBusinessComponent;
-        int _clientId;
+        int _userId;
         public ClientWindow(ICreditBusinessComponent creditBusinessComponent, ICreditTypeBusinessComponent creditTypeBusinessComponent, IClientBusinessComponent clientBusinessComponent,
-            IRequestBusinessComponent requestBusinessComponent, int clientId)
+            IRequestBusinessComponent requestBusinessComponent, int userId)
         {
             _creditTypeBusinessComponent = creditTypeBusinessComponent;
             _creditBusinessComponent = creditBusinessComponent;
             _clientBusinessComponent = clientBusinessComponent;
             _requestBusinessComponent = requestBusinessComponent;
-            _clientId = clientId;
+            _userId = userId;
 
             InitializeComponent();
             FillCTypeListView();
@@ -45,8 +45,8 @@ namespace BankPresentation
             IList<CreditType> ctype = _creditTypeBusinessComponent.GetAllActiveCreditTypes().ToList();
             foreach(var ct in ctype)
                 CreditCTypeBox.Items.Add(ct.Name);
-
-            CreditBalance.Text = _clientBusinessComponent.GetAll().Where(x => x.ClientId == clientId).FirstOrDefault().Accounts.FirstOrDefault().Balance.ToString();
+            decimal balance = _clientBusinessComponent.GetAll().Where(x => x.UserId == _userId).FirstOrDefault().Accounts.FirstOrDefault().Balance; 
+            CreditBalance.Text = balance.ToString();
 
             CTypeListView.ItemsSource = CTypetDataList;
             CreditListView.ItemsSource = CreditDataList;
@@ -57,7 +57,7 @@ namespace BankPresentation
             MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Accept Confirmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                _clientBusinessComponent.GetAll().Where(x => x.ClientId == _clientId).FirstOrDefault();
+                int _clientId =  _clientBusinessComponent.GetAll().Where(x => x.UserId == _userId).FirstOrDefault().ClientId;
                 CreditType ctype = _creditTypeBusinessComponent.GetAllActiveCreditTypes().Where(x => x.Name == CreditCTypeBox.SelectedValue.ToString()).FirstOrDefault();
                 _requestBusinessComponent.Add(_clientId, null, null, ctype.CreditTypeId, Entities.Enums.RequestStatus.Created,
                                               Convert.ToDecimal(CreditAmount.Text), Convert.ToDecimal(CreditSalary.Text), "");
@@ -112,17 +112,19 @@ namespace BankPresentation
 
         private void CTypeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-            ClientListView clv = (ClientListView)CreditListView.SelectedValue;
-            CreditType ctype = _creditTypeBusinessComponent.GetAllCreditTypes().Where(x => x.Name == clv.CType).FirstOrDefault();
-            CTypeName.Text = ctype.Name;
-            CTypeTimeMonths.Text = ctype.TimeMonths.ToString();
-            CTypePercentPerYear.Text = ctype.PercentPerYear.ToString();
-            CTypeCurrency.Text = ctype.Currency;
-            CTypeFinePercent.Text = ctype.FinePercent.ToString();
-            CTypeMinAmount.Text = ctype.MinAmount.ToString();
-            CTypeMaxAmount.Text = ctype.MaxAmount.ToString();
-            CTypeIsAvailable.Text = ctype.IsAvailable.ToString();
+            try {
+                CTypeListView clv = (CTypeListView)CTypeListView.SelectedValue;
+                CreditType ctype = _creditTypeBusinessComponent.GetAllCreditTypes().Where(x => x.Name == clv.CTypeName).FirstOrDefault();
+                CTypeName.Text = ctype.Name;
+                CTypeTimeMonths.Text = ctype.TimeMonths.ToString();
+                CTypePercentPerYear.Text = ctype.PercentPerYear.ToString();
+                CTypeCurrency.Text = ctype.Currency;
+                CTypeFinePercent.Text = ctype.FinePercent.ToString();
+                CTypeMinAmount.Text = ctype.MinAmount.ToString();
+                CTypeMaxAmount.Text = ctype.MaxAmount.ToString();
+                CTypeIsAvailable.Text = ctype.IsAvailable.ToString();
+            }
+            catch  { }
 
         }
     }
