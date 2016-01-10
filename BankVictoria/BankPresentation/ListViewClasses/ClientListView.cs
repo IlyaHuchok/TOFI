@@ -9,7 +9,7 @@ namespace BankPresentation.ListViewClasses
     public class ClientListView
     {
         public int RequestId { get; set; }
-        public string CreditType { get; set; }
+        public string CType { get; set; }
         public string Amount { get; set; }
         public string Status { get; set; }
     }

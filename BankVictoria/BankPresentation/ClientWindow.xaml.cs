@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BankPresentation.ListViewClasses;
+using System.Collections.ObjectModel;
+using BankBL.Interfaces;
+using Entities;
 namespace BankPresentation
 {
     /// <summary>
@@ -19,14 +22,91 @@ namespace BankPresentation
     /// </summary>
     public partial class ClientWindow : Window
     {
+        private ObservableCollection<CTypeListView> CTypetDataList = new ObservableCollection<CTypeListView>();
+        private ObservableCollection<ClientListView> CreditDataList = new ObservableCollection<ClientListView>();
+        private readonly ICreditTypeBusinessComponent _creditTypeBusinessComponent;
+        private readonly ICreditBusinessComponent _creditBusinessComponent;
         public ClientWindow()
         {
             InitializeComponent();
+            FillCTypeListView();
+            FillCreditListView();
+
+            CTypeListView.ItemsSource = CTypetDataList;
+            CreditListView.ItemsSource = CreditDataList;
         }
 
         private void SendRequest_Click(object sender, RoutedEventArgs e)
         {
-            ClientListView clv = (ClientListView)listView.SelectedValue;
+
+            
+        }
+
+        public void FillCTypeListView()
+        {
+            IList<CreditType> ctype = _creditTypeBusinessComponent.GetAllActiveCreditTypes().ToList();
+            foreach (var ct in ctype)
+            {
+                CTypetDataList.Add(new CTypeListView() { CTypeName = ct.Name});
+            }
+        }
+
+        public void FillCreditListView()
+        {
+            IList<Credit> credit = _creditBusinessComponent.GetAll();
+            foreach (var cr in credit)
+            {
+                CreditDataList.Add(new ClientListView() {RequestId = cr.RequestId, CType = cr.CreditType.Name, Amount = cr.PaidForFine.ToString(), Status = cr.IsRepaid.ToString()  });
+            }
+        }
+
+        public void ClearCTypeListView()
+        {
+            CTypetDataList.Clear();
+        }
+        public void ClearCreditListView()
+        {
+            CreditDataList.Clear();
+        }
+        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.Source is TabControl)
+            {
+                if(TabCType.IsSelected)
+                {
+                    ClearCTypeListView();
+                    ClearCreditListView();
+                    FillCTypeListView();
+                }
+                if(TabCredit.IsSelected)
+                {
+                    ClearCreditListView();
+                    ClearCTypeListView();
+                    FillCreditListView();
+                }
+            }
+        }
+
+        private void CTypeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            ClientListView clv = (ClientListView)CreditListView.SelectedValue;
+            CreditType ctype = _creditTypeBusinessComponent.GetAllCreditTypes().Where(x => x.Name == clv.CType).FirstOrDefault();
+            CTypeName.Text = ctype.Name;
+            CTypeTimeMonths.Text = ctype.TimeMonths.ToString();
+            CTypePercentPerYear.Text = ctype.PercentPerYear.ToString();
+            CTypeCurrency.Text = ctype.Currency;
+            CTypeFinePercent.Text = ctype.FinePercent.ToString();
+            CTypeMinAmount.Text = ctype.MinAmount.ToString();
+            CTypeMaxAmount.Text = ctype.MaxAmount.ToString();
+            CTypeIsAvailable.Text = ctype.IsAvailable.ToString();
+
         }
     }
+
+    public class CTypeListView
+    {
+        public string CTypeName { get; set; }
+    }
+
 }
