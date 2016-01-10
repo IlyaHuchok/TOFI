@@ -10,11 +10,14 @@ using BankDAL.Repositories;
 
 using Entities;
 using Entities.Enums;
+using System.Runtime.InteropServices;
 
 namespace ConsoleTestDbFiller
 {
     class Program
     {
+        
+
         static void Main(string[] args)
         {
             // NOT A PART OF PROJECT
