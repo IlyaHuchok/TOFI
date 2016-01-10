@@ -26,11 +26,27 @@ namespace BankPresentation
         private ObservableCollection<ClientListView> CreditDataList = new ObservableCollection<ClientListView>();
         private readonly ICreditTypeBusinessComponent _creditTypeBusinessComponent;
         private readonly ICreditBusinessComponent _creditBusinessComponent;
-        public ClientWindow()
+        private readonly IClientBusinessComponent _clientBusinessComponent;
+        private readonly IRequestBusinessComponent _requestBusinessComponent;
+        int _clientId;
+        public ClientWindow(ICreditBusinessComponent creditBusinessComponent, ICreditTypeBusinessComponent creditTypeBusinessComponent, IClientBusinessComponent clientBusinessComponent,
+            IRequestBusinessComponent requestBusinessComponent, int clientId)
         {
+            _creditTypeBusinessComponent = creditTypeBusinessComponent;
+            _creditBusinessComponent = creditBusinessComponent;
+            _clientBusinessComponent = clientBusinessComponent;
+            _requestBusinessComponent = requestBusinessComponent;
+            _clientId = clientId;
+
             InitializeComponent();
             FillCTypeListView();
             FillCreditListView();
+
+            IList<CreditType> ctype = _creditTypeBusinessComponent.GetAllActiveCreditTypes().ToList();
+            foreach(var ct in ctype)
+                CreditCTypeBox.Items.Add(ct.Name);
+
+            CreditBalance.Text = _clientBusinessComponent.GetAll().Where(x => x.ClientId == clientId).FirstOrDefault().Accounts.FirstOrDefault().Balance.ToString();
 
             CTypeListView.ItemsSource = CTypetDataList;
             CreditListView.ItemsSource = CreditDataList;
@@ -38,7 +54,14 @@ namespace BankPresentation
 
         private void SendRequest_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Accept Confirmation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                _clientBusinessComponent.GetAll().Where(x => x.ClientId == _clientId).FirstOrDefault();
+                CreditType ctype = _creditTypeBusinessComponent.GetAllActiveCreditTypes().Where(x => x.Name == CreditCTypeBox.SelectedValue.ToString()).FirstOrDefault();
+                _requestBusinessComponent.Add(_clientId, null, null, ctype.CreditTypeId, Entities.Enums.RequestStatus.Created,
+                                              Convert.ToDecimal(CreditAmount.Text), Convert.ToDecimal(CreditSalary.Text), "");
+            }
             
         }
 

@@ -9,9 +9,10 @@ namespace BankPresentation.Validation
     public class OperatorValidation
     {
         private static Regex NumericField = new Regex(@"[0-9]");
+        private static Regex PassportNoRegex = new Regex(@"^(AB|BM|HB|KH|MP|MC|KB|PP)[0-9]{7}$");
         public const int PassportNoMaxLength = 9;
         public const int ToPayMaxLength = 12;
-        public static ValidationResult Validate(string RequestId, string PasswordNo, string ToPay)
+        public static ValidationResult Validate(string RequestId, string PassportNo, string ToPay)
         {
             var result = new ValidationResult
             {
@@ -19,28 +20,34 @@ namespace BankPresentation.Validation
             };
 
             var error = new StringBuilder();
-
-            if (!NumericField.IsMatch(RequestId))
+            int request;
+            decimal topay;
+            if (!Int32.TryParse(RequestId, out request))
             {
-                error.AppendLine("Wrong Request id format! Can have only numbers");
+                error.AppendLine("Wrong Request id format! Can have only numbers");                
                 result.IsValid = false;
             }
 
-            if (!NumericField.IsMatch(PasswordNo))
+            if (!PassportNoRegex.IsMatch(PassportNo))
             {
-                error.AppendLine("Wrong PasswordNo format! Can have only numbers");
+                error.AppendLine("Wrong passport number!\n Enter your passport number in format: yourAccountName@yoursite.xyz");
                 result.IsValid = false;
             }
 
-            if (!NumericField.IsMatch(ToPay))
+            if (!Decimal.TryParse(ToPay, out topay))
             {
                 error.AppendLine("Wrong ToPay format! Can have only numbers");
                 result.IsValid = false;
             }
-
-            if (PasswordNo.Length > PassportNoMaxLength)
+            else if (Convert.ToDecimal(ToPay) < 0)
             {
-                error.AppendLine("PasswordNo must not be longer than 9 symbols!");
+                error.AppendLine("Wrong ToPay format! Can have only non-negative numbers");
+                result.IsValid = false;
+            }
+
+            if (PassportNo.Length > PassportNoMaxLength)
+            {
+                error.AppendLine("PassportNo must not be longer than 9 symbols!");
                 result.IsValid = false;
             }
 

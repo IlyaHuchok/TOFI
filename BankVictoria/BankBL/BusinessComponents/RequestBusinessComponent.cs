@@ -16,6 +16,14 @@ namespace BankBL.BusinessComponents
     {
         public RequestBusinessComponent(IRequestUintOfWork unitOfWork) : base(unitOfWork) { }
 
+        public void Add(int ClientId, int? OperatorId, int? SecurityServiceEmployeeId, int CreditTypeId, RequestStatus Status, decimal AmountOfCredit, decimal Salary, string Note)
+        {
+            Request request = new Request() { ClientId = ClientId, OperatorId = OperatorId, SecurityServiceEmployeeId = SecurityServiceEmployeeId, CreditTypeId = CreditTypeId,
+                                              Status = Status, AmountOfCredit = AmountOfCredit, Salary = Salary, Note = Note};
+            _unitOfWork.RequestRepository.Add(request);
+            _unitOfWork.Save();
+        }
+
         public IList<Request> GetAll(RequestStatus status)
         {
             return _unitOfWork.RequestRepository.GetAll();

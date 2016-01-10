@@ -46,9 +46,9 @@
                     <Label x:Name="label9" Content="Amout" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label10" Content="Balance" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="CreditBalance" HorizontalAlignment="Left" Height="23" Margin="66,222,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
-                    <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="83,14,0,0" VerticalAlignment="Top" Width="120"/>
+                    <ComboBox x:Name="CreditCTypeBox" HorizontalAlignment="Left" Margin="83,14,0,0" VerticalAlignment="Top" Width="120"/>
                     <TextBox x:Name="CreditAmount" HorizontalAlignment="Left" Height="23" Margin="83,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <Button x:Name="SendRequest" Content="Send request" HorizontalAlignment="Left" Margin="66,80,0,0" VerticalAlignment="Top" Width="75" Click="SendRequest_Click"/>
+                    <Button x:Name="SendRequest" Content="Send request" HorizontalAlignment="Left" Margin="66,110,0,0" VerticalAlignment="Top" Width="75" Click="SendRequest_Click"/>
                     <ListView x:Name="CreditListView" HorizontalAlignment="Left" Height="235" Margin="208,10,0,0" VerticalAlignment="Top" Width="294">
                         <ListView.View>
                             <GridView>
@@ -59,6 +59,8 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
+                    <Label x:Name="label11" Content="Salary" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="CreditSalary" HorizontalAlignment="Left" Height="23" Margin="83,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
                 </Grid>
             </TabItem>
