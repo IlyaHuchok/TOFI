@@ -70,10 +70,16 @@ namespace BankPresentation.Validation
                 error.AppendLine("Wrong mobile phone format!\n Enter your phone number in the following format: +1-1234567890 3754412345678 23-1234567890");
                 result.IsValid = false;
             }
+            
+            if (!EmailRegex.IsMatch(email))
+            {
+                error.AppendLine("Wrong email!\n Enter your email address in format: yourAccountName@yoursite.xyz");
+                result.IsValid = false;
+            }
 
             if (!PassportNoRegex.IsMatch(passportNo))
             {
-                error.AppendLine("Wrong passport number!\n Enter your passport number in format: yourAccountName@yoursite.xyz");
+                error.AppendLine("Wrong passport number!\n Enter your passport number in format: AB1122333!");
                 result.IsValid = false;
             }
 
