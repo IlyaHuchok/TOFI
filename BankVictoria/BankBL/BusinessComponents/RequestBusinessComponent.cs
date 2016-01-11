@@ -24,7 +24,7 @@ namespace BankBL.BusinessComponents
             _unitOfWork.Save();
         }
 
-        public IList<Request> GetAll(RequestStatus status)
+        public IList<Request> GetAll()
         {
             return _unitOfWork.RequestRepository.GetAll();
         }
@@ -39,12 +39,13 @@ namespace BankBL.BusinessComponents
             return _unitOfWork.RequestRepository.GetAll().Where(x => x.Status != status).ToList();
         }
 
-        public void Update(int ClientId, int? OperatorId, int? SecurityServiceEmployeeId, RequestStatus status)
+        public void Update(Request request/*int ClientId, int? OperatorId, int? SecurityServiceEmployeeId, RequestStatus status*/)
         {
-            var old = _unitOfWork.RequestRepository.GetSingle(x => x.ClientId == ClientId);
-            old.OperatorId = OperatorId;
-            old.SecurityServiceEmployeeId = SecurityServiceEmployeeId;
-            old.Status = status;
+            var old = _unitOfWork.RequestRepository.GetSingle(x => x.ClientId == request.ClientId);
+            old.OperatorId = request.OperatorId;
+            old.SecurityServiceEmployeeId = request.SecurityServiceEmployeeId;
+            old.Status = request.Status;
+            old.Note = request.Note;
             _unitOfWork.RequestRepository.Update(old);
             _unitOfWork.Save();
         }

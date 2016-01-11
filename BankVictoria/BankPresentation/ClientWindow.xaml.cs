@@ -75,10 +75,12 @@ namespace BankPresentation
 
         public void FillCreditListView()
         {
-            IList<Credit> credit = _creditBusinessComponent.GetAll();
-            foreach (var cr in credit)
+            //IList<Credit> credit = _creditBusinessComponent.GetAll();
+            IList<Request> request = _requestBusinessComponent.GetAll();
+            foreach (var req in request)
             {
-                CreditDataList.Add(new ClientListView() {RequestId = cr.RequestId, CType = cr.CreditType.Name, Amount = cr.PaidForFine.ToString(), Status = cr.IsRepaid.ToString()  });
+                CreditDataList.Add(new ClientListView() { RequestId = req.RequestId, CType = req.CreditType.Name, Amount = req.AmountOfCredit.ToString(), Status = req.Status.ToString() });
+                //CreditDataList.Add(new ClientListView() {RequestId = cr.RequestId, CType = cr.CreditType.Name, Amount = cr.PaidForFine.ToString(), Status = cr.Request.Status.ToString()  });
             }
         }
 

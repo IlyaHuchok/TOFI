@@ -11,8 +11,8 @@ namespace BankBL.Interfaces
     {
         IList<Request> GetByStatus(RequestStatus status);
         IList<Request> GetExceptStatus(RequestStatus status);
-        IList<Request> GetAll(RequestStatus status);
-        void Update(int ClientId,int? OperatorId,int? SecurityServiceEmployeeId, RequestStatus status);
+        IList<Request> GetAll();
+        void Update(Request request/*int ClientId,int? OperatorId,int? SecurityServiceEmployeeId, RequestStatus status*/);
         void Add(int ClientId, int? OperatorId, int? SecurityServiceEmployeeId, int CreditTypeId, RequestStatus Status, decimal AmountOfCredit, decimal Salary, string Note);
     }
 }

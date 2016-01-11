@@ -53,10 +53,10 @@
           <ListView x:Name="CreditListView" HorizontalAlignment="Left" Height="235" Margin="213,35,0,0" VerticalAlignment="Top" Width="289">
             <ListView.View>
               <GridView>
-                <GridViewColumn Header="Request id" DisplayMemberBinding="{Binding RequestId}" Width="62"/>
+                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding RequestId}" Width="32"/>
                 <GridViewColumn Header="Credit type" DisplayMemberBinding="{Binding CType}" Width="74"/>
                 <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" Width="98"/>
-                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="60"/>
+                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="90"/>
               </GridView>
             </ListView.View>
           </ListView>

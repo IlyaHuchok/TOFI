@@ -168,7 +168,11 @@ namespace BankPresentation
                 foreach (var req in request)
                 {
                     if (req.RequestId == Convert.ToInt32(RequestRequestId.Text))
-                        _requestBusinessComponent.Update(req.ClientId, _operatorId, null, RequestStatus.ConfirmedByOperator);
+                    {
+                        Request request2 = new Request() { ClientId = req.ClientId, OperatorId = _operatorId, Status = RequestStatus.ConfirmedByOperator };
+                        _requestBusinessComponent.Update(request2/*req.ClientId, _operatorId, null, RequestStatus.ConfirmedByOperator*/);
+                    }
+
                 }
             }
         }
@@ -185,7 +189,10 @@ namespace BankPresentation
                 foreach (var req in request)
                 {
                     if (req.RequestId == Convert.ToInt32(RequestRequestId.Text))
-                        _requestBusinessComponent.Update(req.ClientId, _operatorId, null, RequestStatus.Denied);
+                    {
+                        Request request2 = new Request() { ClientId = req.ClientId, OperatorId = _operatorId, Status = RequestStatus.Denied, Note = rejectionReason};
+                        _requestBusinessComponent.Update(request2/*req.ClientId, _operatorId, null, RequestStatus.ConfirmedByOperator*/);
+                    }
                 }
             }
         }
