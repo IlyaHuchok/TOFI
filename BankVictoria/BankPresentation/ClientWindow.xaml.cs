@@ -75,7 +75,7 @@ namespace BankPresentation
 
         public void FillCreditListView()
         {
-            //IList<Credit> credit = _creditBusinessComponent.GetAll();..
+            //IList<Credit> credit = _creditBusinessComponent.GetAll();....
             IList<Request> request = _requestBusinessComponent.GetAll();
             foreach (var req in request)
             {
