@@ -47,6 +47,14 @@ namespace ConsoleTestDbFiller
                 // CLEARS ALL DATA !!!
                 Console.WriteLine("ALL DATA WILL BE DELETED FROM DB NOW!!! ([ENTER] TO PROCEED)");
                 Console.ReadLine();
+                //if (!context.Database.Exists())
+                //{
+                    context.Database.Delete();
+                    context.Database.Create();
+                //}
+                context.Database.Initialize(true);//
+                Console.WriteLine("Db initialized");
+                Console.ReadLine();
                 context.Accounts.RemoveRange(context.Accounts);
                 Console.WriteLine("I've successfully completed first db action!");
                 Console.ReadLine();
@@ -277,10 +285,11 @@ namespace ConsoleTestDbFiller
                 //    ClientId = null,
                 //    Balance = 40*1000*1000
                 //};
-                var bankAccount = new BankAccount //Bank Account
-                { Balance = 40 * 1000 * 1000, Currency = "USD" };
-                context.BankAccount = bankAccount;
-                context.SaveChanges();
+
+                //////////////var bankAccount = new BankAccount //Bank Account
+                //////////////{ Balance = 40 * 1000 * 1000, Currency = "USD" };
+                //////////////context.BankAccount = bankAccount;
+                //////////////context.SaveChanges();
 
 
                 var acc2 = new Account { ClientId = client1Info.ClientId, Balance = request2client1.AmountOfCredit };
