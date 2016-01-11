@@ -45,8 +45,7 @@ namespace BankPresentation
             IList<CreditType> ctype = _creditTypeBusinessComponent.GetAllActiveCreditTypes().ToList();
             foreach(var ct in ctype)
                 CreditCTypeBox.Items.Add(ct.Name);
-            //decimal balance = _clientBusinessComponent.GetAll().Where(x => x.UserId == _userId).FirstOrDefault().Accounts.FirstOrDefault().Balance; 
-         //  */
+         
 
             CTypeListView.ItemsSource = CTypetDataList;
             CreditListView.ItemsSource = CreditDataList;
