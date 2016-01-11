@@ -69,7 +69,7 @@ namespace BankPresentation
         }
 
 #if DEBUG
-        private const string errorMessage = "Wrong username/password combination!\nEXISTING COMBINATIONS:admin/admin \n security/security\n operator/operator\n client1/client1";
+        private const string errorMessage = "Wrong username/password combination!\nEXISTING COMBINATIONS:admin/admin \n security/security\n operator1/operator1\n client1/client1";
 #else
     private const string errorMessage = "Wrong username/password combination!";
     private int _failedLoginAttempts;
