@@ -201,6 +201,7 @@ namespace BankPresentation
                 DeleteButton.IsEnabled = true;
                 if (selectedItem.Role == UserRole.Client)
                 {
+                    UpdateClientButton.IsEnabled = true;
                     DisableButton.IsEnabled = false;
                     EnableButton.IsEnabled = false;
                 }

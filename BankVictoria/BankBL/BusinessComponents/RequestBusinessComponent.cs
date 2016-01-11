@@ -26,7 +26,7 @@ namespace BankBL.BusinessComponents
 
         public IList<Request> GetAll()
         {
-            return _unitOfWork.RequestRepository.GetAll();
+            return _unitOfWork.RequestRepository.GetAll().OrderBy(x => x.RequestId).ToList();
         }
 
         public IList<Request> GetByStatus(RequestStatus status)
