@@ -297,6 +297,12 @@ namespace BankPresentation
                         tabControl.SelectedIndex = 0;
                         UserInfoTabItem.Visibility = Visibility.Visible;
                         UserInfoTabItem.IsEnabled = true;
+
+                        if (_role == UserRole.Client)
+                        {
+                            this.Close();
+                            // return to login page
+                        }
                     }
                 }
                 else
