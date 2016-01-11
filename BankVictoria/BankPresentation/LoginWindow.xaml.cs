@@ -116,6 +116,7 @@ namespace BankPresentation
                     this.Content = _ninjectKernel.Get<SecurityOfficerPage>(new ConstructorArgument("userId", userId));
                     break;
             }
+            this.Title = "Bank Victoria";
         }
 
         private void Register_Click(object sender, RoutedEventArgs e)

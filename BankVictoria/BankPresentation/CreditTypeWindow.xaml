@@ -1,7 +1,8 @@
 ﻿<Window x:Class="BankPresentation.CreditTypeWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="CreditTypeWindow" Height="300" Width="300">
+        Title="Add Credit Type" Height="300" Width="300"
+        Icon="Resources/logo.ico">
     <Grid>
     <Label Content="Name" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top"/>
     <Label Content="Time (months)" HorizontalAlignment="Left" Margin="8,38,0,0" VerticalAlignment="Top"/>

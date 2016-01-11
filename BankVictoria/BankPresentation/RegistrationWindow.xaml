@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BankPresentation"
         mc:Ignorable="d"
-        Title="RegistrationWindow" Height="318" Width="530">
+        Title="Registration" Height="318" Width="530"
+        Icon="Resources/logo.ico">
     <Grid>
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="288" VerticalAlignment="Top" Width="522" >
             <TabItem Header="Account" Name="UserInfoTabItem">

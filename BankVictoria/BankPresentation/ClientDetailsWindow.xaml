@@ -1,7 +1,8 @@
 ﻿<Window x:Class="BankPresentation.ClientDetailsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="ClientDetailsWindow" Height="298.944" Width="531.339">
+        Title="Client Details" Height="298.944" Width="531.339"
+        Icon="Resources/logo.ico">
     <Grid>
         <Grid Background="#FFE5E5E5" Margin="0,0,0,0">
             <TextBox x:Name="LastNameTextBox" HorizontalAlignment="Left" Height="23" Margin="10,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>

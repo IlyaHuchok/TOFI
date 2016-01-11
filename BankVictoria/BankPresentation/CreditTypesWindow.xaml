@@ -1,7 +1,8 @@
 ﻿<Window x:Class="BankPresentation.CreditTypesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="CreditTypesWindow" Height="343" Width="703">
+        Title="Credit Types" Height="343" Width="703"
+        Icon="Resources/logo.ico">
     <Grid>
         <ListView x:Name="CreditTypesListView" HorizontalAlignment="Left" Height="253" Margin="117,10,0,0" VerticalAlignment="Top" Width="568">
             <ListView.View>

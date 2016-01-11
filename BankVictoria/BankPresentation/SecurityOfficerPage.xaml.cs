@@ -180,7 +180,10 @@ namespace BankPresentation
 
         private void LastnameTextBox_OnKeyDown_OnKeyDown(object sender, KeyEventArgs e)
         {
-            this.RefreshPage(LastnameTextBox.Text);
+            if (e.Key == Key.Enter)
+            {
+                this.RefreshPage(LastnameTextBox.Text);
+            }
         }
 
         private void SearchByLastNameButton_Click(object sender, RoutedEventArgs e)
