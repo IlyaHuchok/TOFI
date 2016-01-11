@@ -24,7 +24,7 @@ namespace ConsoleTestDbFiller
             // ADD ANY CODE FOR TESTING HERE
             try
             {
-                Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
+                //Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
                 FillDb(); //comment if don't want to refill database
             }
             catch (Exception e)
@@ -56,8 +56,8 @@ namespace ConsoleTestDbFiller
                 Console.WriteLine("Db initialized");
                 Console.ReadLine();
                 context.Accounts.RemoveRange(context.Accounts);
-                Console.WriteLine("I've successfully completed first db action!");
-                Console.ReadLine();
+                ///Console.WriteLine("I've successfully completed first db action!");
+                ///Console.ReadLine();
                 context.Clients.RemoveRange(context.Clients);
                 context.Credits.RemoveRange(context.Credits);
                 context.CreditTypes.RemoveRange(context.CreditTypes);
@@ -286,10 +286,10 @@ namespace ConsoleTestDbFiller
                 //    Balance = 40*1000*1000
                 //};
 
-                //////////////var bankAccount = new BankAccount //Bank Account
-                //////////////{ Balance = 40 * 1000 * 1000, Currency = "USD" };
-                //////////////context.BankAccount = bankAccount;
-                //////////////context.SaveChanges();
+                var bankAccount = new BankAccount //Bank Account
+                { Balance = 40 * 1000 * 1000, Currency = "USD" };
+                context.BankAccount = bankAccount;
+                context.SaveChanges();
 
 
                 var acc2 = new Account { ClientId = client1Info.ClientId, Balance = request2client1.AmountOfCredit };
