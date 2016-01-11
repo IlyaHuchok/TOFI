@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BankPresentation"
         mc:Ignorable="d" 
-        Title="Request Management" Height="437.601" Width="681.371"
-        Icon="Resources/logo.ico">
+        Title="Request Management" Height="437.601" Width="681.371">
   <Grid>
     <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="408" VerticalAlignment="Top" Width="673">
       <TabItem Header="Request Queue" Margin="0,0,-4,-3">
