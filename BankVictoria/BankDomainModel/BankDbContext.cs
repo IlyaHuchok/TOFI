@@ -14,7 +14,7 @@ namespace BankDomainModel
         public BankDbContext()
         {
             // remove this if don't want the data to be deleted
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<BankDbContext>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<BankDbContext>());
         }
 
         public DbSet<Client> Clients { get; set; }

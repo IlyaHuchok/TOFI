@@ -7,8 +7,8 @@
     <ProjectGuid>{992B13CE-4C81-445F-BD55-92FC5D595742}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConsoleTestingApp</RootNamespace>
-    <AssemblyName>ConsoleTestingApp</AssemblyName>
+    <RootNamespace>ConsoleTestDbFiller</RootNamespace>
+    <AssemblyName>ConsoleTestDbFiller</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
