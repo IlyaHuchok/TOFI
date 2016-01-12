@@ -22,9 +22,17 @@ namespace ConsoleTestDbFiller
         {
             // NOT A PART OF PROJECT
             // ADD ANY CODE FOR TESTING HERE
-            
-            FillDb(); //comment if don't want to refill database
+            try
+            {
+                //Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
+                FillDb(); //comment if don't want to refill database
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
 
+            Console.WriteLine("Database operations finished");
             Console.ReadLine();
             decimal a;
         }
@@ -33,11 +41,23 @@ namespace ConsoleTestDbFiller
         {
             using (var context = new BankDbContext())
             {
-
+                Console.WriteLine("ConnectionString\n" + context.Database.Connection.ConnectionString);
+                Console.WriteLine("DataSource\n" + context.Database.Connection.DataSource);
+                Console.WriteLine("ConnectionString\n" + context.Database.Connection.Database);
                 // CLEARS ALL DATA !!!
                 Console.WriteLine("ALL DATA WILL BE DELETED FROM DB NOW!!! ([ENTER] TO PROCEED)");
                 Console.ReadLine();
+                //if (!context.Database.Exists())
+                //{
+                    context.Database.Delete();
+                    context.Database.Create();
+                //}
+                context.Database.Initialize(true);//
+                Console.WriteLine("Db initialized");
+                Console.ReadLine();
                 context.Accounts.RemoveRange(context.Accounts);
+                ///Console.WriteLine("I've successfully completed first db action!");
+                ///Console.ReadLine();
                 context.Clients.RemoveRange(context.Clients);
                 context.Credits.RemoveRange(context.Credits);
                 context.CreditTypes.RemoveRange(context.CreditTypes);
@@ -57,10 +77,10 @@ namespace ConsoleTestDbFiller
                 //var statusDenied = new RequestStatus { Status = "Denied" };
                 //statusRepo.Add(statusCreated, statusConfirmedByOperator, statusConfirmedByOperator, statusCreditProvided,statusDenied);
 
-             //   context.SaveChanges();
-    //            var confirmedByOperatorStatusId = statusCreditProvided.RequestStatusId;
-   //             var createdStatusId = statusCreated.RequestStatusId;
-   //             var deinedStatusId = statusDenied.RequestStatusId;
+                //   context.SaveChanges();
+                //            var confirmedByOperatorStatusId = statusCreditProvided.RequestStatusId;
+                //             var createdStatusId = statusCreated.RequestStatusId;
+                //             var deinedStatusId = statusDenied.RequestStatusId;
 
                 var creditShort = new CreditType
                 {
@@ -75,7 +95,7 @@ namespace ConsoleTestDbFiller
                     IsAvailable = true
                 };
 
-                var creditMedium= new CreditType
+                var creditMedium = new CreditType
                 {
                     Name = "Not So Easy Money",
                     //Type = "" WTF IS TYPE?????
@@ -108,58 +128,22 @@ namespace ConsoleTestDbFiller
                 var creditMediumId = creditMedium.CreditTypeId;
                 var creditLongId = creditLong.CreditTypeId;
 
-                var admin = new User
-                {
-                    Login = "admin",
-                    Password = "admin",
-                    Role = UserRole.Admin,
-                    IsActive = true
-                };
+                var admin = new User { Login = "admin", Password = "admin", Role = UserRole.Admin, IsActive = true };
 
                 var ss = new User // security service employee
-                {
-                    Login = "security",
-                    Password = "security",
-                    Role = UserRole.SecurityServiceEmployee,
-                    IsActive = true
-                };
+                { Login = "security", Password = "security", Role = UserRole.SecurityServiceEmployee, IsActive = true };
 
                 var operator1 = new User // 
-                {
-                    Login = "operator1",
-                    Password = "operator1",
-                    Role = UserRole.Operator,
-                    IsActive = true
-                }; 
+                { Login = "operator1", Password = "operator1", Role = UserRole.Operator, IsActive = true };
 
                 var operator2 = new User // 
-                {
-                    Login = "operator2",
-                    Password = "operator2",
-                    Role = UserRole.Operator,
-                    IsActive = true
-                };
+                { Login = "operator2", Password = "operator2", Role = UserRole.Operator, IsActive = true };
 
-                var client1 = new User
-                {
-                    Login = "client1",
-                    Password = "client1",
-                    Role = UserRole.Client
-                };
+                var client1 = new User { Login = "client1", Password = "client1", Role = UserRole.Client };
 
-                var client2 = new User
-                {
-                    Login = "client2",
-                    Password = "client2",
-                    Role = UserRole.Client
-                };
+                var client2 = new User { Login = "client2", Password = "client2", Role = UserRole.Client };
 
-                var client3 = new User
-                {
-                    Login = "client3",
-                    Password = "client3",
-                    Role = UserRole.Client
-                };
+                var client3 = new User { Login = "client3", Password = "client3", Role = UserRole.Client };
 
                 var userRepo = new UserRepository(context);
                 userRepo.Add(admin, ss, operator1, operator2, client1, client2, client3);
@@ -174,7 +158,7 @@ namespace ConsoleTestDbFiller
                     Name = "Clientone",
                     LastName = "Clientov",
                     Patronymic = "Clientovich",
-                    Birthday = new DateTime(1990,1,1),
+                    Birthday = new DateTime(1990, 1, 1),
                     Mobile = "+375441234567",
                     Email = "client1@nosite.com",
                     PassportNo = "AB1234567",
@@ -258,7 +242,7 @@ namespace ConsoleTestDbFiller
                 var request4client1 = new Request
                 {
                     ClientId = client1Info.ClientId,
-                    Status = RequestStatus.ConfirmedByOperator,// createdStatusId,
+                    Status = RequestStatus.ConfirmedByOperator, // createdStatusId,
                     OperatorId = operator1.UserId,
                     CreditTypeId = creditMediumId,
                     AmountOfCredit = 1100,
@@ -286,7 +270,13 @@ namespace ConsoleTestDbFiller
                     Salary = 500
                 };
                 var requestRepo = new RequestRepository(context);
-                requestRepo.Add(request1client1, request2client1, request3client1, request4client1, request5client1, request6client1);
+                requestRepo.Add(
+                    request1client1,
+                    request2client1,
+                    request3client1,
+                    request4client1,
+                    request5client1,
+                    request6client1);
                 context.SaveChanges();
 
 
@@ -295,23 +285,17 @@ namespace ConsoleTestDbFiller
                 //    ClientId = null,
                 //    Balance = 40*1000*1000
                 //};
-                var bankAccount = new BankAccount  //Bank Account
-                {
-                    Balance = 40 * 1000 * 1000,
-                    Currency = "USD"
-                };
+
+                var bankAccount = new BankAccount //Bank Account
+                { Balance = 40 * 1000 * 1000, Currency = "USD" };
                 context.BankAccount = bankAccount;
                 context.SaveChanges();
 
 
-                var acc2 = new Account
-                {
-                    ClientId = client1Info.ClientId,
-                    Balance = request2client1.AmountOfCredit
-                };
+                var acc2 = new Account { ClientId = client1Info.ClientId, Balance = request2client1.AmountOfCredit };
 
                 var accountRepo = new AccountRepository(context);
-                accountRepo.Add(/*acc1,*/ acc2);
+                accountRepo.Add( /*acc1,*/ acc2);
                 context.SaveChanges();
 
                 var credit1Client1 = new Credit
@@ -321,13 +305,13 @@ namespace ConsoleTestDbFiller
                     //ContractNo = 123123, //random
                     RequestId = request5client1.RequestId,
                     //AllreadyPaid = 0,
-                    AmountOfPaymentPerMonth = creditMedium.PercentPerYear/12,
-                    StartDate = DateTime.Now.AddDays(-(30*4+5)),
+                    AmountOfPaymentPerMonth = creditMedium.PercentPerYear / 12,
+                    StartDate = DateTime.Now.AddDays(-(30 * 4 + 5)),
                     IsRepaid = false,
                     HasDelays = false,
                     CountFineFromThisDate = DateTime.UtcNow.AddDays(30), //!!! hard-coded!!!
                     PaidForFine = 0
-                }; 
+                };
                 var credit2Client1 = new Credit
                 {
                     AccountId = acc2.AccountId,
@@ -346,7 +330,7 @@ namespace ConsoleTestDbFiller
                 request6client1.Credit = credit2Client1; // IMPORTANT do this for 1-1 relationship (exception otherwise)
 
                 var creditRepo = new CreditRepository(context);
-                creditRepo.Add(credit1Client1,credit2Client1);
+                creditRepo.Add(credit1Client1, credit2Client1);
                 context.SaveChanges();
 
                 var payment = new Payment
@@ -361,7 +345,8 @@ namespace ConsoleTestDbFiller
 
                 var payRepo = new PaymentRepository(context);
                 payRepo.Add(payment);
-                var test = context.BankAccount;//context.RequestStatuses.Where(x => x.Status.Contains("Created")).FirstOrDefault();
+                var test = context.BankAccount;
+                    //context.RequestStatuses.Where(x => x.Status.Contains("Created")).FirstOrDefault();
                 //context.RequestStatuses.Add(new RequestStatus { Status = "Created" });
                 context.SaveChanges();
             }

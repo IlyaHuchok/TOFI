@@ -9,7 +9,7 @@ using Entities;
 
 namespace BankDomainModel
 {
-    public class DbInitializer : DropCreateDatabaseIfModelChanges<BankDbContext>
+    public class DbInitializer : DropCreateDatabaseAlways<BankDbContext>
     {
         protected override void Seed(BankDbContext context)
         {

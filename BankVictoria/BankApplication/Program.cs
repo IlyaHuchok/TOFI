@@ -11,11 +11,17 @@ namespace BankApplication
   {
     static void Main(string[] args)
     {
+        try { 
       var thread = new Thread(new ThreadStart(Run));
       
       thread.SetApartmentState(ApartmentState.STA);
       thread.Start();
       thread.Join();
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine(e);
+        }
     }
 
     private static void Run()
