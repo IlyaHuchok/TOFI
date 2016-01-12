@@ -310,8 +310,5 @@ namespace BankPresentation
                 return false;
             }
         }
-
-
-
     }
 }

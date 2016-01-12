@@ -25,7 +25,7 @@ namespace BankPresentation.Validation
 
             if (!PassportNoRegex.IsMatch(PassportNo))
             {
-                error.AppendLine("Wrong passport number!\n Enter your passport number in format: yourAccountName@yoursite.xyz");
+                error.AppendLine("Wrong passport number!\n Enter your passport number in format: AB1122333!");
                 result.IsValid = false;
             }
             if (PassportNo.Length > PassportNoMaxLength)
