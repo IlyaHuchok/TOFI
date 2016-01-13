@@ -67,6 +67,7 @@ namespace BankPresentation
             {
                 roleComboBox.Visibility = Visibility.Hidden;
                 roleComboBox.IsEnabled = false;
+                labelRole.Visibility = Visibility.Hidden;
 
                 button_End_Tab1.Visibility = Visibility.Hidden;
                 button_End_Tab1.IsEnabled = false;

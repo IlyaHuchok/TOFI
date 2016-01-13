@@ -209,7 +209,7 @@ namespace BankPresentation
                 {
                     UpdateClientButton.IsEnabled = false;
                     DisableButton.IsEnabled = selectedItem.IsActive ?? false;
-                    EnableButton.IsEnabled = selectedItem.IsActive.HasValue && selectedItem.IsActive.Value;
+                    EnableButton.IsEnabled = selectedItem.IsActive.HasValue && !selectedItem.IsActive.Value;
                 }
             }
         }
