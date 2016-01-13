@@ -76,7 +76,7 @@ namespace BankPresentation
         public void FillCreditListView()
         {
             //IList<Credit> credit = _creditBusinessComponent.GetAll();....
-            IList<Request> request = _requestBusinessComponent.GetAll();
+            IList<Request> request = _requestBusinessComponent.GetAll().Where(x=> x.Client.UserId == _userId).ToList();
             foreach (var req in request)
             {
                 CreditDataList.Add(new ClientListView() { RequestId = req.RequestId, CType = req.CreditType.Name, Amount = req.AmountOfCredit.ToString(), Status = req.Status.ToString() });

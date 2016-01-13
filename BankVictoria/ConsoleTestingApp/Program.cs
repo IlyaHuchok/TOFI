@@ -16,8 +16,6 @@ namespace ConsoleTestDbFiller
 {
     class Program
     {
-        
-
         static void Main(string[] args)
         {
             // NOT A PART OF PROJECT
