@@ -61,6 +61,8 @@ namespace BankPresentation
                 _requestBusinessComponent.Add(_clientId, null, null, ctype.CreditTypeId, Entities.Enums.RequestStatus.Created,
                                               Convert.ToDecimal(CreditAmount.Text), Convert.ToDecimal(CreditSalary.Text), "");
             }
+            ClearCreditListView();
+            FillCreditListView();
             
         }
 
@@ -127,6 +129,12 @@ namespace BankPresentation
             }
             catch  { }
 
+        }
+
+        private void CreditUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            ClearCreditListView();
+            FillCreditListView();
         }
     }
 

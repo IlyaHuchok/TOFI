@@ -66,7 +66,8 @@
             <Label HorizontalContentAlignment="Center"  Content="Send New Request" HorizontalAlignment="Left" Height="26" Margin="-1,9,-1,0" VerticalAlignment="Top" Width="203" FontWeight="Bold"/>
 
           </Border>
-        </Grid>
+                    <Button x:Name="CreditUpdate" Content="Update" HorizontalAlignment="Left" Margin="65,248,0,0" VerticalAlignment="Top" Width="75" Click="CreditUpdate_Click"/>
+                </Grid>
       </TabItem>
     </TabControl>
 
