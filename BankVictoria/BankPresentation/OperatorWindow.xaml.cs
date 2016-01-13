@@ -276,7 +276,7 @@ namespace BankPresentation
         }
         private void TabRepaymentClear(bool ClearList)
         {
-            RepaymentPassportNo.Clear();
+        //    RepaymentPassportNo.Clear();
             RepaymentName.Clear();
             RepaymentToRepayTheLoan.Clear();
             RepaymentToPay.Clear();
