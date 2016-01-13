@@ -15,6 +15,7 @@ using BankPresentation.ListViewClasses;
 using System.Collections.ObjectModel;
 using BankBL.Interfaces;
 using Entities;
+using BankPresentation.Validation;
 namespace BankPresentation
 {
     /// <summary>
@@ -32,6 +33,8 @@ namespace BankPresentation
         public ClientWindow(ICreditBusinessComponent creditBusinessComponent, ICreditTypeBusinessComponent creditTypeBusinessComponent, IClientBusinessComponent clientBusinessComponent,
             IRequestBusinessComponent requestBusinessComponent, int userId)
         {
+            
+
             _creditTypeBusinessComponent = creditTypeBusinessComponent;
             _creditBusinessComponent = creditBusinessComponent;
             _clientBusinessComponent = clientBusinessComponent;
@@ -39,30 +42,47 @@ namespace BankPresentation
             _userId = userId;
 
             InitializeComponent();
+
+            CreditSalary.MaxLength = RequestValidation.SalaryMaxLength;
+            CreditAmount.MaxLength = RequestValidation.AmountMaxLength;
+
             FillCTypeListView();
             FillCreditListView();
 
             IList<CreditType> ctype = _creditTypeBusinessComponent.GetAllActiveCreditTypes().ToList();
             foreach(var ct in ctype)
                 CreditCTypeBox.Items.Add(ct.Name);
-         
+            CreditCTypeBox.SelectedIndex = 0;
 
             CTypeListView.ItemsSource = CTypetDataList;
             CreditListView.ItemsSource = CreditDataList;
         }
 
         private void SendRequest_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Accept Confirmation", MessageBoxButton.YesNo);
-            if (messageBoxResult == MessageBoxResult.Yes)
+        {            
+            CreditType ct = _creditTypeBusinessComponent.GetAllActiveCreditTypes().Where(x => x.Name == CreditCTypeBox.SelectedValue.ToString()).FirstOrDefault();
+            bool MoreThanMAX = ct.MaxAmount < Convert.ToUInt32(CreditAmount.Text);
+            bool LessThanMIN = ct.MinAmount > Convert.ToUInt32(CreditAmount.Text);
+            if (Validate() && !MoreThanMAX && !LessThanMIN)
             {
-                int _clientId =  _clientBusinessComponent.GetAll().Where(x => x.UserId == _userId).FirstOrDefault().ClientId;
-                CreditType ctype = _creditTypeBusinessComponent.GetAllActiveCreditTypes().Where(x => x.Name == CreditCTypeBox.SelectedValue.ToString()).FirstOrDefault();
-                _requestBusinessComponent.Add(_clientId, null, null, ctype.CreditTypeId, Entities.Enums.RequestStatus.Created,
-                                              Convert.ToDecimal(CreditAmount.Text), Convert.ToDecimal(CreditSalary.Text), "");
+                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Accept Confirmation", MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    int _clientId = _clientBusinessComponent.GetAll().Where(x => x.UserId == _userId).FirstOrDefault().ClientId;
+                    CreditType ctype = _creditTypeBusinessComponent.GetAllActiveCreditTypes().Where(x => x.Name == CreditCTypeBox.SelectedValue.ToString()).FirstOrDefault();
+                    _requestBusinessComponent.Add(_clientId, null, null, ctype.CreditTypeId, Entities.Enums.RequestStatus.Created,
+                                                  Convert.ToDecimal(CreditAmount.Text), Convert.ToDecimal(CreditSalary.Text), "");
+                }
+                ClearCreditListView();
+                FillCreditListView();
             }
-            ClearCreditListView();
-            FillCreditListView();
+            string error = "";
+            if (LessThanMIN)
+                error += "Amount shold be more than " + ct.MinAmount + Environment.NewLine;
+            if (MoreThanMAX)
+                error += "Amount shold be less than " + ct.MaxAmount + Environment.NewLine;
+            if (error != "")
+                MessageBox.Show(error);
             
         }
 
@@ -135,6 +155,20 @@ namespace BankPresentation
         {
             ClearCreditListView();
             FillCreditListView();
+        }
+
+        private bool Validate()
+        {
+            var validationResult = RequestValidation.Validate(CreditAmount.Text, CreditSalary.Text);
+            if (validationResult.IsValid)
+            {
+                return true;
+            }
+            else
+            {
+                MessageBox.Show(validationResult.Error);
+                return false;
+            }
         }
     }
 

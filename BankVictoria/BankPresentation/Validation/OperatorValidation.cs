@@ -25,12 +25,12 @@ namespace BankPresentation.Validation
 
             if (!PassportNoRegex.IsMatch(PassportNo))
             {
-                error.AppendLine("Wrong passport number!\n Enter your passport number in format: AB1122333!");
+                result.Error += "Wrong passport number!\n Enter your passport number in format: AB1122333!" + Environment.NewLine;
                 result.IsValid = false;
             }
             if (PassportNo.Length > PassportNoMaxLength)
             {
-                error.AppendLine("PassportNo must not be longer than 9 symbols!");
+                result.Error += "PassportNo must not be longer than "+ PassportNoMaxLength + " symbols!" + Environment.NewLine;
                 result.IsValid = false;
             }
 
@@ -49,17 +49,22 @@ namespace BankPresentation.Validation
             var error = new StringBuilder();
             if (!Decimal.TryParse(ToPay, out topay))
             {
-                error.AppendLine("Wrong ToPay format! Can have only numbers");
+                result.Error += "Wrong ToPay format! Can have only numbers" + Environment.NewLine;
                 result.IsValid = false;
             }
             else if (Convert.ToDecimal(ToPay) < 0)
             {
-                error.AppendLine("Wrong ToPay format! Can have only non-negative numbers");
+                result.Error += "Wrong ToPay format! Can have only non-negative numbers" + Environment.NewLine;
+                result.IsValid = false;
+            }
+            else if (Convert.ToDecimal(ToPay) == 0)
+            {
+                result.Error += "ToPay can't be zero" + Environment.NewLine;
                 result.IsValid = false;
             }
             if (ToPay.Length > ToPayMaxLength)
             {
-                error.AppendLine("ToPay must not be longer than 12 symbols!");
+                result.Error += "ToPay must not be longer than "+ ToPayMaxLength + " symbols!" + Environment.NewLine;
                 result.IsValid = false;
             }
             return result;
@@ -77,7 +82,17 @@ namespace BankPresentation.Validation
 
             if (!Int32.TryParse(RequestId, out request))
             {
-                error.AppendLine("Wrong Request id format! Can have only numbers");
+                result.Error += "Wrong Request id format! Can have only numbers" + Environment.NewLine;
+                result.IsValid = false;
+            }
+            else if (Convert.ToDecimal(RequestId) < 0)
+            {
+                result.Error += "Wrong RequestId format! Can have only non-negative numbers" + Environment.NewLine;
+                result.IsValid = false;
+            }
+            if (RequestId.Length > RequestIdMaxLength)
+            {
+                result.Error += "RequestId must not be longer than "+ RequestIdMaxLength + " symbols!" + Environment.NewLine;
                 result.IsValid = false;
             }
             return result;
