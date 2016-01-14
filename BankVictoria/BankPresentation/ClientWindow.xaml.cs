@@ -24,7 +24,8 @@ namespace BankPresentation
     public partial class ClientWindow : Page
     {
         private ObservableCollection<CTypeListView> CTypetDataList = new ObservableCollection<CTypeListView>();
-        private ObservableCollection<ClientListView> CreditDataList = new ObservableCollection<ClientListView>();
+        private ObservableCollection<ClientListView> RequestDataList = new ObservableCollection<ClientListView>();
+        private ObservableCollection<MCreditListView> MyCreditDataList = new ObservableCollection<MCreditListView>();
         private readonly ICreditTypeBusinessComponent _creditTypeBusinessComponent;
         private readonly ICreditBusinessComponent _creditBusinessComponent;
         private readonly IClientBusinessComponent _clientBusinessComponent;
@@ -47,7 +48,8 @@ namespace BankPresentation
             CreditAmount.MaxLength = RequestValidation.AmountMaxLength;
 
             FillCTypeListView();
-            FillCreditListView();
+            FillRequestListView();
+            FillMyCreditsListView();
 
             IList<CreditType> ctype = _creditTypeBusinessComponent.GetAllActiveCreditTypes().ToList();
             foreach(var ct in ctype)
@@ -55,7 +57,8 @@ namespace BankPresentation
             CreditCTypeBox.SelectedIndex = 0;
 
             CTypeListView.ItemsSource = CTypetDataList;
-            CreditListView.ItemsSource = CreditDataList;
+            RequestListView.ItemsSource = RequestDataList;
+            MyCreditListView.ItemsSource = MyCreditDataList;
         }
 
         private void SendRequest_Click(object sender, RoutedEventArgs e)
@@ -73,8 +76,8 @@ namespace BankPresentation
                     _requestBusinessComponent.Add(_clientId, null, null, ctype.CreditTypeId, Entities.Enums.RequestStatus.Created,
                                                   Convert.ToDecimal(CreditAmount.Text), Convert.ToDecimal(CreditSalary.Text), "");
                 }
-                ClearCreditListView();
-                FillCreditListView();
+                ClearRequestListView();
+                FillRequestListView();
             }
             string error = "";
             if (LessThanMIN)
@@ -95,14 +98,24 @@ namespace BankPresentation
             }
         }
 
-        public void FillCreditListView()
+        public void FillRequestListView()
         {
             //IList<Credit> credit = _creditBusinessComponent.GetAll();....
             IList<Request> request = _requestBusinessComponent.GetAll().Where(x=> x.Client.UserId == _userId).ToList();
             foreach (var req in request)
             {
-                CreditDataList.Add(new ClientListView() { RequestId = req.RequestId, CType = req.CreditType.Name, Amount = req.AmountOfCredit.ToString(), Status = req.Status.ToString() });
+                RequestDataList.Add(new ClientListView() { RequestId = req.RequestId, CType = req.CreditType.Name, Amount = req.AmountOfCredit.ToString(), Status = req.Status.ToString() });
                 //CreditDataList.Add(new ClientListView() {RequestId = cr.RequestId, CType = cr.CreditType.Name, Amount = cr.PaidForFine.ToString(), Status = cr.Request.Status.ToString()  });
+            }
+        }
+        public void FillMyCreditsListView()
+        {
+            IList<Credit> credit = _creditBusinessComponent.GetAll().Where(x=> x.Request.Client.UserId == _userId).ToList();
+            foreach(var cre in credit)
+            {
+                MyCreditDataList.Add(new MCreditListView() { CreditType = cre.CreditType.Name, AllreadyPaid = cre.AllreadyPaid.ToString(),
+                    AmountOfPaymentPerMonth = cre.AmountOfPaymentPerMonth.ToString(), StartDate = cre.StartDate.ToString("d"), PaidForFine = cre.PaidForFine.ToString(),
+                    CountFineFromThisDate = cre.CountFineFromThisDate.Date.ToString("d") });
             }
         }
 
@@ -110,9 +123,13 @@ namespace BankPresentation
         {
             CTypetDataList.Clear();
         }
-        public void ClearCreditListView()
+        public void ClearRequestListView()
         {
-            CreditDataList.Clear();
+            RequestDataList.Clear();
+        }
+        public void ClearMyCreditListView()
+        {
+            MyCreditDataList.Clear();
         }
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -121,14 +138,19 @@ namespace BankPresentation
                 if(TabCType.IsSelected)
                 {
                     ClearCTypeListView();
-                    ClearCreditListView();
+                    ClearRequestListView();
                     FillCTypeListView();
                 }
                 if(TabCredit.IsSelected)
                 {
-                    ClearCreditListView();
+                    ClearRequestListView();
                     ClearCTypeListView();
-                    FillCreditListView();
+                    FillRequestListView();
+                }
+                if(TabCredit.IsSelected)
+                {
+                    ClearMyCreditListView();
+                    FillMyCreditsListView();
                 }
             }
         }
@@ -151,10 +173,10 @@ namespace BankPresentation
 
         }
 
-        private void CreditUpdate_Click(object sender, RoutedEventArgs e)
+        private void RequestUpdate_Click(object sender, RoutedEventArgs e)
         {
-            ClearCreditListView();
-            FillCreditListView();
+            ClearRequestListView();
+            FillRequestListView();
         }
 
         private bool Validate()
@@ -176,5 +198,15 @@ namespace BankPresentation
     {
         public string CTypeName { get; set; }
     }
+    public class MCreditListView
+    {
+        public string CreditType { get; set; }
+        public string AllreadyPaid { get; set; }
+        public string AmountOfPaymentPerMonth { get; set; }
+        public string StartDate { get; set; }
+        public string PaidForFine { get; set; }
+        public string CountFineFromThisDate { get; set; }
+    }
+
 
 }

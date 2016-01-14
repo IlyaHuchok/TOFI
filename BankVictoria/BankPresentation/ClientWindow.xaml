@@ -6,70 +6,86 @@
         xmlns:local="clr-namespace:BankPresentation"
         mc:Ignorable="d"
         Title="ClientWindow" Height="327" Width="530">
-  <Grid>
-    <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="327" VerticalAlignment="Top" Width="522" SelectionChanged="tabControl_SelectionChanged">
-      <TabItem Header="Credit types" Name="TabCType">
-        <Grid Background="#FFE5E5E5">
+    <Grid>
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="327" VerticalAlignment="Top" Width="522" SelectionChanged="tabControl_SelectionChanged">
+            <TabItem Header="Credit types" Name="TabCType">
+                <Grid Background="#FFE5E5E5">
 
-          <Label x:Name="label" Content="Name" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top"/>
-          <Label x:Name="label1" Content="TimeMonths" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top"/>
-          <Label x:Name="label2" Content="PercentPerYear" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top"/>
-          <Label x:Name="label3" Content="Currency" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top"/>
-          <Label x:Name="label4" Content="FinePercent" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top"/>
-          <Label x:Name="label5" Content="MinAmount" HorizontalAlignment="Left" Margin="10,197,0,0" VerticalAlignment="Top"/>
-          <Label x:Name="label6" Content="MaxAmount" HorizontalAlignment="Left" Margin="10,228,0,0" VerticalAlignment="Top"/>
-          <Label x:Name="label7" Content="IsAvailable" HorizontalAlignment="Left" Margin="10,259,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label" Content="Name" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label1" Content="TimeMonths" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label2" Content="PercentPerYear" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label3" Content="Currency" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label4" Content="FinePercent" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label5" Content="MinAmount" HorizontalAlignment="Left" Margin="10,197,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label6" Content="MaxAmount" HorizontalAlignment="Left" Margin="10,228,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label7" Content="IsAvailable" HorizontalAlignment="Left" Margin="10,259,0,0" VerticalAlignment="Top"/>
 
-          <TextBox x:Name="CTypeName" HorizontalAlignment="Left" Height="23" Margin="105,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
-          <TextBox x:Name="CTypeTimeMonths" HorizontalAlignment="Left" Height="23" Margin="105,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
-          <TextBox x:Name="CTypePercentPerYear" HorizontalAlignment="Left" Height="23" Margin="105,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
-          <TextBox x:Name="CTypeCurrency" HorizontalAlignment="Left" Height="23" Margin="105,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
-          <TextBox x:Name="CTypeFinePercent" HorizontalAlignment="Left" Height="23" Margin="105,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
-          <TextBox x:Name="CTypeMinAmount" HorizontalAlignment="Left" Height="23" Margin="105,197,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
-          <TextBox x:Name="CTypeMaxAmount" HorizontalAlignment="Left" Height="23" Margin="105,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
-          <TextBox x:Name="CTypeIsAvailable" HorizontalAlignment="Left" Height="23" Margin="105,259,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+                    <TextBox x:Name="CTypeName" HorizontalAlignment="Left" Height="23" Margin="105,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+                    <TextBox x:Name="CTypeTimeMonths" HorizontalAlignment="Left" Height="23" Margin="105,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+                    <TextBox x:Name="CTypePercentPerYear" HorizontalAlignment="Left" Height="23" Margin="105,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+                    <TextBox x:Name="CTypeCurrency" HorizontalAlignment="Left" Height="23" Margin="105,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+                    <TextBox x:Name="CTypeFinePercent" HorizontalAlignment="Left" Height="23" Margin="105,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+                    <TextBox x:Name="CTypeMinAmount" HorizontalAlignment="Left" Height="23" Margin="105,197,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+                    <TextBox x:Name="CTypeMaxAmount" HorizontalAlignment="Left" Height="23" Margin="105,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+                    <TextBox x:Name="CTypeIsAvailable" HorizontalAlignment="Left" Height="23" Margin="105,259,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
 
-          <ListView x:Name="CTypeListView" HorizontalAlignment="Left" Height="234" Margin="255,42,0,0" VerticalAlignment="Top" Width="247" SelectionChanged="CTypeListView_SelectionChanged">
-            <ListView.View>
-              <GridView>
-                <GridViewColumn Header="Credit type name" DisplayMemberBinding="{Binding CTypeName}" Width="247"/>
-              </GridView>
-            </ListView.View>
-          </ListView>
-          <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Our bank provides you following credit types" HorizontalAlignment="Left" Height="37" Margin="21,0,0,0" VerticalAlignment="Top" Width="481" FontSize="13" FontWeight="Bold"/>
+                    <ListView x:Name="CTypeListView" HorizontalAlignment="Left" Height="234" Margin="255,42,0,0" VerticalAlignment="Top" Width="247" SelectionChanged="CTypeListView_SelectionChanged">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Credit type name" DisplayMemberBinding="{Binding CTypeName}" Width="247"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Our bank provides you following credit types" HorizontalAlignment="Left" Height="37" Margin="21,0,0,0" VerticalAlignment="Top" Width="481" FontSize="13" FontWeight="Bold"/>
 
 
-        </Grid>
-      </TabItem>
-      <TabItem Header="Credit Requests" Name="TabCredit">
-        <Grid Background="#FFE5E5E5">
-          <Label x:Name="label8" HorizontalContentAlignment="Right" Content="Credit type" HorizontalAlignment="Left" Margin="5,61,0,0" VerticalAlignment="Top"/>
-          <Label x:Name="label9"  HorizontalContentAlignment="Right" Content="Amount ($)" HorizontalAlignment="Left" Margin="4,87,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.196,0.462" Width="69"/>
-          <ComboBox x:Name="CreditCTypeBox" HorizontalAlignment="Left" Margin="78,65,0,0" VerticalAlignment="Top" Width="120"/>
-          <TextBox x:Name="CreditAmount" HorizontalAlignment="Left" Height="23" Margin="78,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-          <Button x:Name="SendRequest" Content="Send request" HorizontalAlignment="Left" Margin="65,149,0,0" VerticalAlignment="Top" Width="75" Click="SendRequest_Click"/>
-          <Label x:Name="label11" HorizontalContentAlignment="Right" Content="Salary ($)" HorizontalAlignment="Left" Margin="4,118,0,0" VerticalAlignment="Top" Width="69"/>
-          <TextBox x:Name="CreditSalary" HorizontalAlignment="Left" Height="23" Margin="78,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-          <ListView x:Name="CreditListView" HorizontalAlignment="Left" Height="235" Margin="213,35,0,0" VerticalAlignment="Top" Width="289">
-            <ListView.View>
-              <GridView>
-                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding RequestId}" Width="32"/>
-                <GridViewColumn Header="Credit type" DisplayMemberBinding="{Binding CType}" Width="74"/>
-                <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" Width="98"/>
-                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="90"/>
-              </GridView>
-            </ListView.View>
-          </ListView>
-
-          <Label Content="Sent Requests" HorizontalAlignment="Left" Height="26" Margin="230,4,0,0" VerticalAlignment="Top" Width="127" FontWeight="Bold"/>
-          <Border  Margin="5,22,0,0" Name="grid1" VerticalAlignment="Top" Width="203" HorizontalAlignment="Left" BorderBrush="#FF383838" BorderThickness="1" Height="173">
-            <Label HorizontalContentAlignment="Center"  Content="Send New Request" HorizontalAlignment="Left" Height="26" Margin="-1,9,-1,0" VerticalAlignment="Top" Width="203" FontWeight="Bold"/>
-
-          </Border>
-                    <Button x:Name="CreditUpdate" Content="Update" HorizontalAlignment="Left" Margin="65,248,0,0" VerticalAlignment="Top" Width="75" Click="CreditUpdate_Click"/>
                 </Grid>
-      </TabItem>
-    </TabControl>
+            </TabItem>
+            <TabItem Header="Credit Requests" Name="TabCredit">
+                <Grid Background="#FFE5E5E5">
+                    <Label x:Name="label8" HorizontalContentAlignment="Right" Content="Credit type" HorizontalAlignment="Left" Margin="5,61,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label9"  HorizontalContentAlignment="Right" Content="Amount ($)" HorizontalAlignment="Left" Margin="4,87,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.196,0.462" Width="69"/>
+                    <ComboBox x:Name="CreditCTypeBox" HorizontalAlignment="Left" Margin="78,65,0,0" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="CreditAmount" HorizontalAlignment="Left" Height="23" Margin="78,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <Button x:Name="SendRequest" Content="Send request" HorizontalAlignment="Left" Margin="65,149,0,0" VerticalAlignment="Top" Width="75" Click="SendRequest_Click"/>
+                    <Label x:Name="label11" HorizontalContentAlignment="Right" Content="Salary ($)" HorizontalAlignment="Left" Margin="4,118,0,0" VerticalAlignment="Top" Width="69"/>
+                    <TextBox x:Name="CreditSalary" HorizontalAlignment="Left" Height="23" Margin="78,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <ListView x:Name="RequestListView" HorizontalAlignment="Left" Height="235" Margin="213,35,0,0" VerticalAlignment="Top" Width="289">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding RequestId}" Width="32"/>
+                                <GridViewColumn Header="Credit type" DisplayMemberBinding="{Binding CType}" Width="74"/>
+                                <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" Width="98"/>
+                                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="90"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
 
-  </Grid>
+                    <Label Content="Sent Requests" HorizontalAlignment="Left" Height="26" Margin="230,4,0,0" VerticalAlignment="Top" Width="127" FontWeight="Bold"/>
+                    <Border  Margin="5,22,0,0" Name="grid1" VerticalAlignment="Top" Width="203" HorizontalAlignment="Left" BorderBrush="#FF383838" BorderThickness="1" Height="173">
+                        <Label HorizontalContentAlignment="Center"  Content="Send New Request" HorizontalAlignment="Left" Height="26" Margin="-1,9,-1,0" VerticalAlignment="Top" Width="203" FontWeight="Bold"/>
+
+                    </Border>
+                    <Button x:Name="RequestUpdate" Content="Update" HorizontalAlignment="Left" Margin="65,248,0,0" VerticalAlignment="Top" Width="75" Click="RequestUpdate_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="My credits" Name="TabMyCredits" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="70">
+                <Grid Background="#FFE5E5E5">
+                    <ListView x:Name="MyCreditListView" HorizontalAlignment="Left" Height="275" Margin="10,10,0,0" VerticalAlignment="Top" Width="492">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Credit type" DisplayMemberBinding="{Binding CreditType}" Width="90"/>
+                                <GridViewColumn Header="Allready paid" DisplayMemberBinding="{Binding AllreadyPaid}" Width="80"/>
+                                <GridViewColumn Header="$ per month" DisplayMemberBinding="{Binding AmountOfPaymentPerMonth}" Width="80"/>
+                                <GridViewColumn Header="Start date" DisplayMemberBinding="{Binding StartDate}" Width="78"/>
+                                <GridViewColumn Header="Paid for fine" DisplayMemberBinding="{Binding PaidForFine}" Width="80"/>
+                                <GridViewColumn Header="Next payment" DisplayMemberBinding="{Binding CountFineFromThisDate}" Width="80"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
 </Page>
