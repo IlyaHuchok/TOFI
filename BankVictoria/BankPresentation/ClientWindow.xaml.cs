@@ -61,7 +61,7 @@ namespace BankPresentation
             MyCreditListView.ItemsSource = MyCreditDataList;
         }
 
-        private void SendRequest_Click(object sender, RoutedEventArgs e)
+        private void SendRequest_Click(object sender, RoutedEventArgs e) 
         {            
             CreditType ct = _creditTypeBusinessComponent.GetAllActiveCreditTypes().Where(x => x.Name == CreditCTypeBox.SelectedValue.ToString()).FirstOrDefault();
             bool MoreThanMAX = ct.MaxAmount < Convert.ToUInt32(CreditAmount.Text);
