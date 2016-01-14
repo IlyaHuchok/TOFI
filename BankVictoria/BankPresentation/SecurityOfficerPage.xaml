@@ -40,7 +40,7 @@
                   </GridViewColumn.CellTemplate>
                 </GridViewColumn>
                 <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Path=Amount, StringFormat={}{0}$}"/>
-                <GridViewColumn Header="Salary" DisplayMemberBinding="{Binding Path=Salary, StringFormat={}{0}%}"/>
+                <GridViewColumn Header="Salary" DisplayMemberBinding="{Binding Path=Salary, StringFormat={}{0}$}"/>
               </GridView>
             </ListView.View>
           </ListView>

@@ -110,7 +110,7 @@ namespace BankPresentation
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 var selectedRequest = (Request)RequestsListView.SelectedItem;
-                this.securityOfficerBusinessComponent.AllowCredit(securityOfficerId, selectedRequest);
+                this.securityOfficerBusinessComponent.ApproveRequest(securityOfficerId, selectedRequest);
                 RefreshPage();//_requestList.Remove(selectedRequest);
             }
         }

@@ -69,31 +69,36 @@ namespace BankBL.BusinessComponents
             return _unitOfWork.CreditRepository.GetAll().Where(x => x.Request.ClientId == clientId).Skip(startingIndex).Take(numberOfRecords).OrderBy(x => x.StartDate);
         }
 
-        public void AllowCredit(int securityOfficerId, Request request)
+        public void ApproveRequest(int securityOfficerId, Request request)
         {
-            request.Status = RequestStatus.CreditProvided;//RequestStatus.ConfirmedBySecurityOfficer;
+            //request.Status = RequestStatus.CreditProvided;
+            //request.SecurityServiceEmployeeId = securityOfficerId;
+            //_unitOfWork.RequestRepository.Update(request);
+
+            //var account = new Account { Balance = request.AmountOfCredit, Client = request.Client };
+            //_unitOfWork.BankAccount.Balance -= request.AmountOfCredit;
+
+            //var credit = new Credit
+            //{
+            //    Account = account,
+            //    CreditType = request.CreditType,
+            //    Request = request,
+            //    StartDate = DateTime.UtcNow,
+            //    //AmountOfPaymentsPerMonth wtf?
+            //    IsRepaid = false,
+            //    HasDelays = false,
+            //    CountFineFromThisDate = DateTime.UtcNow.AddDays(30), //!!! hard-coded!!!
+            //    PaidForFine = 0
+            //};
+
+            //_unitOfWork.AccountRepository.Add(account);
+            //_unitOfWork.CreditRepository.Add(credit);
+            //_unitOfWork.RequestRepository.Update(request);
+
+            request.Status = RequestStatus.ConfirmedBySecurityOfficer;
             request.SecurityServiceEmployeeId = securityOfficerId;
             _unitOfWork.RequestRepository.Update(request);
 
-            var account = new Account { Balance = request.AmountOfCredit, Client = request.Client };
-            _unitOfWork.BankAccount.Balance -= request.AmountOfCredit;
-
-            var credit = new Credit
-            {
-                Account = account,
-                //ContractNo = CreditId
-                CreditType = request.CreditType,
-                Request = request,
-                StartDate = DateTime.UtcNow,
-                //AmountOfPaymentsPerMonth wtf?
-                IsRepaid = false,
-                HasDelays = false,
-                CountFineFromThisDate = DateTime.UtcNow.AddDays(30), //!!! hard-coded!!!
-                PaidForFine = 0
-            };
-
-            _unitOfWork.AccountRepository.Add(account);
-            _unitOfWork.CreditRepository.Add(credit);
             _unitOfWork.Save();
         }
 
