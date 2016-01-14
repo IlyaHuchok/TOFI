@@ -46,6 +46,7 @@ namespace BankBL.BusinessComponents
             old.SecurityServiceEmployeeId = request.SecurityServiceEmployeeId;
             old.Status = request.Status;
             old.Note = request.Note;
+            old.RequestId = request.RequestId;
             _unitOfWork.RequestRepository.Update(old);
             _unitOfWork.Save();
         }

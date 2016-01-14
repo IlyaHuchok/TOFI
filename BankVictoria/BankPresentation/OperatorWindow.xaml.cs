@@ -180,7 +180,7 @@ namespace BankPresentation
                 {
                     if (req.RequestId == Convert.ToInt32(RequestRequestId.Text))
                     {
-                        Request request2 = new Request() { ClientId = req.ClientId, OperatorId = _operatorId, Status = RequestStatus.ConfirmedByOperator };
+                        Request request2 = new Request() {RequestId = req.RequestId, ClientId = req.ClientId, OperatorId = _operatorId, Status = RequestStatus.ConfirmedByOperator };
                         _requestBusinessComponent.Update(request2/*req.ClientId, _operatorId, null, RequestStatus.ConfirmedByOperator*/);
                     }
                 }
@@ -201,7 +201,7 @@ namespace BankPresentation
                 {
                     if (req.RequestId == Convert.ToInt32(RequestRequestId.Text))
                     {
-                        Request request2 = new Request() { ClientId = req.ClientId, OperatorId = _operatorId, Status = RequestStatus.Denied, Note = rejectionReason };
+                        Request request2 = new Request() {RequestId = req.RequestId, ClientId = req.ClientId, OperatorId = _operatorId, Status = RequestStatus.Denied, Note = rejectionReason };
                         _requestBusinessComponent.Update(request2/*req.ClientId, _operatorId, null, RequestStatus.ConfirmedByOperator*/);
                     }
                 }
