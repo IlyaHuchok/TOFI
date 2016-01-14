@@ -192,6 +192,20 @@ namespace BankPresentation
                 return false;
             }
         }
+
+        private void RequestViewNote_Click(object sender, RoutedEventArgs e)
+        {
+            if(RequestListView.SelectedItem != null)
+            {
+                ClientListView clv = (ClientListView)RequestListView.SelectedValue;
+                Request request = _requestBusinessComponent.GetAll().Where(x=> x.RequestId == clv.RequestId).FirstOrDefault();
+                MessageBox.Show("Reason for rejection : " + request.Note);
+            }
+            else
+            {
+                MessageBox.Show("You shold select request");
+            }
+        }
     }
 
     public class CTypeListView
