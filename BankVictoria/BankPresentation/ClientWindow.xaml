@@ -70,7 +70,7 @@
                     <Button x:Name="RequestViewNote" Content="View note" HorizontalAlignment="Left" Margin="65,221,0,0" VerticalAlignment="Top" Width="75" Click="RequestViewNote_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="My credits" Name="TabMyCredits" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="70">
+            <TabItem Header="My credits" Name="TabMyCredits" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="70" Margin="1,0,-1,0">
                 <Grid Background="#FFE5E5E5">
                     <ListView x:Name="MyCreditListView" HorizontalAlignment="Left" Height="275" Margin="10,10,0,0" VerticalAlignment="Top" Width="492">
                         <ListView.View>
