@@ -62,5 +62,34 @@ namespace BankBL.BusinessComponents
             _unitOfWork.CreditRepository.Update(old);
             _unitOfWork.Save();
         }
+
+
+        public void AllowCredit(int securityOfficerId, Request request)
+        {
+            request.Status = RequestStatus.CreditProvided;
+            request.SecurityServiceEmployeeId = securityOfficerId;
+            _unitOfWork.RequestRepository.Update(request);
+
+            var account = new Account { Balance = request.AmountOfCredit, Client = request.Client };
+            _unitOfWork.BankAccount.Balance -= request.AmountOfCredit;
+           
+            var credit = new Credit
+            {
+                Account = account,
+                CreditType = request.CreditType,
+                Request = request,
+                StartDate = DateTime.UtcNow,
+                //AmountOfPaymentsPerMonth wtf?
+                IsRepaid = false,
+                HasDelays = false,
+                CountFineFromThisDate = DateTime.UtcNow.AddDays(30), //!!! hard-coded!!!
+                PaidForFine = 0
+            };
+
+            _unitOfWork.AccountRepository.Add(account);
+            _unitOfWork.CreditRepository.Add(credit);
+            _unitOfWork.RequestRepository.Update(request);
+        }
+
     }
 }
