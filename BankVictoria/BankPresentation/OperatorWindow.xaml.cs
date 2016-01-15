@@ -206,7 +206,6 @@ namespace BankPresentation
                     }
                 }
             }
-
         }
 
         private void RequestSearch_Click(object sender, RoutedEventArgs e)
@@ -309,6 +308,6 @@ namespace BankPresentation
                 MessageBox.Show(validationResult.Error);
                 return false;
             }
-        }
+        }        
     }
 }
