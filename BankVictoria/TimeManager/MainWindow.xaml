@@ -10,8 +10,8 @@
     <TextBox x:Name="TimeBackTextBox" HorizontalAlignment="Left" Height="27" Margin="47,115,0,0" TextWrapping="Wrap" Text="30" VerticalAlignment="Top" Width="92"/>
     <Label  Content="Move back in time by" HorizontalAlignment="Left" Height="26" Margin="47,84,0,0" VerticalAlignment="Top" Width="150"/>
     <Label Content="days" HorizontalAlignment="Left" Height="25" Margin="47,142,0,0" VerticalAlignment="Top" Width="150"/>
-    <Button x:Name="GoForthButton" Content="Go!" HorizontalAlignment="Left" Height="22" Margin="139,115,0,0" VerticalAlignment="Top" Width="58" Click="GoForthButton_Click"/>
-    <Button x:Name="GoBackButton" Content="Go!" HorizontalAlignment="Left" Height="22" Margin="385,115,0,0" VerticalAlignment="Top" Width="61" Click="GoBackButton_Click"/>
+    <Button x:Name="GoForthButton" Content="Go!" HorizontalAlignment="Left" Height="22" Margin="390,115,0,0" VerticalAlignment="Top" Width="58" Click="GoForthButton_Click"/>
+    <Button x:Name="GoBackButton" Content="Go!" HorizontalAlignment="Left" Height="22" Margin="144,115,0,0" VerticalAlignment="Top" Width="61" Click="GoBackButton_Click"/>
 
   </Grid>
 </Window>
