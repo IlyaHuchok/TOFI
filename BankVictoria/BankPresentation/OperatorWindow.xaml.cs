@@ -17,6 +17,9 @@ using Entities.Enums;
 using BankBL.Interfaces;
 using System.Collections.ObjectModel;
 using BankPresentation.Validation;
+
+using Ninject;
+
 namespace BankPresentation
 {
     /// <summary>
@@ -31,15 +34,17 @@ namespace BankPresentation
         private readonly IRequestBusinessComponent _requestBusinessComponent;
         private readonly IPaymentBusinessComponent _paymentBusinessComponent;
         private readonly ICreditBusinessComponent _creditBusinessComponent;
+        private readonly IKernel _ninjectKernel;
 
         public OperatorWindow(IClientBusinessComponent clientBusinessComponent, IRequestBusinessComponent requestBusinessComponent, IPaymentBusinessComponent paymentBusinessComponent,
-            ICreditBusinessComponent creditBusinessComponent, int operatorId)
+            ICreditBusinessComponent creditBusinessComponent, int operatorId, IKernel ninjectKernel)
         {
             _clientBusinessComponent = clientBusinessComponent;
             _requestBusinessComponent = requestBusinessComponent;
             _paymentBusinessComponent = paymentBusinessComponent;
             _creditBusinessComponent = creditBusinessComponent;
             _operatorId = operatorId;
+            this._ninjectKernel = ninjectKernel;
 
             InitializeComponent();
 
@@ -308,6 +313,12 @@ namespace BankPresentation
                 MessageBox.Show(validationResult.Error);
                 return false;
             }
+        }
+
+        private void LogOffButton_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Window.GetWindow(this);
+            window.Content = _ninjectKernel.Get<LoginPage>();
         }        
     }
 }

@@ -10,7 +10,7 @@
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="312" VerticalAlignment="Top" Width="522" SelectionChanged="tabControl_SelectionChanged">
             <TabItem Header="RequestList" Name="TabRequestList" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="75">
                 <Grid Background="#FFE5E5E5">
-                    <ListView x:Name="RequestListView" HorizontalAlignment="Left" Height="236" Margin="10,10,0,0" VerticalAlignment="Top" Width="492">
+                    <ListView x:Name="RequestListView" HorizontalAlignment="Left" Height="236" Margin="10,34,0,0" VerticalAlignment="Top" Width="492">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Request id" DisplayMemberBinding="{Binding RequestId}" Width="60"/>
@@ -20,7 +20,8 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                </Grid>
+          <Button x:Name="LogOffButton" Content="Log Off" HorizontalAlignment="Left" Margin="448,7,0,0" VerticalAlignment="Top" Width="54" Click="LogOffButton_Click"/>
+        </Grid>
             </TabItem>
             <TabItem Header="Request" Name="TabRequest">
                 <Grid Background="#FFE5E5E5">

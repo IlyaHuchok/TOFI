@@ -44,7 +44,8 @@
               </GridView>
             </ListView.View>
           </ListView>
-          <Button x:Name="Reload" Content="Reload" HorizontalAlignment="Left" Margin="600,10,0,0" VerticalAlignment="Top" Width="53"/>
+          <Button x:Name="Reload" Content="Reload" HorizontalAlignment="Left" Margin="532,10,0,0" VerticalAlignment="Top" Width="54"/>
+          <Button x:Name="LogOffButton" Content="Log Off" HorizontalAlignment="Left" Margin="599,10,0,0" VerticalAlignment="Top" Width="54" Click="LogOffButton_Click"/>
         </Grid>
       </TabItem>
     </TabControl>

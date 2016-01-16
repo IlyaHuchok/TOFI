@@ -16,6 +16,9 @@ using System.Collections.ObjectModel;
 using BankBL.Interfaces;
 using Entities;
 using BankPresentation.Validation;
+
+using Ninject;
+
 namespace BankPresentation
 {
     /// <summary>
@@ -30,9 +33,11 @@ namespace BankPresentation
         private readonly ICreditBusinessComponent _creditBusinessComponent;
         private readonly IClientBusinessComponent _clientBusinessComponent;
         private readonly IRequestBusinessComponent _requestBusinessComponent;
+        private readonly IKernel _ninjectKernel;
         int _userId;
+
         public ClientWindow(ICreditBusinessComponent creditBusinessComponent, ICreditTypeBusinessComponent creditTypeBusinessComponent, IClientBusinessComponent clientBusinessComponent,
-            IRequestBusinessComponent requestBusinessComponent, int userId)
+            IRequestBusinessComponent requestBusinessComponent, int userId, IKernel ninjectKernel)
         {
             
 
@@ -41,6 +46,7 @@ namespace BankPresentation
             _clientBusinessComponent = clientBusinessComponent;
             _requestBusinessComponent = requestBusinessComponent;
             _userId = userId;
+            this._ninjectKernel = ninjectKernel;
 
             InitializeComponent();
 
@@ -205,6 +211,12 @@ namespace BankPresentation
             {
                 MessageBox.Show("You shold select request");
             }
+        }
+
+        private void LogOffButton_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Window.GetWindow(this);
+            window.Content = _ninjectKernel.Get<LoginPage>();
         }
     }
 
