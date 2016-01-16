@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using BankUnitOfWork.Interfaces;
 using BankDAL.Interfaces;
 using BankDomainModel;
+
+using Entities;
+
 using Ninject;
 using Ninject.Parameters;
 namespace BankUnitOfWork.UnitsOfWork
@@ -69,6 +72,14 @@ namespace BankUnitOfWork.UnitsOfWork
                 }
 
                 return _requestRepository;
+            }
+        }
+
+        public BankAccount BankAccount
+        {
+            get
+            {
+                return this.GetContext().BankAccount;
             }
         }
     }

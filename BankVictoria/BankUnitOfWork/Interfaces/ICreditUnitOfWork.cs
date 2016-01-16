@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnitOfWork;
 using BankDAL.Interfaces;
+
+using Entities;
+
 namespace BankUnitOfWork.Interfaces
 {
     public interface ICreditUnitOfWork : IUnitOfWork
@@ -13,5 +16,6 @@ namespace BankUnitOfWork.Interfaces
         IAccountRepository AccountRepository { get; }
         ICreditTypeRepository CreditTypeRepository { get; }
         IRequestRepository RequestRepository { get; }
+        BankAccount BankAccount { get; }
     }
 }
