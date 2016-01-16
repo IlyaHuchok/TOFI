@@ -82,7 +82,7 @@ namespace BankPresentation
                 if ((req.Client.PassportNo == RepaymentPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.CreditId)) // CreditId==ContrqctNo
                 {
                     CountUpNewDebt();//высчитываем долг
-                    RepaymentName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
+                    RepaymentName.Text = req.Client.Name + " " + req.Client.LastName;// + " " + req.Client.Patronymic;
                     RepaymentDebt.Text = req.Credit.PaidForFine.ToString();
                     RepaymentToRepayTheLoan.Text = (req.Credit.AmountOfPaymentPerMonth * req.CreditType.TimeMonths + req.Credit.PaidForFine).ToString();
                 }
@@ -222,7 +222,7 @@ namespace BankPresentation
                 {
                     if (req.RequestId == Convert.ToUInt32(RequestRequestId.Text))
                     {
-                        RequestName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
+                        RequestName.Text = req.Client.Name + " " + req.Client.LastName;// + " " + req.Client.Patronymic;
                         RequestCreditType.Text = req.CreditType.Name;
                         RequestAmount.Text = req.AmountOfCredit.ToString();
                         RequestCreditTypeIsAvailable.Text = req.CreditType.IsAvailable.ToString();

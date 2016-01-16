@@ -51,7 +51,7 @@ namespace BankPresentation
             // tab 2 setup
             LastNameTextBox.MaxLength = ClientValidation.LastNameMaxLength;
             NameTextBox.MaxLength = ClientValidation.NameMaxLength;
-            PatronymicTextBox.MaxLength = ClientValidation.PatronymicMaxLength;
+            //PatronymicTextBox.MaxLength = ClientValidation.PatronymicMaxLength;
             BirthdayDatePicker.DisplayDateStart = ClientValidation.MinBirthDate;
             BirthdayDatePicker.DisplayDateEnd = ClientValidation.MaxBirthDate;
             MobilePhoneNumberTextBox.MaxLength = ClientValidation.MobileMaxLength;
@@ -112,7 +112,7 @@ namespace BankPresentation
                     textBox_Create_Login.Text = _clientToUpdate.Name;
                     LastNameTextBox.Text = _clientToUpdate.LastName;
                     NameTextBox.Text = _clientToUpdate.Name;
-                    PatronymicTextBox.Text = _clientToUpdate.Patronymic;
+                    //PatronymicTextBox.Text = _clientToUpdate.Patronymic;
                     BirthdayDatePicker.SelectedDate = _clientToUpdate.Birthday;
                     MobilePhoneNumberTextBox.Text = _clientToUpdate.Mobile;
                     EmailTextBox.Text = _clientToUpdate.Email;
@@ -220,7 +220,7 @@ namespace BankPresentation
                 var validationResult = ClientValidation.Validate(
                     LastNameTextBox.Text,
                     NameTextBox.Text,
-                    PatronymicTextBox.Text,
+                    //PatronymicTextBox.Text,
                     BirthdayDatePicker.SelectedDate.Value,
                     MobilePhoneNumberTextBox.Text,
                     EmailTextBox.Text,
@@ -237,7 +237,7 @@ namespace BankPresentation
                         _clientToUpdate.Name = textBox_Create_Login.Text;
                         _clientToUpdate.LastName = LastNameTextBox.Text;
                         _clientToUpdate.Name = NameTextBox.Text;
-                        _clientToUpdate.Patronymic = PatronymicTextBox.Text;
+                        //_clientToUpdate.Patronymic = PatronymicTextBox.Text;
                         _clientToUpdate.Birthday = BirthdayDatePicker.SelectedDate.Value;
                         _clientToUpdate.Mobile = MobilePhoneNumberTextBox.Text;
                         _clientToUpdate.Email = EmailTextBox.Text;
@@ -286,7 +286,7 @@ namespace BankPresentation
                             selectedRole,
                             LastNameTextBox.Text,
                             NameTextBox.Text,
-                            PatronymicTextBox.Text,
+                            //PatronymicTextBox.Text,
                             BirthdayDatePicker.SelectedDate.Value,
                             MobilePhoneNumberTextBox.Text,
                             EmailTextBox.Text,

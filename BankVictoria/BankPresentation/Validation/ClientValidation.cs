@@ -37,7 +37,7 @@ namespace BankPresentation.Validation
         //Ababa von Assd Mmmmm-n-Qwerty der aaaa-Bbbbb
         private static Regex NameRegex =  new Regex(@"^[A-Z]+[a-z]*((\s|-)[A-Z]?[a-z]*)*$");
 
-        public static ValidationResult Validate(string lastName, string name, string patronymic, DateTime birthday, string mobile, string email, string passportNo,
+        public static ValidationResult Validate(string lastName, string name, /*string patronymic,*/ DateTime birthday, string mobile, string email, string passportNo,
             DateTime passwordExpiration, string passportIdentityNo, string passportAuthority, string placeOfResidence, string registrationAddress)
         {
             var result = new ValidationResult
@@ -59,11 +59,11 @@ namespace BankPresentation.Validation
                 result.IsValid = false;
             }
 
-            if (!NameRegex.IsMatch(patronymic))
-            {
-                error.AppendLine("Wrong patronymic format!\n Can have only words separated by single spaces or dashes. Patronymic must start with capital letter");
-                result.IsValid = false;
-            }
+            //if (!NameRegex.IsMatch(patronymic))
+            //{
+            //    error.AppendLine("Wrong patronymic format!\n Can have only words separated by single spaces or dashes. Patronymic must start with capital letter");
+            //    result.IsValid = false;
+            //}
 
             if (!MobileRegex.IsMatch(mobile))
             {
@@ -81,9 +81,6 @@ namespace BankPresentation.Validation
             {
                 error.AppendLine("Wrong passport number!\n Enter your passport number in format: AB1122333!");
                 result.IsValid = false;
-            }
-            else
-            {
             }
 
             if (!PassportIdentityNoRegex.IsMatch(passportIdentityNo))

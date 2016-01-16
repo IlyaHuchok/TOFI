@@ -11,7 +11,7 @@ namespace BankBL.Interfaces
     public interface IClientBusinessComponent 
     {
         int Add(string username, string pass, UserRole userRole,
-            string lastName, string name, string patronymic, DateTime birthday,
+            string lastName, string name, /*string patronymic,*/ DateTime birthday,
             string mobile, string email, string passportNo,
             DateTime passwordExpiration, string passportIdentityNo, string passportAuthority,
             string placeOfResidence, string registrationAddress);
