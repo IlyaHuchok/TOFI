@@ -79,7 +79,7 @@ namespace BankBL.BusinessComponents
                 CreditType = request.CreditType,
                 Request = request,
                 StartDate = DateTime.UtcNow,
-                //AmountOfPaymentsPerMonth wtf?
+                AmountOfPaymentPerMonth = request.AmountOfCredit/request.CreditType.TimeMonths,
                 IsRepaid = false,
                 HasDelays = false,
                 CountFineFromThisDate = DateTime.UtcNow.AddDays(30), //!!! hard-coded!!!
