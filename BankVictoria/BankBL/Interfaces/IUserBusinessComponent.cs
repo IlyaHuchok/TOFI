@@ -14,7 +14,7 @@ namespace BankBL.Interfaces
         /// TODO: Add remaining methods here
         UserRole? Login(string name, string pass);
         int Add(string name, string pass, UserRole userRole);
-        bool Exists(string name, string pass);
+        bool Exists(string name);
         int GetIdByLogin(string name);
 
         IEnumerable<User> GetAll();

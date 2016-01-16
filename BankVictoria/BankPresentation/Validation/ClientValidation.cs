@@ -82,6 +82,9 @@ namespace BankPresentation.Validation
                 error.AppendLine("Wrong passport number!\n Enter your passport number in format: AB1122333!");
                 result.IsValid = false;
             }
+            else
+            {
+            }
 
             if (!PassportIdentityNoRegex.IsMatch(passportIdentityNo))
             {

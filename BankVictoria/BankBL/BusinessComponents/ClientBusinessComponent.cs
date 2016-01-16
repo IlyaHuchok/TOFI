@@ -56,6 +56,12 @@ namespace BankBL.BusinessComponents
             return _unitOfWork.ClientRepository.GetAll().Count; ;
         }
 
+        public bool Exists(string passportNo)
+        {
+            var client = _unitOfWork.ClientRepository.GetSingle(x => x.PassportNo == passportNo);
+            return client != null;
+        }
+
         public IList<Client> GetAll()
         {
             return _unitOfWork.ClientRepository.GetAll();

@@ -169,6 +169,7 @@ namespace BankPresentation
                 MessageBox.Show("Registered successfully!");
             }
         }
+
         private bool Validate()
         {
             var validationResult = UserValidation.Validate(
@@ -177,7 +178,7 @@ namespace BankPresentation
                 passwordBox_Create_Password_Copy.Password);
             if (validationResult.IsValid)
             {
-                if (_userBusinessComponent.Exists(textBox_Create_Login.Text, passwordBox_Create_Password.Password))
+                if (_userBusinessComponent.Exists(textBox_Create_Login.Text))
                 {
                     MessageBox.Show("A user with such username already exists!");
                     return false;
@@ -253,7 +254,6 @@ namespace BankPresentation
                     }
                     else
                     {
-
                         UserRole selectedRole;
                         switch ((string)roleComboBox.SelectedValue)
                         {
@@ -273,6 +273,13 @@ namespace BankPresentation
                                 selectedRole = UserRole.Client;
                                 break;
                         }
+
+                        if (selectedRole == UserRole.Client && _clientBusinessComponent.Exists(PassportNoTextBox.Text))
+                        {
+                            MessageBox.Show("A user with such passport number has already been registered!");
+                            return;
+                        }
+
                         _clientBusinessComponent.Add(
                             textBox_Create_Login.Text,
                             passwordBox_Create_Password.Password,
@@ -305,6 +312,7 @@ namespace BankPresentation
                             // return to login page
                         }
                     }
+
                 }
                 else
                 {

@@ -20,6 +20,7 @@ namespace BankBL.Interfaces
         Client GetByUserId(int userId);
         IList<Client> GetAll();
         int Count();
+        bool Exists(string passportNo);
         void Update(Client user);
         void Delete(Client user);
     }
