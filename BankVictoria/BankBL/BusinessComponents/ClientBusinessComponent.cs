@@ -53,7 +53,7 @@ namespace BankBL.BusinessComponents
 
         public int Count()
         {
-            return _unitOfWork.ClientRepository.GetAll().Count; ;
+            return _unitOfWork.ClientRepository.GetAll().Count;
         }
 
         public bool Exists(string passportNo)

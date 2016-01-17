@@ -31,9 +31,9 @@ namespace BankPresentation
         private ObservableCollection<ContractNoCreditType> RepaymentDataList = new ObservableCollection<ContractNoCreditType>();
         private readonly int _operatorId;
         private readonly IClientBusinessComponent _clientBusinessComponent;
-        private readonly IRequestBusinessComponent _requestBusinessComponent;
+        private IRequestBusinessComponent _requestBusinessComponent;
         private readonly IPaymentBusinessComponent _paymentBusinessComponent;
-        private readonly ICreditBusinessComponent _creditBusinessComponent;
+        private ICreditBusinessComponent _creditBusinessComponent;
         private readonly IKernel _ninjectKernel;
 
         public OperatorWindow(IClientBusinessComponent clientBusinessComponent, IRequestBusinessComponent requestBusinessComponent, IPaymentBusinessComponent paymentBusinessComponent,
@@ -125,6 +125,7 @@ namespace BankPresentation
                     }
                     int Days = (int)(i * 30);//на сколько дней вперед улетит CountFineFromThisDate                        
                     _creditBusinessComponent.Update(credit.CreditId, credit.CountFineFromThisDate + new TimeSpan(Days, 0, 0, 0));
+                    _creditBusinessComponent = _ninjectKernel.Get<ICreditBusinessComponent>(); // if not re-created will fail on 2nd update
                     allreadyPaid = request.Credit.AllreadyPaid;
                 }
                 else if (allreadyPaid < standartAlreadyPaid)//у нас есть долг
@@ -139,6 +140,7 @@ namespace BankPresentation
                         Debt += daysFromTheStartOfTheDebt * credit.AmountOfPaymentPerMonth * (decimal)0.01;/// не Debt += Debt !!!!!
                     }
                     _creditBusinessComponent.Update(credit.CreditId, credit.AllreadyPaid, Debt);
+                    _creditBusinessComponent = _ninjectKernel.Get<ICreditBusinessComponent>(); // if not re-created will fail on 2nd update
                     allreadyPaid = request.Credit.AllreadyPaid;
                 }
                 else if (allreadyPaid == standartAlreadyPaid)
@@ -149,6 +151,7 @@ namespace BankPresentation
                         newDateToStartDebt -= new TimeSpan(1, 0, 0, 0, 0);
                     }
                     _creditBusinessComponent.Update(credit.CreditId, newDateToStartDebt);
+                    _creditBusinessComponent = _ninjectKernel.Get<ICreditBusinessComponent>(); // if not re-created will fail on 2nd update
                 }
             }
         }
@@ -170,6 +173,7 @@ namespace BankPresentation
                         DateTime.Now);
 
                     _creditBusinessComponent.Update(credit.CreditId, credit.AllreadyPaid + Convert.ToInt32(RepaymentToPay.Text), credit.PaidForFine - Convert.ToInt32(RepaymentToPay.Text));
+                    _creditBusinessComponent = _ninjectKernel.Get<ICreditBusinessComponent>(); // if not re-created will fail on 2nd update
                     TabRepaymentClear(false);
                 }
             }
@@ -187,6 +191,7 @@ namespace BankPresentation
                     {
                         Request request2 = new Request() {RequestId = req.RequestId, ClientId = req.ClientId, OperatorId = _operatorId, Status = RequestStatus.ConfirmedByOperator };
                         _requestBusinessComponent.Update(request2/*req.ClientId, _operatorId, null, RequestStatus.ConfirmedByOperator*/);
+                        _requestBusinessComponent = _ninjectKernel.Get<IRequestBusinessComponent>(); // if not re-created will fail on 2nd update
                     }
                 }
             }
@@ -208,6 +213,7 @@ namespace BankPresentation
                     {
                         Request request2 = new Request() {RequestId = req.RequestId, ClientId = req.ClientId, OperatorId = _operatorId, Status = RequestStatus.Denied, Note = rejectionReason };
                         _requestBusinessComponent.Update(request2/*req.ClientId, _operatorId, null, RequestStatus.ConfirmedByOperator*/);
+                        _requestBusinessComponent = _ninjectKernel.Get<IRequestBusinessComponent>(); // if not re-created will fail on 2nd update
                     }
                 }
             }
