@@ -17,6 +17,9 @@ using Entities.Enums;
 using BankBL.Interfaces;
 using System.Collections.ObjectModel;
 using BankPresentation.Validation;
+
+using Ninject;
+
 namespace BankPresentation
 {
     /// <summary>
@@ -28,18 +31,20 @@ namespace BankPresentation
         private ObservableCollection<ContractNoCreditType> RepaymentDataList = new ObservableCollection<ContractNoCreditType>();
         private readonly int _operatorId;
         private readonly IClientBusinessComponent _clientBusinessComponent;
-        private readonly IRequestBusinessComponent _requestBusinessComponent;
+        private IRequestBusinessComponent _requestBusinessComponent;
         private readonly IPaymentBusinessComponent _paymentBusinessComponent;
-        private readonly ICreditBusinessComponent _creditBusinessComponent;
+        private ICreditBusinessComponent _creditBusinessComponent;
+        private readonly IKernel _ninjectKernel;
 
         public OperatorWindow(IClientBusinessComponent clientBusinessComponent, IRequestBusinessComponent requestBusinessComponent, IPaymentBusinessComponent paymentBusinessComponent,
-            ICreditBusinessComponent creditBusinessComponent, int operatorId)
+            ICreditBusinessComponent creditBusinessComponent, int operatorId, IKernel ninjectKernel)
         {
             _clientBusinessComponent = clientBusinessComponent;
             _requestBusinessComponent = requestBusinessComponent;
             _paymentBusinessComponent = paymentBusinessComponent;
             _creditBusinessComponent = creditBusinessComponent;
             _operatorId = operatorId;
+            this._ninjectKernel = ninjectKernel;
 
             InitializeComponent();
 
@@ -50,12 +55,17 @@ namespace BankPresentation
             RequestListView.ItemsSource = RequestDataList;
             RepaymentListView.ItemsSource = RepaymentDataList;
 
+            RepaymentOpen.IsEnabled = false;
+            RequestReject.IsEnabled = false;
+            RequestSendRequest.IsEnabled = false;
+            RepaymentSubmit.IsEnabled = false;
         }
 
         private void RepaymentSearch_Click(object sender, RoutedEventArgs e)
         {
             if (Validate(true,false,false))
             {
+                RequestDataList.Clear();
                 IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.CreditProvided);
                 foreach (var req in request)
                 {
@@ -77,7 +87,7 @@ namespace BankPresentation
                 if ((req.Client.PassportNo == RepaymentPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.CreditId)) // CreditId==ContrqctNo
                 {
                     CountUpNewDebt();//высчитываем долг
-                    RepaymentName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
+                    RepaymentName.Text = req.Client.Name + " " + req.Client.LastName;// + " " + req.Client.Patronymic;
                     RepaymentDebt.Text = req.Credit.PaidForFine.ToString();
                     RepaymentToRepayTheLoan.Text = (req.Credit.AmountOfPaymentPerMonth * req.CreditType.TimeMonths + req.Credit.PaidForFine).ToString();
                 }
@@ -120,6 +130,7 @@ namespace BankPresentation
                     }
                     int Days = (int)(i * 30);//на сколько дней вперед улетит CountFineFromThisDate                        
                     _creditBusinessComponent.Update(credit.CreditId, credit.CountFineFromThisDate + new TimeSpan(Days, 0, 0, 0));
+                    _creditBusinessComponent = _ninjectKernel.Get<ICreditBusinessComponent>(); // if not re-created will fail on 2nd update
                     allreadyPaid = request.Credit.AllreadyPaid;
                 }
                 else if (allreadyPaid < standartAlreadyPaid)//у нас есть долг
@@ -134,6 +145,7 @@ namespace BankPresentation
                         Debt += daysFromTheStartOfTheDebt * credit.AmountOfPaymentPerMonth * (decimal)0.01;/// не Debt += Debt !!!!!
                     }
                     _creditBusinessComponent.Update(credit.CreditId, credit.AllreadyPaid, Debt);
+                    _creditBusinessComponent = _ninjectKernel.Get<ICreditBusinessComponent>(); // if not re-created will fail on 2nd update
                     allreadyPaid = request.Credit.AllreadyPaid;
                 }
                 else if (allreadyPaid == standartAlreadyPaid)
@@ -144,6 +156,7 @@ namespace BankPresentation
                         newDateToStartDebt -= new TimeSpan(1, 0, 0, 0, 0);
                     }
                     _creditBusinessComponent.Update(credit.CreditId, newDateToStartDebt);
+                    _creditBusinessComponent = _ninjectKernel.Get<ICreditBusinessComponent>(); // if not re-created will fail on 2nd update
                 }
             }
         }
@@ -165,6 +178,7 @@ namespace BankPresentation
                         DateTime.Now);
 
                     _creditBusinessComponent.Update(credit.CreditId, credit.AllreadyPaid + Convert.ToInt32(RepaymentToPay.Text), credit.PaidForFine - Convert.ToInt32(RepaymentToPay.Text));
+                    _creditBusinessComponent = _ninjectKernel.Get<ICreditBusinessComponent>(); // if not re-created will fail on 2nd update
                     TabRepaymentClear(false);
                 }
             }
@@ -182,6 +196,11 @@ namespace BankPresentation
                     {
                         Request request2 = new Request() {RequestId = req.RequestId, ClientId = req.ClientId, OperatorId = _operatorId, Status = RequestStatus.ConfirmedByOperator };
                         _requestBusinessComponent.Update(request2/*req.ClientId, _operatorId, null, RequestStatus.ConfirmedByOperator*/);
+                        _requestBusinessComponent = _ninjectKernel.Get<IRequestBusinessComponent>(); // if not re-created will fail on 2nd update
+
+                        this.TabRequestClear(); // added by ilya
+                        RequestReject.IsEnabled = false;
+                        RequestSendRequest.IsEnabled = false;
                     }
                 }
             }
@@ -203,6 +222,11 @@ namespace BankPresentation
                     {
                         Request request2 = new Request() {RequestId = req.RequestId, ClientId = req.ClientId, OperatorId = _operatorId, Status = RequestStatus.Denied, Note = rejectionReason };
                         _requestBusinessComponent.Update(request2/*req.ClientId, _operatorId, null, RequestStatus.ConfirmedByOperator*/);
+                        _requestBusinessComponent = _ninjectKernel.Get<IRequestBusinessComponent>(); // if not re-created will fail on 2nd update
+
+                        this.TabRequestClear(); // added by ilya
+                        RequestReject.IsEnabled = false;
+                        RequestSendRequest.IsEnabled = false;
                     }
                 }
             }
@@ -212,17 +236,16 @@ namespace BankPresentation
         {
             if (Validate(false,false,true))
             {
-                IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.Created);
-                foreach (var req in request)
+                IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.Created).Where(req => req.RequestId == Convert.ToUInt32(this.RequestRequestId.Text)).ToList();
+                foreach (var req in request.Where(req => req.RequestId == Convert.ToUInt32(this.RequestRequestId.Text)))
                 {
-                    if (req.RequestId == Convert.ToUInt32(RequestRequestId.Text))
-                    {
-                        RequestName.Text = req.Client.Name + " " + req.Client.LastName + " " + req.Client.Patronymic;
-                        RequestCreditType.Text = req.CreditType.Name;
-                        RequestAmount.Text = req.AmountOfCredit.ToString();
-                        RequestCreditTypeIsAvailable.Text = req.CreditType.IsAvailable.ToString();
-                    }
+                    this.RequestName.Text = req.Client.Name + " " + req.Client.LastName;// + " " + req.Client.Patronymic;
+                    this.RequestCreditType.Text = req.CreditType.Name;
+                    this.RequestAmount.Text = req.AmountOfCredit.ToString();
+                    this.RequestCreditTypeIsAvailable.Text = req.CreditType.IsAvailable.ToString();
                 }
+                RequestReject.IsEnabled = request.Any();
+                RequestSendRequest.IsEnabled = request.Any();
             }
         }
 
@@ -308,6 +331,18 @@ namespace BankPresentation
                 MessageBox.Show(validationResult.Error);
                 return false;
             }
-        }        
+        }
+
+        private void LogOffButton_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Window.GetWindow(this);
+            window.Content = _ninjectKernel.Get<LoginPage>();
+        }
+
+        private void RepaymentListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.RepaymentOpen.IsEnabled = this.RepaymentListView.SelectedItem != null;
+            this.RepaymentSubmit.IsEnabled = this.RepaymentListView.SelectedItem != null;
+        }
     }
 }

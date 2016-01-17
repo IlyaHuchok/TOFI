@@ -190,5 +190,11 @@ namespace BankPresentation
         {
             this.RefreshPage(LastnameTextBox.Text);
         }
+
+        private void LogOffButton_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Window.GetWindow(this);
+            window.Content = _ninjectKernel.Get<LoginPage>();
+        }
     }
 }

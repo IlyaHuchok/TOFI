@@ -11,7 +11,7 @@ namespace BankBL.Interfaces
     public interface IClientBusinessComponent 
     {
         int Add(string username, string pass, UserRole userRole,
-            string lastName, string name, string patronymic, DateTime birthday,
+            string lastName, string name, /*string patronymic,*/ DateTime birthday,
             string mobile, string email, string passportNo,
             DateTime passwordExpiration, string passportIdentityNo, string passportAuthority,
             string placeOfResidence, string registrationAddress);
@@ -20,6 +20,7 @@ namespace BankBL.Interfaces
         Client GetByUserId(int userId);
         IList<Client> GetAll();
         int Count();
+        bool Exists(string passportNo);
         void Update(Client user);
         void Delete(Client user);
     }

@@ -32,7 +32,7 @@ namespace BankPresentation
             InitializeComponent();
             LastNameTextBox.IsEnabled = false;
             NameTextBox.IsEnabled = false;
-            PatronymicTextBox.IsEnabled = false;
+            //PatronymicTextBox.IsEnabled = false;
             BirthdayField.IsEnabled = false;
             MobilePhoneNumberTextBox.IsEnabled = false;
             EmailTextBox.IsEnabled = false;
@@ -53,7 +53,7 @@ namespace BankPresentation
 
             LastNameTextBox.Text = client.LastName;
             NameTextBox.Text = client.Name;
-            PatronymicTextBox.Text = client.Patronymic;
+            //PatronymicTextBox.Text = client.Patronymic;
             BirthdayField.Text = client.Birthday.ToString();
             MobilePhoneNumberTextBox.Text = client.Mobile;
             EmailTextBox.Text = client.Email;

@@ -18,7 +18,7 @@ namespace BankBL.BusinessComponents
         public ClientBusinessComponent(IClientUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         public int Add(string username, string pass, UserRole userRole,
-            string lastName, string name, string patronymic, DateTime birthday,
+            string lastName, string name/*, string patronymic*/, DateTime birthday,
             string mobile, string email, string passportNo,
             DateTime passwordExpiration, string passportIdentityNo, string passportAuthority, 
             string placeOfResidence,  string registrationAddress)
@@ -33,7 +33,7 @@ namespace BankBL.BusinessComponents
             {
                 LastName = lastName,
                 Name = name,
-                Patronymic = patronymic,
+                //Patronymic = patronymic,
                 Birthday = birthday,
                 Mobile = mobile,
                 Email = email,
@@ -53,7 +53,13 @@ namespace BankBL.BusinessComponents
 
         public int Count()
         {
-            return _unitOfWork.ClientRepository.GetAll().Count; ;
+            return _unitOfWork.ClientRepository.GetAll().Count;
+        }
+
+        public bool Exists(string passportNo)
+        {
+            var client = _unitOfWork.ClientRepository.GetSingle(x => x.PassportNo == passportNo);
+            return client != null;
         }
 
         public IList<Client> GetAll()

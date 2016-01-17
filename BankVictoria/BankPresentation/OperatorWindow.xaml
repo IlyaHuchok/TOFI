@@ -10,7 +10,7 @@
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="312" VerticalAlignment="Top" Width="522" SelectionChanged="tabControl_SelectionChanged">
             <TabItem Header="RequestList" Name="TabRequestList" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="75">
                 <Grid Background="#FFE5E5E5">
-                    <ListView x:Name="RequestListView" HorizontalAlignment="Left" Height="236" Margin="10,10,0,0" VerticalAlignment="Top" Width="492">
+                    <ListView x:Name="RequestListView" HorizontalAlignment="Left" Height="236" Margin="10,34,0,0" VerticalAlignment="Top" Width="492">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Request id" DisplayMemberBinding="{Binding RequestId}" Width="60"/>
@@ -20,7 +20,8 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                </Grid>
+          <Button x:Name="LogOffButton" Content="Log Off" HorizontalAlignment="Left" Margin="448,7,0,0" VerticalAlignment="Top" Width="54" Click="LogOffButton_Click"/>
+        </Grid>
             </TabItem>
             <TabItem Header="Request" Name="TabRequest">
                 <Grid Background="#FFE5E5E5">
@@ -57,7 +58,7 @@
                     
                     <Button x:Name="RepaymentSubmit" Content="Submit" HorizontalAlignment="Left" Margin="205,230,0,0" VerticalAlignment="Top" Width="75" Click="RepaymentSubmit_Click"/>                    
                     <Button x:Name="RepaymentOpen" Content="Open" HorizontalAlignment="Left" Margin="223,38,0,0" VerticalAlignment="Top" Width="75" Click="RepaymentOpen_Click"/>
-                    <ListView x:Name="RepaymentListView" HorizontalAlignment="Left" Height="236" Margin="324,10,0,0" VerticalAlignment="Top" Width="178">
+                    <ListView x:Name="RepaymentListView" HorizontalAlignment="Left" Height="236" Margin="324,10,0,0" VerticalAlignment="Top" Width="178" SelectionChanged="RepaymentListView_SelectionChanged">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="ContractNo" DisplayMemberBinding="{Binding ContractNO}" Width="108"/>

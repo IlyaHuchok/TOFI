@@ -51,7 +51,7 @@ namespace BankPresentation
             // tab 2 setup
             LastNameTextBox.MaxLength = ClientValidation.LastNameMaxLength;
             NameTextBox.MaxLength = ClientValidation.NameMaxLength;
-            PatronymicTextBox.MaxLength = ClientValidation.PatronymicMaxLength;
+            //PatronymicTextBox.MaxLength = ClientValidation.PatronymicMaxLength;
             BirthdayDatePicker.DisplayDateStart = ClientValidation.MinBirthDate;
             BirthdayDatePicker.DisplayDateEnd = ClientValidation.MaxBirthDate;
             MobilePhoneNumberTextBox.MaxLength = ClientValidation.MobileMaxLength;
@@ -112,7 +112,7 @@ namespace BankPresentation
                     textBox_Create_Login.Text = _clientToUpdate.Name;
                     LastNameTextBox.Text = _clientToUpdate.LastName;
                     NameTextBox.Text = _clientToUpdate.Name;
-                    PatronymicTextBox.Text = _clientToUpdate.Patronymic;
+                    //PatronymicTextBox.Text = _clientToUpdate.Patronymic;
                     BirthdayDatePicker.SelectedDate = _clientToUpdate.Birthday;
                     MobilePhoneNumberTextBox.Text = _clientToUpdate.Mobile;
                     EmailTextBox.Text = _clientToUpdate.Email;
@@ -169,6 +169,7 @@ namespace BankPresentation
                 MessageBox.Show("Registered successfully!");
             }
         }
+
         private bool Validate()
         {
             var validationResult = UserValidation.Validate(
@@ -177,7 +178,7 @@ namespace BankPresentation
                 passwordBox_Create_Password_Copy.Password);
             if (validationResult.IsValid)
             {
-                if (_userBusinessComponent.Exists(textBox_Create_Login.Text, passwordBox_Create_Password.Password))
+                if (_userBusinessComponent.Exists(textBox_Create_Login.Text))
                 {
                     MessageBox.Show("A user with such username already exists!");
                     return false;
@@ -219,7 +220,7 @@ namespace BankPresentation
                 var validationResult = ClientValidation.Validate(
                     LastNameTextBox.Text,
                     NameTextBox.Text,
-                    PatronymicTextBox.Text,
+                    //PatronymicTextBox.Text,
                     BirthdayDatePicker.SelectedDate.Value,
                     MobilePhoneNumberTextBox.Text,
                     EmailTextBox.Text,
@@ -236,7 +237,7 @@ namespace BankPresentation
                         _clientToUpdate.Name = textBox_Create_Login.Text;
                         _clientToUpdate.LastName = LastNameTextBox.Text;
                         _clientToUpdate.Name = NameTextBox.Text;
-                        _clientToUpdate.Patronymic = PatronymicTextBox.Text;
+                        //_clientToUpdate.Patronymic = PatronymicTextBox.Text;
                         _clientToUpdate.Birthday = BirthdayDatePicker.SelectedDate.Value;
                         _clientToUpdate.Mobile = MobilePhoneNumberTextBox.Text;
                         _clientToUpdate.Email = EmailTextBox.Text;
@@ -253,7 +254,6 @@ namespace BankPresentation
                     }
                     else
                     {
-
                         UserRole selectedRole;
                         switch ((string)roleComboBox.SelectedValue)
                         {
@@ -273,13 +273,20 @@ namespace BankPresentation
                                 selectedRole = UserRole.Client;
                                 break;
                         }
+
+                        if (selectedRole == UserRole.Client && _clientBusinessComponent.Exists(PassportNoTextBox.Text))
+                        {
+                            MessageBox.Show("A user with such passport number has already been registered!");
+                            return;
+                        }
+
                         _clientBusinessComponent.Add(
                             textBox_Create_Login.Text,
                             passwordBox_Create_Password.Password,
                             selectedRole,
                             LastNameTextBox.Text,
                             NameTextBox.Text,
-                            PatronymicTextBox.Text,
+                            //PatronymicTextBox.Text,
                             BirthdayDatePicker.SelectedDate.Value,
                             MobilePhoneNumberTextBox.Text,
                             EmailTextBox.Text,
@@ -305,6 +312,7 @@ namespace BankPresentation
                             // return to login page
                         }
                     }
+
                 }
                 else
                 {

@@ -318,7 +318,7 @@ namespace ConsoleTestDbFiller
                     RequestId = request6client1.RequestId,
                     //AllreadyPaid = 0,
                     AmountOfPaymentPerMonth = request6client1.AmountOfCredit / creditMedium.TimeMonths,
-                    StartDate = DateTime.Now.AddDays(-(30 * 50 + 7)),
+                    StartDate = DateTime.UtcNow.AddDays(-(30 * 50 + 7)),
                     IsRepaid = true,
                     HasDelays = true,
                     CountFineFromThisDate = DateTime.UtcNow.AddDays(30), //!!! hard-coded!!!
