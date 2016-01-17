@@ -28,8 +28,8 @@ namespace BankPresentation
     /// </summary>
     public partial class AdministratorPage : Page
     {
-        private readonly IClientBusinessComponent _clientBusinessComponent;
-        private readonly IUserBusinessComponent _userBusinessComponent;
+        private IClientBusinessComponent _clientBusinessComponent;
+        private IUserBusinessComponent _userBusinessComponent;
         private readonly ICreditTypeBusinessComponent _creditTypeBusinessComponent;
 
         private readonly IKernel _ninjectKernel;
@@ -234,6 +234,8 @@ namespace BankPresentation
                 {
                     var clientToDelete = _clientBusinessComponent.GetByUserId(selectedItem.UserId);
                     _clientBusinessComponent.Delete(clientToDelete);
+                    _usersList.Remove(selectedItem);
+                    _clientBusinessComponent = _ninjectKernel.Get<IClientBusinessComponent>();
                 }
                 else
                 {
@@ -245,6 +247,8 @@ namespace BankPresentation
                     else
                     {
                         _userBusinessComponent.Delete(selectedItem);
+                        _usersList.Remove(selectedItem);
+                        _userBusinessComponent = _ninjectKernel.Get<IUserBusinessComponent>();
                     }
                 }
             }
