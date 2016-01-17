@@ -23,7 +23,7 @@ namespace BankPresentation
     /// Логика взаимодействия для OperatorWindow.xaml
     /// </summary>
     public partial class OperatorWindow : Page
-    {
+    {//
         private ObservableCollection<OperatorRequestListClass> RequestDataList = new ObservableCollection<OperatorRequestListClass>();
         private ObservableCollection<ContractNoCreditType> RepaymentDataList = new ObservableCollection<ContractNoCreditType>();
         private readonly int _operatorId;
