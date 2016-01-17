@@ -69,6 +69,9 @@
 
                 </Grid>
             </TabItem>
+            <TabItem Header="Allow credit" Name="TabAllowCredit" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="77">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
         </TabControl>
 
     </Grid>
