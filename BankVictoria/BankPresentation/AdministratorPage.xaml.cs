@@ -205,6 +205,12 @@ namespace BankPresentation
                     DisableButton.IsEnabled = false;
                     EnableButton.IsEnabled = false;
                 }
+                if (selectedItem.Role == UserRole.Admin)
+                {
+                    UpdateClientButton.IsEnabled = false;
+                    DisableButton.IsEnabled = false;
+                    EnableButton.IsEnabled = false;
+                }
                 else
                 {
                     UpdateClientButton.IsEnabled = false;

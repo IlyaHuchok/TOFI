@@ -71,7 +71,21 @@ namespace BankPresentation
             var loginResult = _userBusinessComponent.Login(username, password);
             if (loginResult != null)
             {
-                this.SetPage(loginResult.Value, username);
+                if (loginResult == UserRole.Operator || loginResult == UserRole.SecurityServiceEmployee)
+                {
+                    if (_userBusinessComponent.IsActive(username, password).Value)
+                    {
+                        this.SetPage(loginResult.Value, username);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Your account has been disabled, please, contact your administrator.");
+                    }
+                }
+                else
+                {
+                    this.SetPage(loginResult.Value, username);
+                }
             }
             else
             {
