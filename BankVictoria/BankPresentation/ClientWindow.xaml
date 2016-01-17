@@ -56,7 +56,7 @@
               <GridView>
                 <GridViewColumn Header="Id" DisplayMemberBinding="{Binding RequestId}" Width="32"/>
                 <GridViewColumn Header="Credit type" DisplayMemberBinding="{Binding CType}" Width="74"/>
-                <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" Width="98"/>
+                <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Path = Amount, StringFormat={}{0}$}" Width="98"/>
                 <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="90"/>
               </GridView>
             </ListView.View>
@@ -77,10 +77,10 @@
             <ListView.View>
               <GridView>
                 <GridViewColumn Header="Credit type" DisplayMemberBinding="{Binding CreditType}" Width="90"/>
-                <GridViewColumn Header="Allready paid" DisplayMemberBinding="{Binding AllreadyPaid}" Width="80"/>
-                <GridViewColumn Header="$ per month" DisplayMemberBinding="{Binding AmountOfPaymentPerMonth}" Width="80"/>
+                <GridViewColumn Header="Allready paid" DisplayMemberBinding="{Binding Path=AllreadyPaid, StringFormat={}{0}$}" Width="80"/>
+                <GridViewColumn Header="Monthly Payment" DisplayMemberBinding="{Binding Path=AmountOfPaymentPerMonth, StringFormat={}{0}$}" Width="100"/>
                 <GridViewColumn Header="Start date" DisplayMemberBinding="{Binding StartDate}" Width="78"/>
-                <GridViewColumn Header="Paid for fine" DisplayMemberBinding="{Binding PaidForFine}" Width="80"/>
+                <GridViewColumn Header="Paid for fine" DisplayMemberBinding="{Binding Path=PaidForFine, StringFormat={}{0}$}" Width="80"/>
                 <GridViewColumn Header="Next payment" DisplayMemberBinding="{Binding CountFineFromThisDate}" Width="80"/>
               </GridView>
             </ListView.View>
