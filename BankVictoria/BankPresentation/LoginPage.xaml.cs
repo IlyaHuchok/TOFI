@@ -92,6 +92,7 @@ namespace BankPresentation
             var userId = _userBusinessComponent.GetIdByLogin(username);
             var window = Window.GetWindow(this);
             window.SizeToContent = SizeToContent.WidthAndHeight;
+            window.Title = "Bank Victoria";
 
             switch (role)
             {
@@ -109,7 +110,6 @@ namespace BankPresentation
                     window.Content = _ninjectKernel.Get<SecurityOfficerPage>(new ConstructorArgument("userId", userId));
                     break;
             }
-            Window.GetWindow(this).Title = "Bank Victoria";
         }
 
         private void Register_Click(object sender, RoutedEventArgs e)
