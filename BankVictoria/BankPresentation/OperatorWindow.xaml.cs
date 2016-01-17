@@ -365,9 +365,14 @@ namespace BankPresentation
         private void AllowCreditAllow_Click(object sender, RoutedEventArgs e)
         {
             //уменьшить баланс BankAccount
-            Request request = _requestBusinessComponent.GetByStatus(RequestStatus.ConfirmedBySecurityOfficer).Where(x=>x.RequestId == 
-                                                                   Convert.ToInt32(((ACreditListView)AllowCreditListView.SelectedValue).RequestId)).FirstOrDefault();
-            _creditBusinessComponent.AllowCredit(_operatorId,request);
+            if (AllowCreditDataList.Count > 0)
+            {
+                Request request = _requestBusinessComponent.GetByStatus(RequestStatus.ConfirmedBySecurityOfficer).Where(x => x.RequestId ==
+                                                                       Convert.ToInt32(((ACreditListView)AllowCreditListView.SelectedValue).RequestId)).FirstOrDefault();
+                _creditBusinessComponent.AllowCredit(_operatorId, request);
+            }
+            else
+                MessageBox.Show("Please select request");
         }
 
         private void AllowCreditSearch_Click(object sender, RoutedEventArgs e)
