@@ -248,6 +248,12 @@ namespace BankPresentation
                         _clientToUpdate.PlaceOfResidence = PlaceOfResidenceTextBox.Text;
                         _clientToUpdate.RegistrationAddress = RegistrationAddressTextBox.Text;
 
+                        if (_clientToUpdate != null && _clientBusinessComponent.Exists(PassportNoTextBox.Text))
+                        {
+                            MessageBox.Show("A user with such passport number has already been registered!");
+                            return;
+                        }
+
                         _clientBusinessComponent.Update(_clientToUpdate);
                         MessageBox.Show("Updated successfully!");
                         this.Close();
