@@ -267,6 +267,15 @@ namespace ConsoleTestDbFiller
                     AmountOfCredit = 900,
                     Salary = 500
                 };
+                var request7client1 = new Request
+                {
+                    ClientId = client1Info.ClientId,
+                    Status = RequestStatus.ConfirmedBySecurityOfficer, // createdStatusId,
+                    OperatorId = operator1.UserId,
+                    CreditTypeId = creditMediumId,
+                    AmountOfCredit = 800,
+                    Salary = 500
+                };
                 var requestRepo = new RequestRepository(context);
                 requestRepo.Add(
                     request1client1,
@@ -274,7 +283,8 @@ namespace ConsoleTestDbFiller
                     request3client1,
                     request4client1,
                     request5client1,
-                    request6client1);
+                    request6client1,
+                    request7client1);
                 context.SaveChanges();
 
 
