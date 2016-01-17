@@ -345,5 +345,15 @@ namespace BankPresentation
             this.RepaymentOpen.IsEnabled = this.RepaymentListView.SelectedItem != null;
             this.RepaymentSubmit.IsEnabled = this.RepaymentListView.SelectedItem != null;
         }
+
+        private void AllowCreditAllow_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AllowCreditSearch_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
