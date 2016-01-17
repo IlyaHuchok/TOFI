@@ -41,7 +41,7 @@ namespace BankBL.BusinessComponents
 
         public void Update(Request request/*int ClientId, int? OperatorId, int? SecurityServiceEmployeeId, RequestStatus status*/)
         {
-            var old = _unitOfWork.RequestRepository.GetSingle(x => x.ClientId == request.ClientId);
+            var old = _unitOfWork.RequestRepository.GetSingle(x => x.RequestId == request.RequestId);
             old.OperatorId = request.OperatorId;
             old.SecurityServiceEmployeeId = request.SecurityServiceEmployeeId;
             old.Status = request.Status;
