@@ -353,6 +353,7 @@ namespace BankPresentation
         private void LogOffButton_Click(object sender, RoutedEventArgs e)
         {
             var window = Window.GetWindow(this);
+            window.Title = "Bank Victoria - Login";
             window.Content = _ninjectKernel.Get<LoginPage>();
         }
 
