@@ -64,10 +64,10 @@ namespace BankBL.BusinessComponents
         }
 
 
-        public void AllowCredit(int securityOfficerId, Request request)
+        public void AllowCredit(int operatorId, Request request)
         {
             request.Status = RequestStatus.CreditProvided;
-            request.SecurityServiceEmployeeId = securityOfficerId;
+            request.SecurityServiceEmployeeId = operatorId;
             _unitOfWork.RequestRepository.Update(request);
 
             var account = new Account { Balance = request.AmountOfCredit, Client = request.Client };

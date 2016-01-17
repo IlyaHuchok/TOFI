@@ -15,6 +15,6 @@ namespace BankBL.Interfaces
         void Update(int CreditId, DateTime CountFineFromThisDate);
         IList<Credit> GetAll();
         IEnumerable<Credit> GetClientCredits(int clientId);
-        void AllowCredit(int securityOfficerId, Request request);
+        void AllowCredit(int operatorId, Request request);
     }
 }
