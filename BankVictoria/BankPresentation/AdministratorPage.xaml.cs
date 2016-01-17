@@ -234,6 +234,7 @@ namespace BankPresentation
                 {
                     var clientToDelete = _clientBusinessComponent.GetByUserId(selectedItem.UserId);
                     _clientBusinessComponent.Delete(clientToDelete);
+                    _usersList.Remove(selectedItem);
                     _clientBusinessComponent = _ninjectKernel.Get<IClientBusinessComponent>();
                 }
                 else
