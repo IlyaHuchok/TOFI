@@ -365,8 +365,10 @@ namespace BankPresentation
         private void AllowCreditAllow_Click(object sender, RoutedEventArgs e)
         {
             //уменьшить баланс BankAccount
+            
             if (AllowCreditDataList.Count > 0)
             {
+                AllowCreditListView.SelectedIndex = 0;
                 Request request = _requestBusinessComponent.GetByStatus(RequestStatus.ConfirmedBySecurityOfficer).Where(x => x.RequestId ==
                                                                        Convert.ToInt32(((ACreditListView)AllowCreditListView.SelectedValue).RequestId)).FirstOrDefault();
                 _creditBusinessComponent.AllowCredit(_operatorId, request);
@@ -385,6 +387,8 @@ namespace BankPresentation
                 {
                     AllowCreditDataList.Add(new ACreditListView() { RequestId = req.RequestId.ToString(), PassportNo = req.Client.PassportNo, CreditType = req.CreditType.Name });
                 }
+                if (AllowCreditDataList.Count == 0)
+                    MessageBox.Show("This client have no approved request");
             }
         }
 
