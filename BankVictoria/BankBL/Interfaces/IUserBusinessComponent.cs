@@ -16,7 +16,7 @@ namespace BankBL.Interfaces
         int Add(string name, string pass, UserRole userRole);
         bool Exists(string name);
         int GetIdByLogin(string name);
-
+        bool? IsActive(string name, string pass);
         IEnumerable<User> GetAll();
         void Update(User user);
 

@@ -29,6 +29,19 @@ namespace BankBL.BusinessComponents
             }
         }
 
+        public bool? IsActive(string name, string pass)
+        {
+            var user = _unitOfWork.UserRepository.GetSingle(x => x.Login == name && x.Password == pass);
+            if (user == null)
+            {
+                return null;
+            }
+            else
+            {
+                return user.IsActive;
+            }
+        }
+
         public bool Exists(string name)
         {
             var user = _unitOfWork.UserRepository.GetSingle(x => x.Login == name);

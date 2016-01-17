@@ -383,6 +383,7 @@ namespace BankPresentation
                 Request request = _requestBusinessComponent.GetByStatus(RequestStatus.ConfirmedBySecurityOfficer).Where(x => x.RequestId ==
                                                                        Convert.ToInt32(((ACreditListView)AllowCreditListView.SelectedValue).RequestId)).FirstOrDefault();
                 _creditBusinessComponent.AllowCredit(_operatorId, request);
+                AllowCreditDataList.Remove((ACreditListView)AllowCreditListView.SelectedValue);
             }
             else
                 MessageBox.Show("Please select request");
@@ -399,7 +400,7 @@ namespace BankPresentation
                     AllowCreditDataList.Add(new ACreditListView() { RequestId = req.RequestId.ToString(), PassportNo = req.Client.PassportNo, CreditType = req.CreditType.Name });
                 }
                 if (AllowCreditDataList.Count == 0)
-                    MessageBox.Show("This client have no approved request");
+                    MessageBox.Show("This client has no approved requests");
             }
         }
 

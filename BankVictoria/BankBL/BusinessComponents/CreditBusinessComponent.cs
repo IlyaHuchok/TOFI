@@ -89,6 +89,7 @@ namespace BankBL.BusinessComponents
             _unitOfWork.AccountRepository.Add(account);
             _unitOfWork.CreditRepository.Add(credit);
             _unitOfWork.RequestRepository.Update(request);
+            _unitOfWork.Save();
         }
 
     }
