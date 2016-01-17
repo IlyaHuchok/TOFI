@@ -55,12 +55,17 @@ namespace BankPresentation
             RequestListView.ItemsSource = RequestDataList;
             RepaymentListView.ItemsSource = RepaymentDataList;
 
+            RepaymentOpen.IsEnabled = false;
+            RequestReject.IsEnabled = false;
+            RequestSendRequest.IsEnabled = false;
+            RepaymentSubmit.IsEnabled = false;
         }
 
         private void RepaymentSearch_Click(object sender, RoutedEventArgs e)
         {
             if (Validate(true,false,false))
             {
+                RequestDataList.Clear();
                 IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.CreditProvided);
                 foreach (var req in request)
                 {
@@ -223,17 +228,16 @@ namespace BankPresentation
         {
             if (Validate(false,false,true))
             {
-                IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.Created);
-                foreach (var req in request)
+                IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.Created).Where(req => req.RequestId == Convert.ToUInt32(this.RequestRequestId.Text)).ToList();
+                foreach (var req in request.Where(req => req.RequestId == Convert.ToUInt32(this.RequestRequestId.Text)))
                 {
-                    if (req.RequestId == Convert.ToUInt32(RequestRequestId.Text))
-                    {
-                        RequestName.Text = req.Client.Name + " " + req.Client.LastName;// + " " + req.Client.Patronymic;
-                        RequestCreditType.Text = req.CreditType.Name;
-                        RequestAmount.Text = req.AmountOfCredit.ToString();
-                        RequestCreditTypeIsAvailable.Text = req.CreditType.IsAvailable.ToString();
-                    }
+                    this.RequestName.Text = req.Client.Name + " " + req.Client.LastName;// + " " + req.Client.Patronymic;
+                    this.RequestCreditType.Text = req.CreditType.Name;
+                    this.RequestAmount.Text = req.AmountOfCredit.ToString();
+                    this.RequestCreditTypeIsAvailable.Text = req.CreditType.IsAvailable.ToString();
                 }
+                RequestReject.IsEnabled = request.Any();
+                RequestSendRequest.IsEnabled = request.Any();
             }
         }
 
@@ -325,6 +329,12 @@ namespace BankPresentation
         {
             var window = Window.GetWindow(this);
             window.Content = _ninjectKernel.Get<LoginPage>();
-        }        
+        }
+
+        private void RepaymentListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.RepaymentOpen.IsEnabled = this.RepaymentListView.SelectedItem != null;
+            this.RepaymentSubmit.IsEnabled = this.RepaymentListView.SelectedItem != null;
+        }
     }
 }
