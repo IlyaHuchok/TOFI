@@ -317,7 +317,7 @@ namespace ConsoleTestDbFiller
                     //ContractNo = 123123, //random
                     RequestId = request6client1.RequestId,
                     //AllreadyPaid = 0,
-                    AmountOfPaymentPerMonth = request6client1.AmountOfCredit / creditMedium.TimeMonths,
+                    AmountOfPaymentPerMonth = (decimal)request6client1.AmountOfCredit / creditMedium.TimeMonths,
                     StartDate = DateTime.UtcNow.AddDays(-(30 * 50 + 7)),
                     IsRepaid = true,
                     HasDelays = true,
@@ -331,7 +331,7 @@ namespace ConsoleTestDbFiller
                 creditRepo.Add(credit1Client1, credit2Client1);
                 context.SaveChanges();
 
-                var payment = new Payment
+           /*     var payment = new Payment
                 {
                     OperatorId = operator1.UserId,
                     CreditId = credit1Client1.CreditId,
@@ -342,7 +342,7 @@ namespace ConsoleTestDbFiller
                 //var credit
 
                 var payRepo = new PaymentRepository(context);
-                payRepo.Add(payment);
+                payRepo.Add(payment);                                */
                 var test = context.BankAccount;
                     //context.RequestStatuses.Where(x => x.Status.Contains("Created")).FirstOrDefault();
                 //context.RequestStatuses.Add(new RequestStatus { Status = "Created" });

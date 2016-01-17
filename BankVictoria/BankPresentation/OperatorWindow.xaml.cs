@@ -96,8 +96,8 @@ namespace BankPresentation
                 {                    
                     CountUpNewDebt();//высчитываем долг
                     RepaymentName.Text = req.Client.Name + " " + req.Client.LastName;// + " " + req.Client.Patronymic;
-                    RepaymentDebt.Text = req.Credit.PaidForFine.ToString();
-                    RepaymentToRepayTheLoan.Text = (req.Credit.AmountOfPaymentPerMonth * req.CreditType.TimeMonths + req.Credit.PaidForFine).ToString();
+                  //  RepaymentDebt.Text = // req.Credit.PaidForFine.ToString();
+                    RepaymentToRepayTheLoan.Text = (req.Credit.AmountOfPaymentPerMonth * ( req.CreditType.TimeMonths  )+ req.Credit.PaidForFine).ToString();
                 }
             }
         }
@@ -121,6 +121,7 @@ namespace BankPresentation
                 allreadyPaid = request.Credit.AllreadyPaid;
                 if (allreadyPaid > standartAlreadyPaid)//мы переплатили и CountFineFromThisDate должен улететь вверх
                 {
+                    RepaymentDebt.Text = "0";
                     double i = 0.0;//за сколько месяцев мы заплптили
                     while (allreadyPaid > standartAlreadyPaid)
                     {
@@ -144,25 +145,35 @@ namespace BankPresentation
                 else if (allreadyPaid < standartAlreadyPaid)//у нас есть долг
                 {
 
-                    TimeSpan ts3 = DateTime.Now - credit.CountFineFromThisDate; ;
+                    TimeSpan ts3 = DateTime.UtcNow - credit.CountFineFromThisDate; 
                     int daysFromTheStartOfTheDebt = ts3.Days;
-                    decimal Debt = daysFromTheStartOfTheDebt * credit.AmountOfPaymentPerMonth * (decimal)0.01; // 0.01 = 1% --- пеня за день
+                    decimal Debt = daysFromTheStartOfTheDebt * credit.AmountOfPaymentPerMonth *  credit.CreditType.FinePercent; 
                     while (daysFromTheStartOfTheDebt > 30)
                     {
                         daysFromTheStartOfTheDebt -= 30;
-                        Debt += daysFromTheStartOfTheDebt * credit.AmountOfPaymentPerMonth * (decimal)0.01;/// не Debt += Debt !!!!!
+                        Debt += daysFromTheStartOfTheDebt * credit.AmountOfPaymentPerMonth * credit.CreditType.FinePercent;/// не Debt += Debt !!!!!
                     }
                     _creditBusinessComponent.Update(credit.CreditId, credit.AllreadyPaid, Debt);
+
+                    RepaymentDebt.Text = Debt.ToString(); // выводим инфу
+
                     _creditBusinessComponent = _ninjectKernel.Get<ICreditBusinessComponent>(); // if not re-created will fail on 2nd update
                     allreadyPaid = request.Credit.AllreadyPaid;
                 }
                 else if (allreadyPaid == standartAlreadyPaid)
-                {
-                    DateTime newDateToStartDebt = DateTime.Now;
-                    while (newDateToStartDebt.Day != 1)//просрочка начинается в первый день месяца
-                    {
-                        newDateToStartDebt -= new TimeSpan(1, 0, 0, 0, 0);
-                    }
+                {                    
+                    RepaymentDebt.Text = "0";
+                    DateTime newDateToStartDebt = DateTime.UtcNow;
+                    if(newDateToStartDebt.Day > request.Credit.StartDate.Day)
+                        while (newDateToStartDebt.Day != request.Credit.StartDate.Day)//просрочка начинается в день начала кредита
+                        {
+                            newDateToStartDebt -= new TimeSpan(1, 0, 0, 0, 0);
+                        }
+                    if (newDateToStartDebt.Day < request.Credit.StartDate.Day)
+                        while (newDateToStartDebt.Day != request.Credit.StartDate.Day)//просрочка начинается в день начала кредита
+                        {
+                            newDateToStartDebt += new TimeSpan(1, 0, 0, 0, 0);
+                        }
                     _creditBusinessComponent.Update(credit.CreditId, newDateToStartDebt);
                     _creditBusinessComponent = _ninjectKernel.Get<ICreditBusinessComponent>(); // if not re-created will fail on 2nd update
                 }
