@@ -197,6 +197,10 @@ namespace BankPresentation
                         Request request2 = new Request() {RequestId = req.RequestId, ClientId = req.ClientId, OperatorId = _operatorId, Status = RequestStatus.ConfirmedByOperator };
                         _requestBusinessComponent.Update(request2/*req.ClientId, _operatorId, null, RequestStatus.ConfirmedByOperator*/);
                         _requestBusinessComponent = _ninjectKernel.Get<IRequestBusinessComponent>(); // if not re-created will fail on 2nd update
+
+                        this.TabRequestClear(); // added by ilya
+                        RequestReject.IsEnabled = false;
+                        RequestSendRequest.IsEnabled = false;
                     }
                 }
             }
@@ -219,6 +223,10 @@ namespace BankPresentation
                         Request request2 = new Request() {RequestId = req.RequestId, ClientId = req.ClientId, OperatorId = _operatorId, Status = RequestStatus.Denied, Note = rejectionReason };
                         _requestBusinessComponent.Update(request2/*req.ClientId, _operatorId, null, RequestStatus.ConfirmedByOperator*/);
                         _requestBusinessComponent = _ninjectKernel.Get<IRequestBusinessComponent>(); // if not re-created will fail on 2nd update
+
+                        this.TabRequestClear(); // added by ilya
+                        RequestReject.IsEnabled = false;
+                        RequestSendRequest.IsEnabled = false;
                     }
                 }
             }
