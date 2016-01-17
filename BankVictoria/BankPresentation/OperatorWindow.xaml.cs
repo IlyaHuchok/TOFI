@@ -68,7 +68,7 @@ namespace BankPresentation
         {
             if (Validate(true,false,false, false))
             {
-                RequestDataList.Clear();
+                RepaymentDataList.Clear();
                 IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.CreditProvided);
                 foreach (var req in request)
                 {
@@ -93,7 +93,7 @@ namespace BankPresentation
             {
                 ContractNoCreditType cnct = (ContractNoCreditType)RepaymentListView.SelectedItem;
                 if ((req.Client.PassportNo == RepaymentPassportNo.Text) && (Convert.ToInt32(cnct.ContractNO) == req.Credit.CreditId)) // CreditId==ContrqctNo
-                {
+                {                    
                     CountUpNewDebt();//высчитываем долг
                     RepaymentName.Text = req.Client.Name + " " + req.Client.LastName;// + " " + req.Client.Patronymic;
                     RepaymentDebt.Text = req.Credit.PaidForFine.ToString();
@@ -171,7 +171,6 @@ namespace BankPresentation
 
         private void RepaymentSubmit_Click(object sender, RoutedEventArgs e)
         {
-            Int32 a = RepaymentListView.SelectedIndex;
             if (Validate(false,true,false, false))
             {
                 MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Accept Confirmation", MessageBoxButton.YesNo);
