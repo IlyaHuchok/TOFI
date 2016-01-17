@@ -29,6 +29,7 @@ namespace BankPresentation
     {//
         private ObservableCollection<OperatorRequestListClass> RequestDataList = new ObservableCollection<OperatorRequestListClass>();
         private ObservableCollection<ContractNoCreditType> RepaymentDataList = new ObservableCollection<ContractNoCreditType>();
+        private ObservableCollection<ACreditListView> AllowCreditDataList = new ObservableCollection<ACreditListView>();
         private readonly int _operatorId;
         private readonly IClientBusinessComponent _clientBusinessComponent;
         private IRequestBusinessComponent _requestBusinessComponent;
@@ -49,11 +50,13 @@ namespace BankPresentation
             InitializeComponent();
 
             RepaymentPassportNo.MaxLength = OperatorValidation.PassportNoMaxLength;
+            AllowCreditPassportNo.MaxLength = OperatorValidation.PassportNoMaxLength;
             RepaymentToPay.MaxLength = OperatorValidation.ToPayMaxLength;
             RequestRequestId.MaxLength = OperatorValidation.RequestIdMaxLength;
 
             RequestListView.ItemsSource = RequestDataList;
             RepaymentListView.ItemsSource = RepaymentDataList;
+            AllowCreditListView.ItemsSource = AllowCreditDataList;
 
             RepaymentOpen.IsEnabled = false;
             RequestReject.IsEnabled = false;
@@ -63,7 +66,7 @@ namespace BankPresentation
 
         private void RepaymentSearch_Click(object sender, RoutedEventArgs e)
         {
-            if (Validate(true,false,false))
+            if (Validate(true,false,false, false))
             {
                 RequestDataList.Clear();
                 IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.CreditProvided);
@@ -74,6 +77,11 @@ namespace BankPresentation
                         RepaymentDataList.Add(new ContractNoCreditType() { ContractNO = req.Credit.CreditId.ToString(), CreditType = req.CreditType.Name });
                     }
                 }
+            /*    if (RepaymentDataList.Count > 0)
+                {
+                    RepaymentListView.SelectedIndex = 0;
+                    RepaymentOpen.IsEnabled = true;
+                }*/
             }
         }
 
@@ -163,7 +171,8 @@ namespace BankPresentation
 
         private void RepaymentSubmit_Click(object sender, RoutedEventArgs e)
         {
-            if (Validate(false,true,false))
+            Int32 a = RepaymentListView.SelectedIndex;
+            if (Validate(false,true,false, false))
             {
                 MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Accept Confirmation", MessageBoxButton.YesNo);
                 if (messageBoxResult == MessageBoxResult.Yes)
@@ -234,7 +243,7 @@ namespace BankPresentation
 
         private void RequestSearch_Click(object sender, RoutedEventArgs e)
         {
-            if (Validate(false,false,true))
+            if (Validate(false,false,true, false))
             {
                 IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.Created).Where(req => req.RequestId == Convert.ToUInt32(this.RequestRequestId.Text)).ToList();
                 foreach (var req in request.Where(req => req.RequestId == Convert.ToUInt32(this.RequestRequestId.Text)))
@@ -269,6 +278,10 @@ namespace BankPresentation
                     RepaymentDataList.Clear();
                     TabRepaymentClear(true);
                     FillListView();
+                }
+                if(TabAllowCredit.IsSelected)
+                {
+
                 }
             }
         }
@@ -307,10 +320,10 @@ namespace BankPresentation
                 RepaymentDataList.Clear();
         }
 
-        private bool Validate(bool PassportNo, bool ToPay, bool RequestId)
+        private bool Validate(bool RPassportNo, bool ToPay, bool RequestId , bool APassportNo)
         {
             Validation.ValidationResult validationResult = new Validation.ValidationResult();
-            if (PassportNo)
+            if (RPassportNo)
             {
                 validationResult = OperatorValidation.ValidatePassportNo(RepaymentPassportNo.Text);
             }
@@ -321,6 +334,10 @@ namespace BankPresentation
             if (RequestId)
             {
                 validationResult = OperatorValidation.ValidateRequestId(RequestRequestId.Text);
+            }
+            if (APassportNo)
+            {
+                validationResult = OperatorValidation.ValidatePassportNo(AllowCreditPassportNo.Text);
             }
             if (validationResult.IsValid)
             {
@@ -348,12 +365,31 @@ namespace BankPresentation
 
         private void AllowCreditAllow_Click(object sender, RoutedEventArgs e)
         {
-
+            //уменьшить баланс BankAccount
+            Request request = _requestBusinessComponent.GetByStatus(RequestStatus.ConfirmedBySecurityOfficer).Where(x=>x.RequestId == 
+                                                                   Convert.ToInt32(((ACreditListView)AllowCreditListView.SelectedValue).RequestId)).FirstOrDefault();
+            _creditBusinessComponent.AllowCredit(_operatorId,request);
         }
 
         private void AllowCreditSearch_Click(object sender, RoutedEventArgs e)
         {
-
+            AllowCreditDataList.Clear();
+            if(Validate(false, false, false, true))
+            {
+                IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.ConfirmedBySecurityOfficer).Where(x => x.Client.PassportNo == AllowCreditPassportNo.Text).ToList();
+                foreach(var req in request)
+                {
+                    AllowCreditDataList.Add(new ACreditListView() { RequestId = req.RequestId.ToString(), PassportNo = req.Client.PassportNo, CreditType = req.CreditType.Name });
+                }
+            }
         }
+
     }
+    public class ACreditListView
+    {
+        public string RequestId { get; set; }
+        public string PassportNo { get; set; }
+        public string CreditType { get; set; }
+    }
+
 }
