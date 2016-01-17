@@ -126,7 +126,7 @@ namespace BankPresentation
             {
                 var selectedRequest = (Request)RequestsListView.SelectedItem;
                 this.securityOfficerBusinessComponent.RejectRequest(securityOfficerId, selectedRequest, rejectionReason);
-                securityOfficerBusinessComponent = _ninjectKernel.Get<IRequestBusinessComponent>(); // if not re-created will fail on 2nd update
+                securityOfficerBusinessComponent = _ninjectKernel.Get<ISecurityOfficerBusinessComponent>(); // if not re-created will fail on 2nd update
                 RefreshPage();//_requestList.Remove(selectedRequest);
             }
         }
