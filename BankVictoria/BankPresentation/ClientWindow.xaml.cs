@@ -65,6 +65,8 @@ namespace BankPresentation
             CTypeListView.ItemsSource = CTypetDataList;
             RequestListView.ItemsSource = RequestDataList;
             MyCreditListView.ItemsSource = MyCreditDataList;
+
+            RequestViewNote.IsEnabled = false;
         }
 
         private void SendRequest_Click(object sender, RoutedEventArgs e) 
@@ -164,7 +166,7 @@ namespace BankPresentation
         private void CTypeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try {
-                CTypeListView clv = (CTypeListView)CTypeListView.SelectedValue;
+                CTypeListView clv = (CTypeListView)CTypeListView.SelectedItem;
                 CreditType ctype = _creditTypeBusinessComponent.GetAllCreditTypes().Where(x => x.Name == clv.CTypeName).FirstOrDefault();
                 CTypeName.Text = ctype.Name;
                 CTypeTimeMonths.Text = ctype.TimeMonths.ToString();
@@ -203,7 +205,7 @@ namespace BankPresentation
         {
             if(RequestListView.SelectedItem != null)
             {
-                ClientListView clv = (ClientListView)RequestListView.SelectedValue;
+                ClientListView clv = (ClientListView)RequestListView.SelectedItem;
                 Request request = _requestBusinessComponent.GetAll().Where(x=> x.RequestId == clv.RequestId).FirstOrDefault();
                 MessageBox.Show("Reason for rejection : " + request.Note);
             }
@@ -217,6 +219,19 @@ namespace BankPresentation
         {
             var window = Window.GetWindow(this);
             window.Content = _ninjectKernel.Get<LoginPage>();
+        }
+
+        private void RequestListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedItem = (ClientListView)RequestListView.SelectedItem;
+            if (selectedItem != null)
+            {
+                RequestViewNote.IsEnabled = selectedItem.Status.Contains("ejected");
+            }
+            else
+            {
+                RequestViewNote.IsEnabled = false;
+            }
         }
     }
 

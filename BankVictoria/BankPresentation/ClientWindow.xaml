@@ -51,7 +51,7 @@
           <Button x:Name="SendRequest" Content="Send request" HorizontalAlignment="Left" Margin="65,149,0,0" VerticalAlignment="Top" Width="75" Click="SendRequest_Click"/>
           <Label x:Name="label11" HorizontalContentAlignment="Right" Content="Salary ($)" HorizontalAlignment="Left" Margin="4,118,0,0" VerticalAlignment="Top" Width="69"/>
           <TextBox x:Name="CreditSalary" HorizontalAlignment="Left" Height="23" Margin="78,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-          <ListView x:Name="RequestListView" HorizontalAlignment="Left" Height="235" Margin="213,35,0,0" VerticalAlignment="Top" Width="289">
+          <ListView x:Name="RequestListView" HorizontalAlignment="Left" Height="230" Margin="213,35,0,0" VerticalAlignment="Top" Width="289" SelectionChanged="RequestListView_SelectionChanged">
             <ListView.View>
               <GridView>
                 <GridViewColumn Header="Id" DisplayMemberBinding="{Binding RequestId}" Width="32"/>
@@ -67,8 +67,8 @@
             <Label HorizontalContentAlignment="Center"  Content="Send New Request" HorizontalAlignment="Left" Height="26" Margin="-1,9,-1,0" VerticalAlignment="Top" Width="203" FontWeight="Bold"/>
 
           </Border>
-          <Button x:Name="RequestUpdate" Content="Update" HorizontalAlignment="Left" Margin="65,248,0,0" VerticalAlignment="Top" Width="75" Click="RequestUpdate_Click"/>
-          <Button x:Name="RequestViewNote" Content="View note" HorizontalAlignment="Left" Margin="65,221,0,0" VerticalAlignment="Top" Width="75" Click="RequestViewNote_Click"/>
+          <Button x:Name="RequestUpdate" Content="Refresh" HorizontalAlignment="Left" Margin="427,8,0,0" VerticalAlignment="Top" Width="75" Click="RequestUpdate_Click"/>
+          <Button x:Name="RequestViewNote" Content="View note" HorizontalAlignment="Left" Margin="213,270,0,0" VerticalAlignment="Top" Width="75" Click="RequestViewNote_Click"/>
         </Grid>
       </TabItem>
       <TabItem Header="My credits" Name="TabMyCredits" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="70">
