@@ -126,7 +126,7 @@ namespace BankPresentation
             {
                 CountUpNewDebt(cre);
                 MyCreditDataList.Add(new MCreditListView() { CreditType = cre.CreditType.Name, AllreadyPaid = cre.AllreadyPaid.ToString(),
-                    AmountOfPaymentPerMonth = cre.AmountOfPaymentPerMonth.ToString(), StartDate = cre.StartDate.ToString("d"), PaidForFine = _debt.ToString() /* cre.PaidForFine.ToString()*/, 
+                    AmountOfPaymentPerMonth = cre.AmountOfPaymentPerMonth.ToString(), StartDate = cre.StartDate.ToString("d"), PaidForFine = _debt.ToString("N2") /* cre.PaidForFine.ToString()*/, 
                     CountFineFromThisDate = cre.CountFineFromThisDate.Date.ToString("d") });
             }
         }
@@ -149,11 +149,11 @@ namespace BankPresentation
             {
                 TimeSpan ts3 = DateTime.UtcNow - cre.CountFineFromThisDate;
                 int daysFromTheStartOfTheDebt = ts3.Days;
-                decimal Debt = daysFromTheStartOfTheDebt * cre.AmountOfPaymentPerMonth * cre.CreditType.FinePercent / 100;
+                decimal Debt = daysFromTheStartOfTheDebt * cre.AmountOfPaymentPerMonth * cre.CreditType.FinePercent / 36500;
                 while (daysFromTheStartOfTheDebt > 30)
                 {
                     daysFromTheStartOfTheDebt -= 30;
-                    Debt += daysFromTheStartOfTheDebt * cre.AmountOfPaymentPerMonth * cre.CreditType.FinePercent / 100;/// не Debt += Debt !!!!!
+                    Debt += daysFromTheStartOfTheDebt * cre.AmountOfPaymentPerMonth * cre.CreditType.FinePercent / 36500;/// не Debt += Debt !!!!!
                 }
                 _debt = Debt; // выводим инфу
             }
