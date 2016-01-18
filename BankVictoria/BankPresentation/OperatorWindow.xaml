@@ -77,8 +77,9 @@
                     <ListView x:Name="AllowCreditListView" HorizontalAlignment="Left" Height="260" Margin="211,10,0,0" VerticalAlignment="Top" Width="291">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding RequestId}" Width="60"/>
-                                <GridViewColumn Header="PassportNo" DisplayMemberBinding="{Binding PassportNo}" Width="108"/>
+                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding RequestId}" Width="32"/>
+                                <GridViewColumn Header="PassportNo" DisplayMemberBinding="{Binding PassportNo}" Width="80"/>
+                                <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" Width="70"/>
                                 <GridViewColumn Header="Credit type" DisplayMemberBinding="{Binding CreditType}" Width="118"/>
                             </GridView>
                         </ListView.View>

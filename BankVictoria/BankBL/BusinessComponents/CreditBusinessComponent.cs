@@ -83,6 +83,7 @@ namespace BankBL.BusinessComponents
                 IsRepaid = false,
                 HasDelays = false,
                 CountFineFromThisDate = DateTime.UtcNow.AddDays(30), //!!! hard-coded!!!
+                FineAmountForFirstDelayedMonth = 0,
                 PaidForFine = 0
             };
 

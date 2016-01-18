@@ -51,13 +51,13 @@
           <Button x:Name="SendRequest" Content="Send request" HorizontalAlignment="Left" Margin="65,149,0,0" VerticalAlignment="Top" Width="75" Click="SendRequest_Click"/>
           <Label x:Name="label11" HorizontalContentAlignment="Right" Content="Salary ($)" HorizontalAlignment="Left" Margin="4,118,0,0" VerticalAlignment="Top" Width="69"/>
           <TextBox x:Name="CreditSalary" HorizontalAlignment="Left" Height="23" Margin="78,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-          <ListView x:Name="RequestListView" HorizontalAlignment="Left" Height="230" Margin="213,35,0,0" VerticalAlignment="Top" Width="289" SelectionChanged="RequestListView_SelectionChanged">
+          <ListView x:Name="RequestListView" HorizontalAlignment="Left" Height="230" Margin="213,35,0,0" VerticalAlignment="Top" Width="289" >
             <ListView.View>
               <GridView>
                 <GridViewColumn Header="Id" DisplayMemberBinding="{Binding RequestId}" Width="32"/>
                 <GridViewColumn Header="Credit type" DisplayMemberBinding="{Binding CType}" Width="74"/>
-                <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Path = Amount, StringFormat={}{0}$}" Width="98"/>
-                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="90"/>
+                <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Path = Amount, StringFormat={}{0}$}" Width="70"/>
+                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="111"/>
               </GridView>
             </ListView.View>
           </ListView>

@@ -66,35 +66,37 @@ namespace BankPresentation
             RequestListView.ItemsSource = RequestDataList;
             MyCreditListView.ItemsSource = MyCreditDataList;
 
-            RequestViewNote.IsEnabled = false;
+          //  RequestViewNote.IsEnabled = false;
         }
 
         private void SendRequest_Click(object sender, RoutedEventArgs e) 
-        {            
-            CreditType ct = _creditTypeBusinessComponent.GetAllActiveCreditTypes().Where(x => x.Name == CreditCTypeBox.SelectedValue.ToString()).FirstOrDefault();
-            bool MoreThanMAX = ct.MaxAmount < Convert.ToUInt32(CreditAmount.Text);
-            bool LessThanMIN = ct.MinAmount > Convert.ToUInt32(CreditAmount.Text);
-            if (Validate() && !MoreThanMAX && !LessThanMIN)
+        {
+            if (Validate())
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Accept Confirmation", MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes)
+                CreditType ct = _creditTypeBusinessComponent.GetAllActiveCreditTypes().Where(x => x.Name == CreditCTypeBox.SelectedValue.ToString()).FirstOrDefault();
+                bool MoreThanMAX = ct.MaxAmount < Convert.ToInt32(CreditAmount.Text);
+                bool LessThanMIN = ct.MinAmount > Convert.ToInt32(CreditAmount.Text);
+                if (Validate() && !MoreThanMAX && !LessThanMIN)
                 {
-                    int _clientId = _clientBusinessComponent.GetAll().Where(x => x.UserId == _userId).FirstOrDefault().ClientId;
-                    CreditType ctype = _creditTypeBusinessComponent.GetAllActiveCreditTypes().Where(x => x.Name == CreditCTypeBox.SelectedValue.ToString()).FirstOrDefault();
-                    _requestBusinessComponent.Add(_clientId, null, null, ctype.CreditTypeId, Entities.Enums.RequestStatus.Created,
-                                                  Convert.ToDecimal(CreditAmount.Text), Convert.ToDecimal(CreditSalary.Text), "");
+                    MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Accept Confirmation", MessageBoxButton.YesNo);
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        int _clientId = _clientBusinessComponent.GetAll().Where(x => x.UserId == _userId).FirstOrDefault().ClientId;
+                        CreditType ctype = _creditTypeBusinessComponent.GetAllActiveCreditTypes().Where(x => x.Name == CreditCTypeBox.SelectedValue.ToString()).FirstOrDefault();
+                        _requestBusinessComponent.Add(_clientId, null, null, ctype.CreditTypeId, Entities.Enums.RequestStatus.Created,
+                                                      Convert.ToDecimal(CreditAmount.Text), Convert.ToDecimal(CreditSalary.Text), "");
+                    }
+                    ClearRequestListView();
+                    FillRequestListView();
                 }
-                ClearRequestListView();
-                FillRequestListView();
+                string error = "";
+                if (LessThanMIN)
+                    error += "Amount shold be more than " + ct.MinAmount + Environment.NewLine;
+                if (MoreThanMAX)
+                    error += "Amount shold be less than " + ct.MaxAmount + Environment.NewLine;
+                if (error != "")
+                    MessageBox.Show(error);
             }
-            string error = "";
-            if (LessThanMIN)
-                error += "Amount shold be more than " + ct.MinAmount + Environment.NewLine;
-            if (MoreThanMAX)
-                error += "Amount shold be less than " + ct.MaxAmount + Environment.NewLine;
-            if (error != "")
-                MessageBox.Show(error);
-            
         }
 
         public void FillCTypeListView()

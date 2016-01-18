@@ -306,6 +306,8 @@ namespace ConsoleTestDbFiller
                 accountRepo.Add( /*acc1,*/ acc2);
                 context.SaveChanges();
 
+
+                DateTime dt1 = DateTime.Now.AddDays(-(30 * 4 + 5));
                 var credit1Client1 = new Credit
                 {
                     AccountId = acc2.AccountId,
@@ -313,13 +315,15 @@ namespace ConsoleTestDbFiller
                     //ContractNo = 123123, //random
                     RequestId = request5client1.RequestId,
                     //AllreadyPaid = 0,
-                    AmountOfPaymentPerMonth = request5client1.AmountOfCredit/ creditMedium.TimeMonths,
-                    StartDate = DateTime.Now.AddDays(-(30 * 4 + 5)),
+                    AmountOfPaymentPerMonth = request5client1.AmountOfCredit / creditMedium.TimeMonths,
+                    StartDate = dt1,
                     IsRepaid = false,
                     HasDelays = false,
-                    CountFineFromThisDate = DateTime.UtcNow.AddDays(30), //!!! hard-coded!!!
+                    CountFineFromThisDate = dt1.AddDays(30),//DateTime.UtcNow.AddDays(30), //!!! hard-coded!!!
+                    FineAmountForFirstDelayedMonth = 0,
                     PaidForFine = 0
                 };
+                DateTime dt2 = DateTime.UtcNow.AddDays(-(30 * 50 + 7));
                 var credit2Client1 = new Credit
                 {
                     AccountId = acc2.AccountId,
@@ -328,10 +332,11 @@ namespace ConsoleTestDbFiller
                     RequestId = request6client1.RequestId,
                     //AllreadyPaid = 0,
                     AmountOfPaymentPerMonth = (decimal)request6client1.AmountOfCredit / creditMedium.TimeMonths,
-                    StartDate = DateTime.UtcNow.AddDays(-(30 * 50 + 7)),
+                    StartDate = dt2,
                     IsRepaid = true,
                     HasDelays = true,
-                    CountFineFromThisDate = DateTime.UtcNow.AddDays(30), //!!! hard-coded!!!
+                    CountFineFromThisDate = dt2.AddDays(30), //!!! hard-coded!!!
+                    FineAmountForFirstDelayedMonth = 0,
                     PaidForFine = 0
                 };
                 request5client1.Credit = credit1Client1; // IMPORTANT do this for 1-1 relationship (exception otherwise)

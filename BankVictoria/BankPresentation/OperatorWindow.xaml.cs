@@ -147,13 +147,13 @@ namespace BankPresentation
 
                     TimeSpan ts3 = DateTime.UtcNow - credit.CountFineFromThisDate; 
                     int daysFromTheStartOfTheDebt = ts3.Days;
-                    decimal Debt = daysFromTheStartOfTheDebt * credit.AmountOfPaymentPerMonth *  credit.CreditType.FinePercent; 
+                    decimal Debt = daysFromTheStartOfTheDebt * credit.AmountOfPaymentPerMonth *  credit.CreditType.FinePercent/100; 
                     while (daysFromTheStartOfTheDebt > 30)
                     {
                         daysFromTheStartOfTheDebt -= 30;
-                        Debt += daysFromTheStartOfTheDebt * credit.AmountOfPaymentPerMonth * credit.CreditType.FinePercent;/// не Debt += Debt !!!!!
+                        Debt += daysFromTheStartOfTheDebt * credit.AmountOfPaymentPerMonth * credit.CreditType.FinePercent/100;/// не Debt += Debt !!!!!
                     }
-                    _creditBusinessComponent.Update(credit.CreditId, credit.AllreadyPaid, Debt);
+                  //  _creditBusinessComponent.Update(credit.CreditId, credit.AllreadyPaid, Debt);
 
                     RepaymentDebt.Text = Debt.ToString(); // выводим инфу
 
@@ -253,8 +253,10 @@ namespace BankPresentation
 
         private void RequestSearch_Click(object sender, RoutedEventArgs e)
         {
+            TabRequestClear();
             if (Validate(false,false,true, false))
             {
+                
                 IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.Created).Where(req => req.RequestId == Convert.ToUInt32(this.RequestRequestId.Text)).ToList();
                 foreach (var req in request.Where(req => req.RequestId == Convert.ToUInt32(this.RequestRequestId.Text)))
                 {
@@ -313,7 +315,7 @@ namespace BankPresentation
         }
         private void TabRequestClear()
         {
-            RequestRequestId.Clear();
+           // RequestRequestId.Clear();
             RequestName.Clear();
             RequestCreditType.Clear();
             RequestAmount.Clear();
@@ -379,7 +381,7 @@ namespace BankPresentation
             
             if (AllowCreditDataList.Count > 0)
             {
-                AllowCreditListView.SelectedIndex = 0;
+                
                 Request request = _requestBusinessComponent.GetByStatus(RequestStatus.ConfirmedBySecurityOfficer).Where(x => x.RequestId ==
                                                                        Convert.ToInt32(((ACreditListView)AllowCreditListView.SelectedValue).RequestId)).FirstOrDefault();
                 _creditBusinessComponent.AllowCredit(_operatorId, request);
@@ -397,10 +399,14 @@ namespace BankPresentation
                 IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.ConfirmedBySecurityOfficer).Where(x => x.Client.PassportNo == AllowCreditPassportNo.Text).ToList();
                 foreach(var req in request)
                 {
-                    AllowCreditDataList.Add(new ACreditListView() { RequestId = req.RequestId.ToString(), PassportNo = req.Client.PassportNo, CreditType = req.CreditType.Name });
+                    AllowCreditDataList.Add(new ACreditListView() { RequestId = req.RequestId.ToString(), PassportNo = req.Client.PassportNo,
+                                                                    Amount = req.AmountOfCredit.ToString(), CreditType = req.CreditType.Name });
+
                 }
                 if (AllowCreditDataList.Count == 0)
                     MessageBox.Show("This client has no approved requests");
+                else
+                    AllowCreditListView.SelectedIndex = 0;
             }
         }
 
@@ -410,6 +416,7 @@ namespace BankPresentation
         public string RequestId { get; set; }
         public string PassportNo { get; set; }
         public string CreditType { get; set; }
+        public string Amount { get; set; }
     }
 
 }
