@@ -147,11 +147,11 @@ namespace BankPresentation
 
                     TimeSpan ts3 = DateTime.UtcNow - credit.CountFineFromThisDate; 
                     int daysFromTheStartOfTheDebt = ts3.Days;
-                    decimal Debt = daysFromTheStartOfTheDebt * credit.AmountOfPaymentPerMonth *  credit.CreditType.FinePercent/100; 
+                    decimal Debt = daysFromTheStartOfTheDebt * credit.AmountOfPaymentPerMonth *  credit.CreditType.FinePercent/36500; 
                     while (daysFromTheStartOfTheDebt > 30)
                     {
                         daysFromTheStartOfTheDebt -= 30;
-                        Debt += daysFromTheStartOfTheDebt * credit.AmountOfPaymentPerMonth * credit.CreditType.FinePercent/100;/// не Debt += Debt !!!!!
+                        Debt += daysFromTheStartOfTheDebt * credit.AmountOfPaymentPerMonth * credit.CreditType.FinePercent/36500;/// не Debt += Debt !!!!!
                     }
                   //  _creditBusinessComponent.Update(credit.CreditId, credit.AllreadyPaid, Debt);
 
