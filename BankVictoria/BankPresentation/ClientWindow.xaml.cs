@@ -238,7 +238,7 @@ namespace BankPresentation
         }
     }
 
-    public class CTypeListView
+    public class CTypeListView 
     {
         public string CTypeName { get; set; }
     }
