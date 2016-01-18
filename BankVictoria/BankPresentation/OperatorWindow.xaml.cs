@@ -155,7 +155,7 @@ namespace BankPresentation
                     }
                   //  _creditBusinessComponent.Update(credit.CreditId, credit.AllreadyPaid, Debt);
 
-                    RepaymentDebt.Text = Debt.ToString(); // выводим инфу
+                    RepaymentDebt.Text = Debt.ToString("N2"); // выводим инфу
 
                     _creditBusinessComponent = _ninjectKernel.Get<ICreditBusinessComponent>(); // if not re-created will fail on 2nd update
                     allreadyPaid = request.Credit.AllreadyPaid;
