@@ -18,6 +18,7 @@ using Entities;
 using BankPresentation.Validation;
 
 using Ninject;
+using Entities.Enums;
 
 namespace BankPresentation
 {
@@ -35,7 +36,7 @@ namespace BankPresentation
         private readonly IRequestBusinessComponent _requestBusinessComponent;
         private readonly IKernel _ninjectKernel;
         int _userId;
-
+        decimal _debt = 0;
         public ClientWindow(ICreditBusinessComponent creditBusinessComponent, ICreditTypeBusinessComponent creditTypeBusinessComponent, IClientBusinessComponent clientBusinessComponent,
             IRequestBusinessComponent requestBusinessComponent, int userId, IKernel ninjectKernel)
         {
@@ -123,11 +124,45 @@ namespace BankPresentation
             IList<Credit> credit = _creditBusinessComponent.GetAll().Where(x=> x.Request.Client.UserId == _userId).ToList();
             foreach(var cre in credit)
             {
+                CountUpNewDebt(cre);
                 MyCreditDataList.Add(new MCreditListView() { CreditType = cre.CreditType.Name, AllreadyPaid = cre.AllreadyPaid.ToString(),
-                    AmountOfPaymentPerMonth = cre.AmountOfPaymentPerMonth.ToString(), StartDate = cre.StartDate.ToString("d"), PaidForFine = cre.PaidForFine.ToString(),
+                    AmountOfPaymentPerMonth = cre.AmountOfPaymentPerMonth.ToString(), StartDate = cre.StartDate.ToString("d"), PaidForFine = _debt.ToString() /* cre.PaidForFine.ToString()*/, 
                     CountFineFromThisDate = cre.CountFineFromThisDate.Date.ToString("d") });
             }
         }
+
+        private void CountUpNewDebt(Credit cre)
+        {
+            decimal standartAlreadyPaid;
+            decimal allreadyPaid;
+            DateTime creditStart = cre.Request.Credit.StartDate;
+            DateTime now = DateTime.UtcNow;
+            System.TimeSpan ts = now - creditStart;
+            int Mounths = ts.Days / 30;
+            standartAlreadyPaid = Mounths * cre.AmountOfPaymentPerMonth;
+            allreadyPaid = cre.AllreadyPaid;
+            if (allreadyPaid > standartAlreadyPaid)//мы переплатили и CountFineFromThisDate должен улететь вверх
+            {
+                _debt = 0;
+            }
+            else if (allreadyPaid < standartAlreadyPaid)//у нас есть долг
+            {
+                TimeSpan ts3 = DateTime.UtcNow - cre.CountFineFromThisDate;
+                int daysFromTheStartOfTheDebt = ts3.Days;
+                decimal Debt = daysFromTheStartOfTheDebt * cre.AmountOfPaymentPerMonth * cre.CreditType.FinePercent / 100;
+                while (daysFromTheStartOfTheDebt > 30)
+                {
+                    daysFromTheStartOfTheDebt -= 30;
+                    Debt += daysFromTheStartOfTheDebt * cre.AmountOfPaymentPerMonth * cre.CreditType.FinePercent / 100;/// не Debt += Debt !!!!!
+                }
+                _debt = Debt; // выводим инфу
+            }
+            else if (allreadyPaid == standartAlreadyPaid)
+            {
+                _debt = 0;
+            }
+        }
+
 
         public void ClearCTypeListView()
         {

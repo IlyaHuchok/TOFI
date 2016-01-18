@@ -80,7 +80,7 @@
                 <GridViewColumn Header="Allready paid" DisplayMemberBinding="{Binding Path=AllreadyPaid, StringFormat={}{0}$}" Width="80"/>
                 <GridViewColumn Header="Monthly Payment" DisplayMemberBinding="{Binding Path=AmountOfPaymentPerMonth, StringFormat={}{0}$}" Width="100"/>
                 <GridViewColumn Header="Start date" DisplayMemberBinding="{Binding StartDate}" Width="78"/>
-                <GridViewColumn Header="Paid for fine" DisplayMemberBinding="{Binding Path=PaidForFine, StringFormat={}{0}$}" Width="80"/>
+                <GridViewColumn Header="Debt" DisplayMemberBinding="{Binding Path=PaidForFine, StringFormat={}{0}$}" Width="80"/>
                 <GridViewColumn Header="Next payment" DisplayMemberBinding="{Binding CountFineFromThisDate}" Width="80"/>
               </GridView>
             </ListView.View>
