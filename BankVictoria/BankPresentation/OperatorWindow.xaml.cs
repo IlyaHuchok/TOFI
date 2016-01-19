@@ -97,7 +97,7 @@ namespace BankPresentation
                     CountUpNewDebt();//высчитываем долг
                     RepaymentName.Text = req.Client.Name + " " + req.Client.LastName;// + " " + req.Client.Patronymic;
                   //  RepaymentDebt.Text = // req.Credit.PaidForFine.ToString();
-                    RepaymentToRepayTheLoan.Text = (req.Credit.AmountOfPaymentPerMonth * ( req.CreditType.TimeMonths  )+ req.Credit.PaidForFine).ToString();
+                    RepaymentToRepayTheLoan.Text = (req.Credit.Request.AmountOfCredit + Convert.ToInt32(RepaymentDebt.Text) - req.Credit.AllreadyPaid /*req.Credit.AmountOfPaymentPerMonth * ( req.CreditType.TimeMonths  )*//*+ req.Credit.PaidForFine*/).ToString();
                 }
             }
         }

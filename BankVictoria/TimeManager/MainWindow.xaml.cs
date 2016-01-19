@@ -60,7 +60,7 @@ namespace TimeManager
                 var test = credits.Count();
                 foreach (var item in credits)
                 {
-                    item.StartDate -= daysDiff;
+                   // item.StartDate -= daysDiff;
                     item.CountFineFromThisDate -= daysDiff;
                 }
                 //var crArray = credits.Select(
