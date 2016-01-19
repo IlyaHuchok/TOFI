@@ -234,6 +234,13 @@ namespace BankPresentation
                 {
                     if (_clientToUpdate != null)
                     {
+
+                        if (_clientToUpdate != null && _clientToUpdate.PassportNo != PassportNoTextBox.Text && _clientBusinessComponent.Exists(PassportNoTextBox.Text))
+                        { // if client wants to chage passport to existing one
+                            MessageBox.Show("A user with such passport number has already been registered!");
+                            return;
+                        }
+
                         _clientToUpdate.Name = textBox_Create_Login.Text;
                         _clientToUpdate.LastName = LastNameTextBox.Text;
                         _clientToUpdate.Name = NameTextBox.Text;
@@ -247,12 +254,6 @@ namespace BankPresentation
                         _clientToUpdate.PassportAuthority = PassportAuthorityTextBox.Text;
                         _clientToUpdate.PlaceOfResidence = PlaceOfResidenceTextBox.Text;
                         _clientToUpdate.RegistrationAddress = RegistrationAddressTextBox.Text;
-
-                        if (_clientToUpdate != null && _clientBusinessComponent.Exists(PassportNoTextBox.Text))
-                        {
-                            MessageBox.Show("A user with such passport number has already been registered!");
-                            return;
-                        }
 
                         _clientBusinessComponent.Update(_clientToUpdate);
                         MessageBox.Show("Updated successfully!");
