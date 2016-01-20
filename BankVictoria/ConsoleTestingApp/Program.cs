@@ -276,6 +276,17 @@ namespace ConsoleTestDbFiller
                     AmountOfCredit = 800,
                     Salary = 500
                 };
+                var request8client1 = new Request
+                {
+                    ClientId = client1Info.ClientId,
+                    //RequestStatusId = confirmedByOperatorStatusId,
+                    Status = RequestStatus.CreditProvided,
+                    OperatorId = operator1.UserId,
+                    CreditTypeId = creditLongId,
+                    AmountOfCredit = 900,
+                    Salary = 500 
+                };
+                 
                 var requestRepo = new RequestRepository(context);
                 requestRepo.Add(
                     request1client1,
@@ -284,7 +295,8 @@ namespace ConsoleTestDbFiller
                     request4client1,
                     request5client1,
                     request6client1,
-                    request7client1);
+                    request7client1,
+                    request8client1);
                 context.SaveChanges();
 
 
@@ -311,11 +323,11 @@ namespace ConsoleTestDbFiller
                 var credit1Client1 = new Credit
                 {
                     AccountId = acc2.AccountId,
-                    CreditTypeId = creditMedium.CreditTypeId,
+                    CreditTypeId = creditLong.CreditTypeId,
                     //ContractNo = 123123, //random
                     RequestId = request5client1.RequestId,
                     //AllreadyPaid = 0,
-                    AmountOfPaymentPerMonth = request5client1.AmountOfCredit / creditMedium.TimeMonths,
+                    AmountOfPaymentPerMonth = (request5client1.AmountOfCredit / creditLong.TimeMonths)*(1+creditLong.FinePercent/100),
                     StartDate = dt1,
                     IsRepaid = false,
                     HasDelays = false,
@@ -331,7 +343,7 @@ namespace ConsoleTestDbFiller
                     //ContractNo = 123123, //random
                     RequestId = request6client1.RequestId,
                     //AllreadyPaid = 0,
-                    AmountOfPaymentPerMonth = (decimal)request6client1.AmountOfCredit / creditMedium.TimeMonths,
+                    AmountOfPaymentPerMonth = (request6client1.AmountOfCredit / creditMedium.TimeMonths)*(1+creditLong.FinePercent/100),
                     StartDate = dt2,
                     IsRepaid = true,
                     HasDelays = true,
@@ -339,11 +351,28 @@ namespace ConsoleTestDbFiller
                     FineAmountForFirstDelayedMonth = 0,
                     PaidForFine = 0
                 };
+
+                var credit3Client1 = new Credit
+                {
+                    AccountId = acc2.AccountId,
+                    CreditTypeId = creditMedium.CreditTypeId,
+                    //ContractNo = 123123, //random
+                    RequestId = request8client1.RequestId,
+                    //AllreadyPaid = 0,
+                    AmountOfPaymentPerMonth = (request8client1.AmountOfCredit / creditMedium.TimeMonths)*(1+creditLong.FinePercent/100),
+                    StartDate = DateTime.Now,
+                    IsRepaid = true,
+                    HasDelays = true,
+                    CountFineFromThisDate = DateTime.Now.AddDays(30), //!!! hard-coded!!!
+                    FineAmountForFirstDelayedMonth = 0,
+                    PaidForFine = 0
+                };
                 request5client1.Credit = credit1Client1; // IMPORTANT do this for 1-1 relationship (exception otherwise)
                 request6client1.Credit = credit2Client1; // IMPORTANT do this for 1-1 relationship (exception otherwise)
+                request8client1.Credit = credit3Client1; // IMPORTANT do this for 1-1 relationship (exception otherwise)
 
                 var creditRepo = new CreditRepository(context);
-                creditRepo.Add(credit1Client1, credit2Client1);
+                creditRepo.Add(credit1Client1, credit2Client1, credit3Client1);
                 context.SaveChanges();
 
            /*     var payment = new Payment
