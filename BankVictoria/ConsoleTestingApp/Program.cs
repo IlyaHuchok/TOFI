@@ -327,7 +327,7 @@ namespace ConsoleTestDbFiller
                     //ContractNo = 123123, //random
                     RequestId = request5client1.RequestId,
                     //AllreadyPaid = 0,
-                    AmountOfPaymentPerMonth = (request5client1.AmountOfCredit / creditLong.TimeMonths)*(1+creditLong.FinePercent/100),
+                    AmountOfPaymentPerMonth = (request5client1.AmountOfCredit / creditLong.TimeMonths) * (1 +creditLong.PercentPerYear / 100),
                     StartDate = dt1,
                     IsRepaid = false,
                     HasDelays = false,
@@ -343,7 +343,7 @@ namespace ConsoleTestDbFiller
                     //ContractNo = 123123, //random
                     RequestId = request6client1.RequestId,
                     //AllreadyPaid = 0,
-                    AmountOfPaymentPerMonth = (request6client1.AmountOfCredit / creditMedium.TimeMonths)*(1+creditLong.FinePercent/100),
+                    AmountOfPaymentPerMonth = (request6client1.AmountOfCredit / creditMedium.TimeMonths) * (1 + creditLong.PercentPerYear / 100),
                     StartDate = dt2,
                     IsRepaid = true,
                     HasDelays = true,
@@ -359,7 +359,7 @@ namespace ConsoleTestDbFiller
                     //ContractNo = 123123, //random
                     RequestId = request8client1.RequestId,
                     //AllreadyPaid = 0,
-                    AmountOfPaymentPerMonth = (request8client1.AmountOfCredit / creditMedium.TimeMonths)*(1+creditLong.FinePercent/100),
+                    AmountOfPaymentPerMonth = (request8client1.AmountOfCredit / creditMedium.TimeMonths) * (1 + creditMedium.PercentPerYear / 100),
                     StartDate = DateTime.Now,
                     IsRepaid = true,
                     HasDelays = true,
