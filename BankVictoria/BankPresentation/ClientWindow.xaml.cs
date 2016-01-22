@@ -66,7 +66,9 @@ namespace BankPresentation
             CTypeListView.ItemsSource = CTypetDataList;
             RequestListView.ItemsSource = RequestDataList;
             MyCreditListView.ItemsSource = MyCreditDataList;
-
+            CTypeListView.SelectionMode = SelectionMode.Single; 
+            RequestListView.SelectionMode = SelectionMode.Single;
+            MyCreditListView.SelectionMode = SelectionMode.Single; 
           //  RequestViewNote.IsEnabled = false;
         }
 
@@ -131,36 +133,24 @@ namespace BankPresentation
             }
         }
 
-        private void CountUpNewDebt(Credit cre)
+        private void CountUpNewDebt(Credit credit)
         {
-            decimal standartAlreadyPaid;
-            decimal allreadyPaid;
-            DateTime creditStart = cre.Request.Credit.StartDate;
-            DateTime now = DateTime.UtcNow;
-            System.TimeSpan ts = now - creditStart;
-            int Mounths = ts.Days / 30;
-            standartAlreadyPaid = Mounths * cre.AmountOfPaymentPerMonth;
-            allreadyPaid = cre.AllreadyPaid;
-            if (allreadyPaid > standartAlreadyPaid)//мы переплатили и CountFineFromThisDate должен улететь вверх
+
+            decimal debt = 0;
+            if (DateTime.Now > credit.CountFineFromThisDate)
             {
-                _debt = 0;
-            }
-            else if (allreadyPaid < standartAlreadyPaid)//у нас есть долг
-            {
-                TimeSpan ts3 = DateTime.UtcNow - cre.CountFineFromThisDate;
-                int daysFromTheStartOfTheDebt = ts3.Days;
-                decimal Debt = daysFromTheStartOfTheDebt * cre.AmountOfPaymentPerMonth * cre.CreditType.FinePercent / 36500;
-                while (daysFromTheStartOfTheDebt > 30)
+                var daysDiff = (DateTime.Now - credit.CountFineFromThisDate).Days;
+                debt += credit.AmountToCountFineFromForFirstDelayedMonth + credit.AmountToCountFineFromForFirstDelayedMonth * daysDiff / 360 * credit.CreditType.FinePercent / 100;
+                //int fullMonths = (DateTime.Now - credit.CountFineFromThisDate).Days / 30;
+                while (daysDiff > 0)
                 {
-                    daysFromTheStartOfTheDebt -= 30;
-                    Debt += daysFromTheStartOfTheDebt * cre.AmountOfPaymentPerMonth * cre.CreditType.FinePercent / 36500;/// не Debt += Debt !!!!!
+                    daysDiff -= 30;
+                    debt += credit.AmountOfPaymentPerMonth + credit.AmountOfPaymentPerMonth * daysDiff / 360 * credit.CreditType.FinePercent / 100;
                 }
-                _debt = Debt; // выводим инфу
+                debt -= credit.PaidForFine;
             }
-            else if (allreadyPaid == standartAlreadyPaid)
-            {
-                _debt = 0;
-            }
+
+            _debt = debt;
         }
 
 

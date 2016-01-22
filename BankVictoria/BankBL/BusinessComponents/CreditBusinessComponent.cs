@@ -25,6 +25,12 @@ namespace BankBL.BusinessComponents
             return _unitOfWork.CreditRepository.GetAll().Where(x => x.Request.ClientId == clientId);
         }
 
+        public void Update(Credit credit)
+        {
+            _unitOfWork.CreditRepository.Update(credit);
+            _unitOfWork.Save();
+        }
+
         public void Update(int CreditId, DateTime CountFineFromThisDate)
         {
             var old = _unitOfWork.CreditRepository.GetSingle(x => x.CreditId == CreditId);
@@ -83,7 +89,7 @@ namespace BankBL.BusinessComponents
                 IsRepaid = false,
                 HasDelays = false,
                 CountFineFromThisDate = DateTime.UtcNow.AddDays(30), //!!! hard-coded!!!
-                FineAmountForFirstDelayedMonth = 0,
+                AmountToCountFineFromForFirstDelayedMonth = (1 + request.CreditType.PercentPerYear / 100) * (request.AmountOfCredit / request.CreditType.TimeMonths), // = AmountOfPaymentPerMonth
                 PaidForFine = 0
             };
 

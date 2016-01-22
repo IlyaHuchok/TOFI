@@ -73,6 +73,8 @@ namespace BankPresentation
 
             defaultOption.IsChecked = true;
 
+            CreditTypesListView.SelectionMode = SelectionMode.Single;
+            UsersListView.SelectionMode = SelectionMode.Single;
             RefreshCreditTypes();
         }
 

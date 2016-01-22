@@ -332,7 +332,7 @@ namespace ConsoleTestDbFiller
                     IsRepaid = false,
                     HasDelays = false,
                     CountFineFromThisDate = dt1.AddDays(30),//DateTime.UtcNow.AddDays(30), //!!! hard-coded!!!
-                    FineAmountForFirstDelayedMonth = 0,
+                    AmountToCountFineFromForFirstDelayedMonth = (request5client1.AmountOfCredit / creditLong.TimeMonths) * (1 + creditLong.PercentPerYear / 100),
                     PaidForFine = 0
                 };
                 DateTime dt2 = DateTime.UtcNow.AddDays(-(30 * 50 + 7));
@@ -348,7 +348,7 @@ namespace ConsoleTestDbFiller
                     IsRepaid = true,
                     HasDelays = true,
                     CountFineFromThisDate = dt2.AddDays(30), //!!! hard-coded!!!
-                    FineAmountForFirstDelayedMonth = 0,
+                    AmountToCountFineFromForFirstDelayedMonth = (request6client1.AmountOfCredit / creditMedium.TimeMonths) * (1 + creditLong.PercentPerYear / 100),
                     PaidForFine = 0
                 };
 
@@ -364,7 +364,7 @@ namespace ConsoleTestDbFiller
                     IsRepaid = true,
                     HasDelays = true,
                     CountFineFromThisDate = DateTime.Now.AddDays(30), //!!! hard-coded!!!
-                    FineAmountForFirstDelayedMonth = 0,
+                    AmountToCountFineFromForFirstDelayedMonth = (request8client1.AmountOfCredit / creditMedium.TimeMonths) * (1 + creditMedium.PercentPerYear / 100),
                     PaidForFine = 0
                 };
                 request5client1.Credit = credit1Client1; // IMPORTANT do this for 1-1 relationship (exception otherwise)

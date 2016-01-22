@@ -23,7 +23,7 @@ namespace Entities
         public bool IsRepaid { get; set; }
         public bool HasDelays { get; set; }
         public decimal PaidForFine { get; set; }
-        public decimal FineAmountForFirstDelayedMonth { get; set; }
+        public decimal AmountToCountFineFromForFirstDelayedMonth { get; set; }
         public DateTime CountFineFromThisDate { get; set; }
         //  public int Fine { get; set; } 
 

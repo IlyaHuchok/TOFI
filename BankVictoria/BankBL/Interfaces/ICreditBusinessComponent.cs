@@ -13,6 +13,8 @@ namespace BankBL.Interfaces
         void Update(int CreditId, decimal AllreadyPaid, decimal PaidForFine);
         void Update(int CreditId, bool IsRepaid, bool HasDelays);
         void Update(int CreditId, DateTime CountFineFromThisDate);
+
+        void Update(Credit credit);
         IList<Credit> GetAll();
         IEnumerable<Credit> GetClientCredits(int clientId);
         void AllowCredit(int operatorId, Request request);
