@@ -252,7 +252,7 @@ namespace ConsoleTestDbFiller
                     //RequestStatusId = createdStatusId,
                     Status = RequestStatus.CreditProvided,
                     OperatorId = operator1.UserId,
-                    CreditTypeId = creditMediumId,
+                    CreditTypeId = creditLongId,
                     AmountOfCredit = 1300,
                     Salary = 500
                 };
@@ -272,7 +272,7 @@ namespace ConsoleTestDbFiller
                     ClientId = client1Info.ClientId,
                     Status = RequestStatus.ConfirmedBySecurityOfficer, // createdStatusId,
                     OperatorId = operator1.UserId,
-                    CreditTypeId = creditMediumId,
+                    CreditTypeId = creditLongId,
                     AmountOfCredit = 800,
                     Salary = 500
                 };
@@ -282,7 +282,7 @@ namespace ConsoleTestDbFiller
                     //RequestStatusId = confirmedByOperatorStatusId,
                     Status = RequestStatus.CreditProvided,
                     OperatorId = operator1.UserId,
-                    CreditTypeId = creditLongId,
+                    CreditTypeId = creditMediumId,
                     AmountOfCredit = 900,
                     Salary = 500 
                 };
@@ -339,16 +339,16 @@ namespace ConsoleTestDbFiller
                 var credit2Client1 = new Credit
                 {
                     AccountId = acc2.AccountId,
-                    CreditTypeId = creditMedium.CreditTypeId,
+                    CreditTypeId = creditLong.CreditTypeId,
                     //ContractNo = 123123, //random
                     RequestId = request6client1.RequestId,
                     //AllreadyPaid = 0,
-                    AmountOfPaymentPerMonth = (request6client1.AmountOfCredit / creditMedium.TimeMonths) * (1 + creditLong.PercentPerYear / 100),
+                    AmountOfPaymentPerMonth = (request6client1.AmountOfCredit / creditLong.TimeMonths) * (1 + creditLong.PercentPerYear / 100),
                     StartDate = dt2,
                     IsRepaid = true,
                     HasDelays = true,
                     CountFineFromThisDate = dt2.AddDays(30), //!!! hard-coded!!!
-                    AmountToCountFineFromForFirstDelayedMonth = (request6client1.AmountOfCredit / creditMedium.TimeMonths) * (1 + creditLong.PercentPerYear / 100),
+                    AmountToCountFineFromForFirstDelayedMonth = (request6client1.AmountOfCredit / creditLong.TimeMonths) * (1 + creditLong.PercentPerYear / 100),
                     PaidForFine = 0
                 };
 
