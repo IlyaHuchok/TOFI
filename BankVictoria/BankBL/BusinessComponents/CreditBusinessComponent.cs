@@ -85,11 +85,11 @@ namespace BankBL.BusinessComponents
                 CreditType = request.CreditType,
                 Request = request,
                 StartDate = DateTime.UtcNow,
-                AmountOfPaymentPerMonth = (1 + request.CreditType.PercentPerYear / 100)*(request.AmountOfCredit / request.CreditType.TimeMonths),
+                AmountOfPaymentPerMonth = (1 + request.CreditType.PercentPerYear / 100 * request.CreditType.TimeMonths / 12) * (request.AmountOfCredit / request.CreditType.TimeMonths),
                 IsRepaid = false,
                 HasDelays = false,
                 CountFineFromThisDate = DateTime.UtcNow.AddDays(30), //!!! hard-coded!!!
-                AmountToCountFineFromForFirstDelayedMonth = (1 + request.CreditType.PercentPerYear / 100) * (request.AmountOfCredit / request.CreditType.TimeMonths), // = AmountOfPaymentPerMonth
+                AmountToCountFineFromForFirstDelayedMonth = (1 + request.CreditType.PercentPerYear / 100 * request.CreditType.TimeMonths / 12) * (request.AmountOfCredit / request.CreditType.TimeMonths), // = AmountOfPaymentPerMonth
                 PaidForFine = 0
             };
 

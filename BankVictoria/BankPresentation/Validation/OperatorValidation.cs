@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,6 +51,11 @@ namespace BankPresentation.Validation
             if (!Decimal.TryParse(ToPay, out topay))
             {
                 result.Error += "Wrong ToPay format! Can have only numbers" + Environment.NewLine;
+                result.IsValid = false;
+            }
+            else if (Regex.IsMatch(ToPay, @"\.\d\d\d"))
+            {
+                result.Error += "Cannot have more than 2 value digits after '.'" + Environment.NewLine;
                 result.IsValid = false;
             }
             else if (Convert.ToDecimal(ToPay) < 0)

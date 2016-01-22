@@ -73,7 +73,7 @@ namespace BankPresentation
             if (Validate(true,false,false, false))
             {
                 RepaymentDataList.Clear();
-                IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.CreditProvided);
+                IList<Request> request = _requestBusinessComponent.GetByStatus(RequestStatus.CreditProvided).Where(x => x.Credit.IsRepaid == false).ToList();
                 foreach (var req in request)
                 {
                     if (req.Client.PassportNo == RepaymentPassportNo.Text)
@@ -136,10 +136,11 @@ namespace BankPresentation
                     var daysDiff = (DateTime.Now - credit.CountFineFromThisDate).Days;
                     debt += credit.AmountToCountFineFromForFirstDelayedMonth + credit.AmountToCountFineFromForFirstDelayedMonth * daysDiff / 360 * credit.CreditType.FinePercent / 100;
                     //int fullMonths = (DateTime.Now - credit.CountFineFromThisDate).Days / 30;
+                    daysDiff -= 30;
                     while (daysDiff > 0)
                     {
-                        daysDiff -= 30;
                         debt += credit.AmountOfPaymentPerMonth + credit.AmountOfPaymentPerMonth * daysDiff / 360 * credit.CreditType.FinePercent / 100;
+                        daysDiff -= 30;
                     }
                     debt -= credit.PaidForFine;
                 }
@@ -165,10 +166,12 @@ namespace BankPresentation
                 var daysDiff = (DateTime.Now - credit.CountFineFromThisDate).Days;
                 fine += credit.AmountToCountFineFromForFirstDelayedMonth * daysDiff / 360 * credit.CreditType.FinePercent / 100;
                 //int fullMonths = (DateTime.Now - credit.CountFineFromThisDate).Days / 30;
+
+                daysDiff -= 30;
                 while (daysDiff > 0)
                 {
-                    daysDiff -= 30;
                     fine += credit.AmountOfPaymentPerMonth * daysDiff / 360 * credit.CreditType.FinePercent / 100;
+                    daysDiff -= 30;
                 }
                 fine -= credit.PaidForFine;
             }
@@ -210,28 +213,37 @@ namespace BankPresentation
                         }
                         else
                         {
-                            var paymentLeft = paymentAmount - fine;
-                            //уменьшаюощаяся сумма по которой будем смотреть насколько далеко можно отодвинуть дату/сумму нового долга
-                            credit.PaidForFine = 0;
-
-                            if (paymentLeft < credit.AmountToCountFineFromForFirstDelayedMonth)
-                                //хватило только на умиеньшение суммы с которой идет процент запервый месяц просрочки
+                            if (Math.Abs(paymentAmount - decimal.Parse(RepaymentToRepayTheLoan.Text)) >= 0.01m)
                             {
-                                credit.AmountToCountFineFromForFirstDelayedMonth -= paymentLeft;
+                                var paymentLeft = paymentAmount - fine;
+                                //уменьшаюощаяся сумма по которой будем смотреть насколько далеко можно отодвинуть дату/сумму нового долга
+                                credit.PaidForFine = 0;
+
+                                if (paymentLeft < credit.AmountToCountFineFromForFirstDelayedMonth)
+                                    //хватило только на умиеньшение суммы с которой идет процент запервый месяц просрочки
+                                {
+                                    credit.AmountToCountFineFromForFirstDelayedMonth -= paymentLeft;
+                                }
+                                else
+                                {
+                                    paymentLeft -= credit.AmountToCountFineFromForFirstDelayedMonth;
+                                    credit.CountFineFromThisDate = credit.CountFineFromThisDate.AddDays(30);
+
+                                    while (paymentLeft >= credit.AmountOfPaymentPerMonth)
+                                    {
+                                        paymentLeft -= credit.AmountOfPaymentPerMonth;
+                                        credit.CountFineFromThisDate = credit.CountFineFromThisDate.AddDays(30);
+                                    }
+                                    credit.AmountToCountFineFromForFirstDelayedMonth = credit.AmountOfPaymentPerMonth
+                                                                                       - paymentLeft;
+                                }
+                                credit.PaidForFine = this.CountUpFine(credit);
+
                             }
                             else
                             {
-                                paymentLeft -= credit.AmountToCountFineFromForFirstDelayedMonth;
-                                credit.CountFineFromThisDate = credit.CountFineFromThisDate.AddDays(30);
-
-                                while (paymentLeft >= credit.AmountOfPaymentPerMonth)
-                                {
-                                    paymentLeft -= credit.AmountOfPaymentPerMonth;
-                                    credit.CountFineFromThisDate = credit.CountFineFromThisDate.AddDays(30);
-                                }
-                                credit.AmountToCountFineFromForFirstDelayedMonth = credit.AmountOfPaymentPerMonth - paymentLeft;
+                                credit.IsRepaid = true;
                             }
-                            credit.PaidForFine = this.CountUpFine(credit);
                         }
                         credit.AllreadyPaid += paymentAmount;
 
@@ -252,7 +264,7 @@ namespace BankPresentation
 
 
                         // if not re-created will fail on 2nd update
-                        TabRepaymentClear(false);
+                        TabRepaymentClear(true);
                     }
                 }
             }

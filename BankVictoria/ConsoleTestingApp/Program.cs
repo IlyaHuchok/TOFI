@@ -327,12 +327,12 @@ namespace ConsoleTestDbFiller
                     //ContractNo = 123123, //random
                     RequestId = request5client1.RequestId,
                     //AllreadyPaid = 0,
-                    AmountOfPaymentPerMonth = (request5client1.AmountOfCredit / creditLong.TimeMonths) * (1 +creditLong.PercentPerYear / 100),
+                    AmountOfPaymentPerMonth = (request5client1.AmountOfCredit / creditLong.TimeMonths) * (1 + creditLong.PercentPerYear / 100 * creditLong.TimeMonths / 12),
                     StartDate = dt1,
                     IsRepaid = false,
                     HasDelays = false,
                     CountFineFromThisDate = dt1.AddDays(30),//DateTime.UtcNow.AddDays(30), //!!! hard-coded!!!
-                    AmountToCountFineFromForFirstDelayedMonth = (request5client1.AmountOfCredit / creditLong.TimeMonths) * (1 + creditLong.PercentPerYear / 100),
+                    AmountToCountFineFromForFirstDelayedMonth = (request5client1.AmountOfCredit / creditLong.TimeMonths) * (1 + creditLong.PercentPerYear / 100 * creditLong.TimeMonths / 12),
                     PaidForFine = 0
                 };
                 DateTime dt2 = DateTime.UtcNow.AddDays(-(30 * 50 + 7));
@@ -343,12 +343,12 @@ namespace ConsoleTestDbFiller
                     //ContractNo = 123123, //random
                     RequestId = request6client1.RequestId,
                     //AllreadyPaid = 0,
-                    AmountOfPaymentPerMonth = (request6client1.AmountOfCredit / creditLong.TimeMonths) * (1 + creditLong.PercentPerYear / 100),
+                    AmountOfPaymentPerMonth = (request6client1.AmountOfCredit / creditLong.TimeMonths) * (1 + creditLong.PercentPerYear / 100 * creditLong.TimeMonths/12),
                     StartDate = dt2,
                     IsRepaid = true,
                     HasDelays = true,
                     CountFineFromThisDate = dt2.AddDays(30), //!!! hard-coded!!!
-                    AmountToCountFineFromForFirstDelayedMonth = (request6client1.AmountOfCredit / creditLong.TimeMonths) * (1 + creditLong.PercentPerYear / 100),
+                    AmountToCountFineFromForFirstDelayedMonth = (request6client1.AmountOfCredit / creditLong.TimeMonths) * (1 + creditLong.PercentPerYear / 100 * creditLong.TimeMonths / 12),
                     PaidForFine = 0
                 };
 
@@ -359,12 +359,12 @@ namespace ConsoleTestDbFiller
                     //ContractNo = 123123, //random
                     RequestId = request8client1.RequestId,
                     //AllreadyPaid = 0,
-                    AmountOfPaymentPerMonth = (request8client1.AmountOfCredit / creditMedium.TimeMonths) * (1 + creditMedium.PercentPerYear / 100),
+                    AmountOfPaymentPerMonth = (request8client1.AmountOfCredit / creditMedium.TimeMonths) * (1 + creditMedium.PercentPerYear / 100 * creditMedium.TimeMonths / 12),
                     StartDate = DateTime.Now,
-                    IsRepaid = true,
+                    IsRepaid = false,
                     HasDelays = true,
                     CountFineFromThisDate = DateTime.Now.AddDays(30), //!!! hard-coded!!!
-                    AmountToCountFineFromForFirstDelayedMonth = (request8client1.AmountOfCredit / creditMedium.TimeMonths) * (1 + creditMedium.PercentPerYear / 100),
+                    AmountToCountFineFromForFirstDelayedMonth = (request8client1.AmountOfCredit / creditMedium.TimeMonths) * (1 + creditMedium.PercentPerYear / 100 * creditMedium.TimeMonths / 12),
                     PaidForFine = 0
                 };
                 request5client1.Credit = credit1Client1; // IMPORTANT do this for 1-1 relationship (exception otherwise)

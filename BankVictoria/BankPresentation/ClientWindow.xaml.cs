@@ -123,7 +123,7 @@ namespace BankPresentation
         }
         public void FillMyCreditsListView()
         {
-            IList<Credit> credit = _creditBusinessComponent.GetAll().Where(x=> x.Request.Client.UserId == _userId).ToList();
+            IList<Credit> credit = _creditBusinessComponent.GetAll().Where(x=> x.Request.Client.UserId == _userId && x.IsRepaid == false).ToList();
             foreach(var cre in credit)
             {
                 CountUpNewDebt(cre);
@@ -142,10 +142,11 @@ namespace BankPresentation
                 var daysDiff = (DateTime.Now - credit.CountFineFromThisDate).Days;
                 debt += credit.AmountToCountFineFromForFirstDelayedMonth + credit.AmountToCountFineFromForFirstDelayedMonth * daysDiff / 360 * credit.CreditType.FinePercent / 100;
                 //int fullMonths = (DateTime.Now - credit.CountFineFromThisDate).Days / 30;
+                daysDiff -= 30;
                 while (daysDiff > 0)
                 {
-                    daysDiff -= 30;
                     debt += credit.AmountOfPaymentPerMonth + credit.AmountOfPaymentPerMonth * daysDiff / 360 * credit.CreditType.FinePercent / 100;
+                    daysDiff -= 30;
                 }
                 debt -= credit.PaidForFine;
             }
