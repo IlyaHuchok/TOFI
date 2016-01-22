@@ -31,7 +31,7 @@ namespace BankPresentation.Validation
         private static Regex EmailRegex =  new Regex(@"[a-zA-Z0-9!#$%&'*+\=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?");
 
         //14 chars from the list (BLR only)
-        private static Regex PassportIdentityNoRegex = new Regex(@"^[3-6][0-9]{6}[ABCKEM][0-9]{3}(GB|PB|BA|BI)[0-9]$"); ///may be better!!!
+        private static Regex PassportIdentityNoRegex = new Regex(@"^[0-9][0-9]{6}[ABCKEM][0-9]{3}(GB|PB|BA|BI)[0-9]$"); ///may be better!!!
         //(REGION_CODE)1234567
         private static Regex PassportNoRegex =  new Regex(@"^(AB|BM|HB|KH|MP|MC|KB|PP)[0-9]{7}$");
         //Ababa von Assd Mmmmm-n-Qwerty der aaaa-Bbbbb

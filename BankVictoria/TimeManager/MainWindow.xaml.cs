@@ -128,13 +128,21 @@ namespace TimeManager
 
         private void GoForthButton_Click(object sender, RoutedEventArgs e)
         {
-            MoveTime(int.Parse(TimeForthTextBox.Text));
-            TimeMovementLabel.Content = "Time is moved by " + timeDifference + " days forth from now";
+            int moveTime;
+            if (int.TryParse(TimeForthTextBox.Text, out moveTime))
+            {
+                MoveTime(moveTime);
+                TimeMovementLabel.Content = "Time is moved by " + timeDifference + " days forth from now";
+            }
+            else
+            {
+                MessageBox.Show("Wrong input format");
+            }
         }
 
         private void GoBackButton_Click(object sender, RoutedEventArgs e)
         {
-            MoveTime(-int.Parse(TimeBackTextBox.Text));
+            //MoveTime(-int.Parse(TimeBackTextBox.Text));
             TimeMovementLabel.Content = "Time is moved by " + timeDifference + " days forth from now";
         }
     }
